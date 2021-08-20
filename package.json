@@ -7,25 +7,18 @@
     "type-check": "tsc --pretty --noEmit",
     "format": "prettier --write .",
     "lint": "eslint . --ext ts --ext tsx --ext js",
-    "test": "jest",
+    "test": "jest --watchAll",
     "test-all": "yarn lint && yarn type-check && yarn test"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "yarn run type-check"
-    }
-  },
-  "lint-staged": {
-    "*.@(ts|tsx)": [
-      "yarn lint",
-      "yarn format"
-    ]
-  },
   "dependencies": {
+    "@material-ui/core": "^4.12.3",
+    "formik": "^2.2.9",
     "next": "latest",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "react-icons": "^4.2.0",
+    "sass": "^1.38.0",
+    "yup": "^0.32.9"
   },
   "devDependencies": {
     "@testing-library/react": "^11.2.5",
@@ -38,7 +31,6 @@
     "eslint": "^7.19.0",
     "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-react": "^7.19.0",
-    "husky": "^4.2.3",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.0.4",
     "jest-watch-typeahead": "^0.6.1",
