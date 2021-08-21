@@ -13,12 +13,18 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
       jssStyles.parentElement.removeChild(jssStyles);
     }
   }, []);
-  store.dispatch(
-    authActions.login({
-      displayName: 'Test',
-      uid: '999999999999999',
-    })
-  );
+
+  useEffect(() => {
+    store.dispatch(
+      authActions.login({
+        displayName: 'Test',
+        uid: 'Test',
+      })
+    );
+    // eslint-disable-next-line no-console
+    console.log('🎊');
+  }, []);
+
   return (
     <div id="root-app">
       <Provider store={store}>
