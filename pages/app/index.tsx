@@ -1,11 +1,7 @@
-import { GradeTable } from 'src/components/modules';
+import { AppRootContainer } from 'src/containers/app';
 
-const Home: React.FC = () => {
-  return (
-    <div>
-      <GradeTable />
-    </div>
-  );
+const AppRoot: React.FC = () => {
+  return <AppRootContainer />;
 };
 
-export default Home;
+export default AppRoot;

@@ -1,5 +1,4 @@
 import {
-  Paper,
   Table,
   TableHead,
   TableRow,
@@ -10,7 +9,7 @@ import { students } from 'src/helpers/gradeMock';
 
 export const GradeTable: React.FC = () => {
   return (
-    <Paper>
+    <>
       <Table size="small">
         <TableHead>
           <TableRow>
@@ -46,6 +45,6 @@ export const GradeTable: React.FC = () => {
           ))}
         </TableBody>
       </Table>
-    </Paper>
+    </>
   );
 };
