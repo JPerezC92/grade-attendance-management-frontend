@@ -18,14 +18,38 @@
   }
 }
 
+.header__hamburguer {
+  cursor: pointer;
+  & svg {
+    font-size: 42px;
+    vertical-align: middle;
+  }
+}
+
 .wrapper {
   display: grid;
   grid-template-columns: auto 1fr;
   overflow: auto;
 }
 
+.navigation {
+  display: none;
+}
+
+.openNavigation {
+  display: initial;
+}
+
 .content {
   overflow: auto;
-  // padding: 2em;
-  // background-color: red !important;
+}
+
+@media screen and (min-width: 768px) {
+  .navigation {
+    display: initial;
+  }
+
+  .openNavigation {
+    display: none;
+  }
 }
