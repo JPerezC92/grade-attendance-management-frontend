@@ -1,5 +1,5 @@
 import NextLink, { LinkProps } from 'next/link';
-
+import LinkMaterial from '@material-ui/core/Link';
 interface LinkCustomProps {
   className?: string;
 }
@@ -9,7 +9,7 @@ export const Link: React.FC<
 > = ({ children, className, ...props }) => {
   return (
     <NextLink {...props}>
-      <a className={className}>{children}</a>
+      <LinkMaterial className={className}>{children}</LinkMaterial>
     </NextLink>
   );
 };

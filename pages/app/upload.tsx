@@ -1,13 +1,13 @@
-import { Button } from '@material-ui/core';
-import { useState } from 'react';
-import { parseCSV } from 'src/helpers/parseCSV';
+// import { Button } from '@material-ui/core';
+// import { useState } from 'react';
+// import { parseCSV } from 'src/helpers/parseCSV';
 
 const Home: React.FC = () => {
-  const [students, setStudents] = useState([] as any);
+  //   const [students, setStudents] = useState([] as any);
 
   return (
     <div>
-      <input
+      {/* <input
         style={{ display: 'none' }}
         accept="application/*"
         id="contained-button-file"
@@ -26,7 +26,7 @@ const Home: React.FC = () => {
         </Button>
 
         <br />
-      </label>
+      </label> */}
     </div>
   );
 };

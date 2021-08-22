@@ -1,7 +1,7 @@
-import { Typography } from '@material-ui/core';
+import NextLink from 'next/link';
+import { Link, Typography } from '@material-ui/core';
 
 import { AuthRoute } from 'src/routes';
-import { Link } from 'src/components/common';
 import { FormLogo, RegisterForm } from 'src/components/modules';
 import { FormTip } from 'src/components/common';
 import styles from './RegisterContainer.module.scss';
@@ -19,7 +19,10 @@ export const RegisterContainer: React.FC = () => {
         <RegisterForm />
 
         <FormTip>
-          ¿Ya tienes una cuenta? <Link href={AuthRoute.LOGIN}>Ingresar</Link>
+          ¿Ya tienes una cuenta?{' '}
+          <NextLink href={AuthRoute.LOGIN}>
+            <Link>Ingresar</Link>
+          </NextLink>
         </FormTip>
       </div>
     </>

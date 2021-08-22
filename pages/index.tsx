@@ -1,13 +1,19 @@
-import { Button } from '@material-ui/core';
 import Head from 'next/head';
 import Link from 'next/link';
+import { Button } from '@material-ui/core';
 import { useAppDispatch, useAppSelector } from 'src/redux';
 import { authActions } from 'src/redux/reducers';
 import { AuthRoute } from 'src/routes';
+import { Redirect } from 'src/components/common';
 
 export const Home = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.authReducer);
+
+  const test = true;
+
+  if (test) return <Redirect to={AuthRoute.LOGIN} />;
+
   return (
     <div>
       <Head>
