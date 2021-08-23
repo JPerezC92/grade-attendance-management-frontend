@@ -1,0 +1,12 @@
+/* your css code */
+.file {
+  overflow: hidden;
+  font-size: 50px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  border-radius: 5px;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.204);
+  }
+}

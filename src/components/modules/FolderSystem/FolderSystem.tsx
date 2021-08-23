@@ -1,5 +1,6 @@
 import React from 'react';
 import { Folder } from 'src/components/common';
+import File from 'src/components/common/File/File';
 import styles from './FolderSystem.module.scss';
 
 export const FolderSystem: React.FC = () => {
@@ -21,16 +22,28 @@ export const FolderSystem: React.FC = () => {
         'folder 13',
         'folder 14',
         'folder 15',
-        'folder 16',
-        'folder 17',
-        'folder 18',
-        'folder 19',
-        'folder 21',
-        'folder 22',
-        'folder 23',
-        'folder 24',
       ].map((name, i) => (
         <Folder key={name + i} folder={{ name, id: i }} />
+      ))}
+
+      {[
+        'file 1',
+        'file 2',
+        'file 3',
+        'file 4',
+        'file 5',
+        'file 6',
+        'file 7',
+        'file 8',
+        'file 9',
+        'file 10',
+        'file 11',
+        'file 12',
+        'file 13',
+        'file 14',
+        'file 15',
+      ].map((name, i) => (
+        <File key={name + i} file={{ name, id: i }} />
       ))}
     </div>
   );
