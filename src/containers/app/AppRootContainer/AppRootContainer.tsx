@@ -1,9 +1,5 @@
-import { AppLayout, GradeTable } from 'src/components/modules';
+import { AppLayout } from 'src/components/modules';
 
 export const AppRootContainer: React.FC = () => {
-  return (
-    <AppLayout>
-      <GradeTable />
-    </AppLayout>
-  );
+  return <AppLayout>Folder System</AppLayout>;
 };

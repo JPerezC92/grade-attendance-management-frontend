@@ -1,11 +1,11 @@
-import { AppLayout } from 'src/components/modules';
-
-const Custom: React.FC<{ className: string }> = ({ className }) => (
-  <div className={className}>miadsdasdsami</div>
-);
+import { GradeTable, RecordLayout } from 'src/components/modules';
 
 const test: React.FC = () => {
-  return <AppLayout Menu={Custom}>dsadsa</AppLayout>;
+  return (
+    <RecordLayout>
+      <GradeTable />
+    </RecordLayout>
+  );
 };
 
 export default test;

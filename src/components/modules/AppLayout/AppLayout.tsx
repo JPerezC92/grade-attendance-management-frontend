@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import Image from 'next/image';
+import { AppBar, Toolbar } from '@material-ui/core';
 import classNames from 'classnames/bind';
-import { AppBar, MenuItem, Toolbar, MenuList } from '@material-ui/core';
 import { FaHamburger } from 'react-icons/fa';
+
 import { AppNavigation } from '../AppNavigation/AppNavigation';
 import SenatiLogoNameV2 from 'src/static/senati-logo-name-v2.svg';
 import styles from './AppLayout.module.scss';
+import { AppMenu } from '../AppMenu/AppMenu';
 
 const cx = classNames.bind(styles);
 
@@ -16,14 +18,7 @@ interface AppLayoutProps {
 export const AppLayout: React.FC<AppLayoutProps> = ({ children, Menu }) => {
   const [toggleNavigation, setToggleNavigation] = useState(false);
 
-  const MenuComponent = Menu ? (
-    <Menu />
-  ) : (
-    <MenuList>
-      <MenuItem>Calificaciones</MenuItem>
-      <MenuItem>Asistencias</MenuItem>
-    </MenuList>
-  );
+  const MenuComponent = Menu ? Menu : AppMenu;
 
   return (
     <div className={styles.appRootContainer}>
@@ -35,11 +30,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children, Menu }) => {
           >
             <FaHamburger />
           </span>
-          {/* <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-          ></IconButton> */}
+
           <picture>
             <Image
               src={SenatiLogoNameV2}
@@ -50,11 +41,16 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children, Menu }) => {
         </Toolbar>
       </AppBar>
 
-      <div className={styles.wrapper}>
+      <div
+        className={cx({
+          wrapperNavigationContent: true,
+          wrapperNavigationContent__2column: toggleNavigation,
+        })}
+      >
         <AppNavigation
-          className={cx({ openNavigation: toggleNavigation, navigation: true })}
+          className={cx({ navigation: true, openNavigation: toggleNavigation })}
         >
-          {MenuComponent}
+          <MenuComponent />
         </AppNavigation>
         <div className={styles.content}>{children}</div>
       </div>
