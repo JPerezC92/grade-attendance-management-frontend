@@ -1,5 +1,4 @@
-import { Paper } from '@material-ui/core';
-import { UserInfo } from '../UserInfo/UserInfo';
+import { Box, Button, Divider, Paper } from '@material-ui/core';
 
 interface AppNavigationProps {
   className?: string;
@@ -11,13 +10,24 @@ export const AppNavigation: React.FC<AppNavigationProps> = ({
 }) => {
   return (
     <Paper className={className}>
-      <UserInfo
-        user={{
-          firstname: 'Jhon Doe',
-          lastname: 'Test Test',
-          email: 'test@email.com',
+      <Box
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          rowGap: '16px',
+          margin: '16px',
         }}
-      />
+      >
+        <Button variant="contained" color="primary">
+          Crear registro
+        </Button>
+        <Button variant="outlined" color="secondary">
+          Crear carpeta
+        </Button>
+      </Box>
+
+      <Divider />
+
       {children}
     </Paper>
   );

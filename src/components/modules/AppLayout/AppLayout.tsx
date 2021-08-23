@@ -2,23 +2,25 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { AppBar, Toolbar } from '@material-ui/core';
 import classNames from 'classnames/bind';
-import { FaHamburger } from 'react-icons/fa';
+import { CgMenuGridO } from 'react-icons/cg';
 
 import { AppNavigation } from '../AppNavigation/AppNavigation';
 import SenatiLogoNameV2 from 'src/static/senati-logo-name-v2.svg';
-import styles from './AppLayout.module.scss';
 import { AppMenu } from '../AppMenu/AppMenu';
-
+import { UserOptionIcon } from '../UserOptionIcon/UserOptionIcon';
+import styles from './AppLayout.module.scss';
 const cx = classNames.bind(styles);
 
 interface AppLayoutProps {
-  Menu?: React.FC<{ className?: string }>;
+  CustomMenu?: React.FC<{ className?: string }>;
 }
 
-export const AppLayout: React.FC<AppLayoutProps> = ({ children, Menu }) => {
+export const AppLayout: React.FC<AppLayoutProps> = ({
+  children,
+  CustomMenu,
+}) => {
+  const MenuComponent = CustomMenu ? CustomMenu : AppMenu;
   const [toggleNavigation, setToggleNavigation] = useState(false);
-
-  const MenuComponent = Menu ? Menu : AppMenu;
 
   return (
     <div className={styles.appRootContainer}>
@@ -26,9 +28,9 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children, Menu }) => {
         <Toolbar className={styles.header}>
           <span
             className={styles.header__hamburguer}
-            onClick={() => setToggleNavigation((state) => (state = !state))}
+            onClick={() => setToggleNavigation((toggle) => (toggle = !toggle))}
           >
-            <FaHamburger />
+            <CgMenuGridO />
           </span>
 
           <picture>
@@ -38,6 +40,9 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children, Menu }) => {
               layout="responsive"
             />
           </picture>
+          <div className={styles.header__miscellaneousOptions}>
+            <UserOptionIcon />
+          </div>
         </Toolbar>
       </AppBar>
 
@@ -48,7 +53,10 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children, Menu }) => {
         })}
       >
         <AppNavigation
-          className={cx({ navigation: true, openNavigation: toggleNavigation })}
+          className={cx({
+            navigation: true,
+            openNavigation: toggleNavigation,
+          })}
         >
           <MenuComponent />
         </AppNavigation>

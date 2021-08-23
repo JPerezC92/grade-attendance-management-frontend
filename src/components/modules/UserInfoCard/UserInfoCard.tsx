@@ -1,15 +1,17 @@
 import { Card, CardContent, CardMedia, Typography } from '@material-ui/core';
-import { Avatar } from 'src/components/common/Avatar/Avatar';
-import styles from './UserInfo.module.scss';
+import { UserAvatar } from 'src/components/common';
+import styles from './UserInfoCard.module.scss';
 
-interface UserInfo {
+interface UserInfoCardProps {
   user: { firstname: string; lastname: string; email: string };
 }
 
-export const UserInfo: React.FC<UserInfo> = ({ user }) => {
+export const UserInfoCard: React.FC<UserInfoCardProps> = ({ user }) => {
   return (
     <Card className={styles.userInfoCard}>
-      <CardMedia component={Avatar} />
+      <CardMedia>
+        <UserAvatar className={styles.userInfo__userAvatar} />
+      </CardMedia>
       <CardContent>
         <Typography variant="h5" color="textPrimary" align="center">
           {user.firstname}
