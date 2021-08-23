@@ -1,5 +1,5 @@
-import { Typography } from '@material-ui/core';
 import React from 'react';
+import Folder from 'src/components/common/Folder';
 import styles from './FolderSystem.module.scss';
 
 export const FolderSystem: React.FC = () => {
@@ -30,13 +30,7 @@ export const FolderSystem: React.FC = () => {
         'folder 23',
         'folder 24',
       ].map((name, i) => (
-        <span className={styles.folder} key={name + i}>
-          <div>📁</div>
-
-          <Typography variant="body1" align="center" noWrap={true}>
-            {name}
-          </Typography>
-        </span>
+        <Folder key={name + i} folder={{ name, id: i }} />
       ))}
     </div>
   );
