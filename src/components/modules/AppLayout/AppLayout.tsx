@@ -4,10 +4,11 @@ import { AppBar, Toolbar } from '@material-ui/core';
 import classNames from 'classnames/bind';
 import { CgMenuGridO } from 'react-icons/cg';
 
-import { AppNavigation } from '../AppNavigation/AppNavigation';
+import { AppNavigation } from '../AppNavigation';
+import { AppMenu } from '../AppMenu';
+import { UserOptionIcon } from '../UserOptionIcon';
 import SenatiLogoNameV2 from 'src/static/senati-logo-name-v2.svg';
-import { AppMenu } from '../AppMenu/AppMenu';
-import { UserOptionIcon } from '../UserOptionIcon/UserOptionIcon';
+
 import styles from './AppLayout.module.scss';
 const cx = classNames.bind(styles);
 

@@ -9,7 +9,7 @@ interface FolderProps {
   };
 }
 
-const Folder: React.FC<FolderProps> = ({ folder }) => {
+export const Folder: React.FC<FolderProps> = ({ folder }) => {
   return (
     <>
       <span className={styles.folder}>
@@ -22,5 +22,3 @@ const Folder: React.FC<FolderProps> = ({ folder }) => {
     </>
   );
 };
-
-export default Folder;

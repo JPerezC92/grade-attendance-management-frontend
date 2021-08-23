@@ -1,5 +1,5 @@
 import React from 'react';
-import Folder from 'src/components/common/Folder';
+import { Folder } from 'src/components/common';
 import styles from './FolderSystem.module.scss';
 
 export const FolderSystem: React.FC = () => {
