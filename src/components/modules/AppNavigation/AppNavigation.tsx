@@ -1,4 +1,5 @@
 import { Box, Button, Divider, Paper } from '@material-ui/core';
+import styles from './AppNavigation.module.scss';
 
 interface AppNavigationProps {
   className?: string;
@@ -10,14 +11,7 @@ export const AppNavigation: React.FC<AppNavigationProps> = ({
 }) => {
   return (
     <Paper className={className}>
-      <Box
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          rowGap: '16px',
-          margin: '16px',
-        }}
-      >
+      <Box className={styles.appNavigationButtons}>
         <Button variant="contained" color="primary">
           Crear registro
         </Button>

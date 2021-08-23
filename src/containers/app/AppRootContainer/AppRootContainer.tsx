@@ -1,5 +1,10 @@
-import { AppLayout } from 'src/components/modules';
+import { AppLayout, FolderSystem } from 'src/components/modules';
+// import styles from './AppRootContainer.module.scss';
 
 export const AppRootContainer: React.FC = () => {
-  return <AppLayout>Folder System</AppLayout>;
+  return (
+    <AppLayout>
+      <FolderSystem />
+    </AppLayout>
+  );
 };
