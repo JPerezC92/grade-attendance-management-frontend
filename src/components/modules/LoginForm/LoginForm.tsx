@@ -1,27 +1,36 @@
 import { Button, TextField } from '@material-ui/core';
-import { Form, Formik } from 'formik';
+import { Form, Formik, FormikHelpers } from 'formik';
 import { loginSchema } from './loginSchema';
 
+import { useAppDispatch } from 'src/redux';
+import { startLogin } from 'src/redux/reducers';
 import styles from './LoginForm.module.scss';
 
 export const LoginForm: React.FC = () => {
+  const dispatch = useAppDispatch();
+
   const initialValue = {
-    email: '',
-    password: '',
+    email: 'test@gmail.com',
+    password: '123456aA',
+  };
+
+  const handleLoginSubmit = (
+    { email, password }: typeof initialValue,
+    _actions: FormikHelpers<{
+      email: string;
+      password: string;
+    }>
+  ) => {
+    const { success } = dispatch(startLogin(email, password));
+
+    if (!success) _actions.resetForm();
   };
 
   return (
     <>
       <Formik
         initialValues={initialValue}
-        onSubmit={(values, actions) => {
-          // TODO Implement login user
-          // eslint-disable-next-line no-console
-          console.log(values, actions);
-          setTimeout(() => {
-            actions.resetForm();
-          }, 2000);
-        }}
+        onSubmit={handleLoginSubmit}
         validationSchema={loginSchema}
       >
         {(props) => {

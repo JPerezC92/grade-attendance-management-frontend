@@ -1,9 +1,10 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { Button } from '@material-ui/core';
+
 import { useAppDispatch, useAppSelector } from 'src/redux';
-import { authActions } from 'src/redux/reducers';
 import { AuthRoute } from 'src/routes';
+import { authActions } from 'src/redux/reducers';
 import { Redirect } from 'src/components/common';
 
 export const Home = (): JSX.Element => {
@@ -27,8 +28,9 @@ export const Home = (): JSX.Element => {
         onClick={() =>
           dispatch(
             authActions.login({
+              id: '3289479319832701839',
               displayName: 'Philip',
-              uid: '32894793198327018391',
+              email: 'test2@gmail.com',
             })
           )
         }

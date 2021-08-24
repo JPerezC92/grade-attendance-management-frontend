@@ -3,8 +3,8 @@ import type { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
 import { CssBaseline } from '@material-ui/core';
 import { store } from 'src/redux';
-import { authActions } from 'src/redux/reducers';
 import '../styles/globals.scss';
+// import { authActions } from 'src/redux/reducers/Auth/auth.slice';
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   useEffect(() => {
@@ -14,16 +14,17 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
     }
   }, []);
 
-  useEffect(() => {
-    store.dispatch(
-      authActions.login({
-        displayName: 'Test',
-        uid: 'Test',
-      })
-    );
-    // eslint-disable-next-line no-console
-    console.log('🎊');
-  }, []);
+  // useEffect(() => {
+  //   store.dispatch(
+  //     authActions.login({
+  //       id: 'test',
+  //       email: 'Test@gmail.co',
+  //       displayName: 'test',
+  //     })
+  //   );
+  //   // eslint-disable-next-line no-console
+  //   console.log('🎊');
+  // }, []);
 
   return (
     <div id="root-app">
