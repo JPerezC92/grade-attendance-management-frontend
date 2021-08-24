@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Paper } from '@material-ui/core';
+import { Paper } from '@material-ui/core';
 import styles from './AppNavigation.module.scss';
 
 interface AppNavigationProps {
@@ -10,19 +10,6 @@ export const AppNavigation: React.FC<AppNavigationProps> = ({
   children,
 }) => {
   return (
-    <Paper className={className}>
-      <Box className={styles.appNavigationButtons}>
-        <Button variant="contained" color="primary">
-          Crear registro
-        </Button>
-        <Button variant="outlined" color="secondary">
-          Crear carpeta
-        </Button>
-      </Box>
-
-      <Divider />
-
-      {children}
-    </Paper>
+    <Paper className={`${styles.appNavigation} ${className}`}>{children}</Paper>
   );
 };
