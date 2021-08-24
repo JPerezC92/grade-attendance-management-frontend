@@ -1,10 +1,11 @@
-import { Redirect } from 'src/components/common';
 import { useAppSelector } from 'src/redux';
+import { Redirect } from 'src/components/common';
+import { AppRoute } from 'src/routes';
 
 export const IfUserAuthenticatedGoToApp: React.FC = ({ children }) => {
-  const { user } = useAppSelector((state) => state.authReducer);
+  const { isLoggedIn, user } = useAppSelector((state) => state.authReducer);
 
-  if (user) return <Redirect to="/app" />;
+  if (isLoggedIn && user) return <Redirect to={AppRoute.ROOT} />;
 
   return <>{children}</>;
 };
