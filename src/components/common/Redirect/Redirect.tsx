@@ -5,7 +5,7 @@ export const Redirect: React.FC<{ to: string }> = ({ to }) => {
   const router = useRouter();
 
   useEffect(() => {
-    router.push(to);
+    router.replace(to);
   }, []);
 
   return null;

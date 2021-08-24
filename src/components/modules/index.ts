@@ -5,6 +5,7 @@ export * from './FolderSystem';
 export * from './FormLogo';
 export * from './GradeTable';
 export * from './IfUserAuthenticatedGoToApp';
+export * from './IfUserIsAuthenticated';
 export * from './LoginForm';
 export * from './RecordLayout';
 export * from './RecordMenu';
