@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import { Box, MenuItem, Typography, Menu } from '@material-ui/core';
 import { UserAvatar } from 'src/components/common';
-import { UserInfoCard } from '../UserInfoCard/UserInfoCard';
+import { UserInfoCard } from '../UserInfoCard';
 import styles from './UserOptionIcon.module.scss';
+import { useAuthentication } from 'src/hooks/useAuthentication';
 
 export const UserOptionIcon: React.FC = () => {
+  const { handleLogout } = useAuthentication();
+
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -14,6 +17,7 @@ export const UserOptionIcon: React.FC = () => {
   const handleClose = () => {
     setAnchorEl(() => null);
   };
+
   return (
     <>
       <Box onClick={handleClick}>
@@ -38,7 +42,7 @@ export const UserOptionIcon: React.FC = () => {
         </Box>
         <MenuItem onClick={handleClose}>Profile</MenuItem>
         <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleLogout}>
           <Typography color="secondary">Logout</Typography>
         </MenuItem>
       </Menu>

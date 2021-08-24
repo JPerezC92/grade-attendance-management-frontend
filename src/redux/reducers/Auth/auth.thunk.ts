@@ -16,3 +16,7 @@ export const startLogin = (
   );
   return { success: true, message: 'Login successful' };
 };
+
+export const startLogout = (): AppThunk => (dispatch, _getState) => {
+  dispatch(authActions.logout());
+};

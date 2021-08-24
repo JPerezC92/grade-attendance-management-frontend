@@ -1,26 +1,17 @@
 import { Button, TextField } from '@material-ui/core';
 import { Form, Formik } from 'formik';
 import { registerSchema } from './registerSchema';
+import { useAuthentication } from 'src/hooks/useAuthentication';
 import styles from './RegisterForm.module.scss';
 
 export const RegisterForm: React.FC = () => {
-  const initialValue = {
-    firstname: '',
-    lastname: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-  };
+  const { handleRegister, registerInitialValue } = useAuthentication();
 
   return (
     <>
       <Formik
-        initialValues={initialValue}
-        onSubmit={(values, actions) => {
-          // TODO Implement register user
-          // eslint-disable-next-line no-console
-          console.log(values, actions);
-        }}
+        initialValues={registerInitialValue}
+        onSubmit={handleRegister}
         validationSchema={registerSchema}
       >
         {(props) => {
