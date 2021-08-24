@@ -2,13 +2,17 @@ import NextLink from 'next/link';
 import { Link, Typography } from '@material-ui/core';
 
 import { AuthRoute } from 'src/routes';
-import { FormLogo, RegisterForm } from 'src/components/modules';
+import {
+  FormLogo,
+  IfUserAuthenticatedGoToApp,
+  RegisterForm,
+} from 'src/components/modules';
 import { FormTip } from 'src/components/common';
 import styles from './RegisterContainer.module.scss';
 
 export const RegisterContainer: React.FC = () => {
   return (
-    <>
+    <IfUserAuthenticatedGoToApp>
       <div className={styles.registerContainer}>
         <FormLogo />
 
@@ -25,6 +29,6 @@ export const RegisterContainer: React.FC = () => {
           </NextLink>
         </FormTip>
       </div>
-    </>
+    </IfUserAuthenticatedGoToApp>
   );
 };
