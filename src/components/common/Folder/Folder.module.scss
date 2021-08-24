@@ -1,11 +1,12 @@
 .folder {
-  overflow: hidden;
-  font-size: 50px;
-  text-align: center;
-  cursor: pointer;
+  align-items: center;
+  column-gap: 8px;
+  display: flex;
+  padding: 4px;
   transition: all 0.3s ease-in-out;
-  border-radius: 5px;
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.204);
-  }
+}
+
+.icon {
+  display: inline-flex;
+  font-size: 32px;
 }

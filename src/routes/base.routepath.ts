@@ -3,5 +3,5 @@ export const basePath =
   'https://control-grades-attendance.vercel.app';
 
 export interface RouteList {
-  [key: string]: string;
+  [key: string]: string | ((...args) => string);
 }

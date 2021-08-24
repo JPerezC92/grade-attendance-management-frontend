@@ -1,12 +1,13 @@
-/* your css code */
 .file {
-  overflow: hidden;
-  font-size: 50px;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
+  align-items: center;
   border-radius: 5px;
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.204);
-  }
+  column-gap: 8px;
+  display: flex;
+  padding: 4px;
+  transition: all 0.3s ease-in-out;
+}
+
+.icon {
+  display: inline-flex;
+  font-size: 32px;
 }

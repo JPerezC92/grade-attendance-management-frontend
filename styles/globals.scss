@@ -3,6 +3,12 @@
 
 #__next,
 html,
+body,
+* {
+  scroll-behavior: smooth;
+}
+
+html,
 body {
   width: 100vw;
   height: 100vh;

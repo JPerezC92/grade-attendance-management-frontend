@@ -2,11 +2,11 @@ import { basePath, RouteList } from './base.routepath';
 
 interface App extends RouteList {
   ROOT: string;
-  RECORD: string;
+  RECORD: (recordId: string) => string;
 }
 const appRoot = `${basePath}/app`;
 
 export const AppRoute: App = {
   ROOT: appRoot,
-  RECORD: `${appRoot}/record`,
+  RECORD: (recordId) => `${appRoot}/record/${recordId}`,
 };

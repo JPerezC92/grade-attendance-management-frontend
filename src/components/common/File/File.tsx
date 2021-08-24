@@ -1,5 +1,5 @@
 import { Typography } from '@material-ui/core';
-import React from 'react';
+import { FcDocument } from 'react-icons/fc';
 import styles from './File.module.scss';
 
 interface FileProps {
@@ -13,7 +13,9 @@ const File: React.FC<FileProps> = ({ file }) => {
   return (
     <>
       <span className={styles.file}>
-        <div>📄</div>
+        <span className={styles.icon}>
+          <FcDocument />
+        </span>
 
         <Typography variant="body1" align="center" noWrap={true}>
           {file.name}
