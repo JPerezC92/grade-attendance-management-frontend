@@ -14,13 +14,13 @@ import { useFolderSystemCreateObject } from 'src/hooks';
 // export const CreateFolderButton: React.FC<CreateFolderButtonProps> = () => {
 export const CreateFileButton: React.FC = () => {
   const {
-    open,
-    handleClose,
-    handleClickOpen,
+    modal,
     handleInputChange,
     handleCreateFile,
     objectName,
   } = useFolderSystemCreateObject('fileName', 'Nuevo archivo');
+
+  const { isOpen, handleClose, handleClickOpen } = modal;
 
   return (
     <>
@@ -28,7 +28,7 @@ export const CreateFileButton: React.FC = () => {
         Crear Registro
       </Button>
       <Dialog
-        open={open}
+        open={isOpen}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >

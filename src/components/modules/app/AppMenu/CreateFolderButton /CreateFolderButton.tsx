@@ -14,13 +14,12 @@ import { useFolderSystemCreateObject } from 'src/hooks';
 // export const CreateFolderButton: React.FC<CreateFolderButtonProps> = () => {
 export const CreateFolderButton: React.FC = () => {
   const {
-    open,
-    handleClose,
-    handleClickOpen,
+    modal,
     handleInputChange,
     handleCreateFolder,
     objectName,
   } = useFolderSystemCreateObject('folderName', 'Nueva carpeta');
+  const { isOpen, handleClose, handleClickOpen } = modal;
 
   return (
     <>
@@ -28,7 +27,7 @@ export const CreateFolderButton: React.FC = () => {
         Crear carpeta
       </Button>
       <Dialog
-        open={open}
+        open={isOpen}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
