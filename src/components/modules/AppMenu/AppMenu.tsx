@@ -1,4 +1,6 @@
-import { Box, Button, MenuItem, MenuList, Typography } from '@material-ui/core';
+import { Box, MenuItem, MenuList, Typography } from '@material-ui/core';
+import { CreateFileButton } from '../CreateFileButton';
+import { CreateFolderButton } from '../CreateFolderButton ';
 import styles from './AppMenu.module.scss';
 interface AppMenuProps {
   className?: string;
@@ -9,12 +11,8 @@ export const AppMenu: React.FC<AppMenuProps> = ({ className }) => {
     <>
       <Box className={`${styles.appMenu} ${className}`}>
         <Box className={styles.appMenuButtons}>
-          <Button variant="contained" color="primary">
-            Crear registro
-          </Button>
-          <Button variant="outlined" color="secondary">
-            Crear carpeta
-          </Button>
+          <CreateFileButton />
+          <CreateFolderButton />
         </Box>
 
         <Box>
