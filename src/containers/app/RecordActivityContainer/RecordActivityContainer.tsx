@@ -1,5 +1,4 @@
 import {
-  Button,
   Table,
   TableBody,
   TableCell,
@@ -8,6 +7,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { RecordLayout } from 'src/components/modules';
+import { CreateActivityButton } from 'src/components/modules';
 import styles from './RecordActivityContainer.module.scss';
 
 // interface RecordActivityContainerProps {}
@@ -23,17 +23,15 @@ export const RecordActivityContainer: React.FC = () => {
           </Typography>
 
           <div className={styles.recordActivity__buttons}>
-            <Button variant="contained" color="primary">
-              Agregar Actividad
-            </Button>
+            <CreateActivityButton />
           </div>
 
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>ID</TableCell>
+                <TableCell>Nº</TableCell>
                 <TableCell>Actividad</TableCell>
-                <TableCell>Observacion</TableCell>
+                <TableCell>Comentario</TableCell>
                 <TableCell>Acciones</TableCell>
               </TableRow>
             </TableHead>
