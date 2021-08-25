@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import {
   Table,
   TableBody,
@@ -6,7 +7,6 @@ import {
   TableHead,
   TableRow,
 } from '@material-ui/core';
-import { useRouter } from 'next/router';
 import { AppRoute } from 'src/routes';
 import { File } from './File';
 import { Folder } from './Folder';
