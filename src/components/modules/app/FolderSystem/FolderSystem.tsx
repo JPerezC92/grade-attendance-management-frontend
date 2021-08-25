@@ -7,9 +7,9 @@ import {
   TableHead,
   TableRow,
 } from '@material-ui/core';
-import { AppRoute } from 'src/routes';
 import { File } from './File';
 import { Folder } from './Folder';
+import { RecordRoute } from 'src/routes/record.routepath';
 import styles from './FolderSystem.module.scss';
 
 export const FolderSystem: React.FC = () => {
@@ -79,7 +79,7 @@ export const FolderSystem: React.FC = () => {
             <TableRow
               key={name + i}
               className={styles.folderSystem__row}
-              onClick={() => router.push(AppRoute.RECORD(i.toString()))}
+              onClick={() => router.push(RecordRoute.ROOT(i.toString()))}
             >
               <TableCell>
                 <File file={{ name, id: i }} />

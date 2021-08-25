@@ -1,6 +1,7 @@
 import { Box, Button, MenuItem, MenuList, Typography } from '@material-ui/core';
 import NextLink from 'next/link';
 import { AppRoute } from 'src/routes';
+import { RecordRoute } from 'src/routes/record.routepath';
 import styles from './RecordMenu.module.scss';
 
 export const RecordMenu: React.FC = () => {
@@ -17,10 +18,34 @@ export const RecordMenu: React.FC = () => {
       </Box>
       <Box>
         <MenuList className={styles.menu__list}>
-          <MenuItem divider>Calificaciones</MenuItem>
-          <MenuItem divider>Asistencias</MenuItem>
-          <MenuItem divider>Estudiantes</MenuItem>
-          <MenuItem divider>Actividades</MenuItem>
+          <MenuItem divider>
+            <NextLink href={RecordRoute.GRADE('0')}>
+              <Typography component="a" variant="body1" color="textPrimary">
+                Calificaciones
+              </Typography>
+            </NextLink>
+          </MenuItem>
+          <MenuItem divider>
+            <NextLink href={RecordRoute.ATTENDANCE('0')}>
+              <Typography component="a" variant="body1" color="textPrimary">
+                Asistencias
+              </Typography>
+            </NextLink>
+          </MenuItem>
+          <MenuItem divider>
+            <NextLink href={RecordRoute.STUDENT('0')}>
+              <Typography component="a" variant="body1" color="textPrimary">
+                Estudiantes
+              </Typography>
+            </NextLink>
+          </MenuItem>
+          <MenuItem divider>
+            <NextLink href={RecordRoute.ACTIVITY('0')}>
+              <Typography component="a" variant="body1" color="textPrimary">
+                Actividades
+              </Typography>
+            </NextLink>
+          </MenuItem>
         </MenuList>
       </Box>
     </Box>

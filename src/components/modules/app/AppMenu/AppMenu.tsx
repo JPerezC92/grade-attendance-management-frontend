@@ -1,7 +1,9 @@
+import NextLink from 'next/link';
 import { Box, MenuItem, MenuList, Typography } from '@material-ui/core';
 import { CreateFileButton } from './CreateFileButton';
 import { CreateFolderButton } from './CreateFolderButton ';
 import styles from './AppMenu.module.scss';
+import { RecordRoute } from 'src/routes/record.routepath';
 interface AppMenuProps {
   className?: string;
 }
@@ -20,29 +22,41 @@ export const AppMenu: React.FC<AppMenuProps> = ({ className }) => {
             Mas Recientes
           </Typography>
           <MenuList>
-            <MenuItem>Registro 1</MenuItem>
-            <MenuItem>Registro 2</MenuItem>
-            <MenuItem>Registro 3</MenuItem>
-            <MenuItem>Registro 4</MenuItem>
-            <MenuItem>Registro 5</MenuItem>
-            <MenuItem>Registro 6</MenuItem>
-            <MenuItem>Registro 7</MenuItem>
-            <MenuItem>Registro 8</MenuItem>
-            <MenuItem>Registro 9</MenuItem>
-            <MenuItem>Registro 10</MenuItem>
-            <MenuItem>Registro 10</MenuItem>
-            <MenuItem>Registro 10</MenuItem>
-            <MenuItem>Registro 10</MenuItem>
-            <MenuItem>Registro 10</MenuItem>
-            <MenuItem>Registro 10</MenuItem>
-            <MenuItem>Registro 10</MenuItem>
-            <MenuItem>Registro 10</MenuItem>
-            <MenuItem>Registro 10</MenuItem>
-            <MenuItem>Registro 10</MenuItem>
-            <MenuItem>Registro 10</MenuItem>
-            <MenuItem>Registro 10</MenuItem>
-            <MenuItem>Registro 10</MenuItem>
-            <MenuItem>Registro 10</MenuItem>
+            <MenuItem>
+              <NextLink href={RecordRoute.ROOT('0')}>
+                <Typography component="a" variant="body1" color="textPrimary">
+                  Registro 1
+                </Typography>
+              </NextLink>
+            </MenuItem>
+            <MenuItem>
+              <NextLink href={RecordRoute.ROOT('0')}>
+                <Typography component="a" variant="body1" color="textPrimary">
+                  Registro 2
+                </Typography>
+              </NextLink>
+            </MenuItem>
+            <MenuItem>
+              <NextLink href={RecordRoute.ROOT('0')}>
+                <Typography component="a" variant="body1" color="textPrimary">
+                  Registro 3
+                </Typography>
+              </NextLink>
+            </MenuItem>
+            <MenuItem>
+              <NextLink href={RecordRoute.ROOT('0')}>
+                <Typography component="a" variant="body1" color="textPrimary">
+                  Registro 4
+                </Typography>
+              </NextLink>
+            </MenuItem>
+            <MenuItem>
+              <NextLink href={RecordRoute.ROOT('0')}>
+                <Typography component="a" variant="body1" color="textPrimary">
+                  Registro 5
+                </Typography>
+              </NextLink>
+            </MenuItem>
 
             <MenuItem>Final</MenuItem>
           </MenuList>
