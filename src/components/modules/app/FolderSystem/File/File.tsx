@@ -9,7 +9,7 @@ interface FileProps {
   };
 }
 
-const File: React.FC<FileProps> = ({ file }) => {
+export const File: React.FC<FileProps> = ({ file }) => {
   return (
     <>
       <span className={styles.file}>
@@ -24,5 +24,3 @@ const File: React.FC<FileProps> = ({ file }) => {
     </>
   );
 };
-
-export default File;

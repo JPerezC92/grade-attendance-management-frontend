@@ -1,6 +1,6 @@
 import { Box, MenuItem, MenuList, Typography } from '@material-ui/core';
-import { CreateFileButton } from '../CreateFileButton';
-import { CreateFolderButton } from '../CreateFolderButton ';
+import { CreateFileButton } from './CreateFileButton';
+import { CreateFolderButton } from './CreateFolderButton ';
 import styles from './AppMenu.module.scss';
 interface AppMenuProps {
   className?: string;

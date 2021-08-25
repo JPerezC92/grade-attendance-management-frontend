@@ -7,10 +7,9 @@ import {
   TableRow,
 } from '@material-ui/core';
 import { useRouter } from 'next/router';
-import React from 'react';
-import { Folder } from 'src/components/common';
-import File from 'src/components/common/File/File';
 import { AppRoute } from 'src/routes';
+import { File } from './File';
+import { Folder } from './Folder';
 import styles from './FolderSystem.module.scss';
 
 export const FolderSystem: React.FC = () => {
