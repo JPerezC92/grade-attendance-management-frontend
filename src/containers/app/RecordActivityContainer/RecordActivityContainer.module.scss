@@ -1,1 +1,10 @@
-/* your css code */
+.recordActivity__content {
+  margin: 32px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+}
+
+.recordActivity__buttons {
+  margin-inline-start: auto;
+}
