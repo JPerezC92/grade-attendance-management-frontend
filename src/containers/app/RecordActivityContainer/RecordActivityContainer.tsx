@@ -1,4 +1,5 @@
 import {
+  Paper,
   Table,
   TableBody,
   TableCell,
@@ -26,24 +27,26 @@ export const RecordActivityContainer: React.FC = () => {
             <CreateActivityButton />
           </div>
 
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Nº</TableCell>
-                <TableCell>Actividad</TableCell>
-                <TableCell>Comentario</TableCell>
-                <TableCell>Acciones</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              <TableRow>
-                <TableCell>5234</TableCell>
-                <TableCell>Foro</TableCell>
-                <TableCell></TableCell>
-                <TableCell></TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
+          <Paper>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Nº</TableCell>
+                  <TableCell>Actividad</TableCell>
+                  <TableCell>Comentario</TableCell>
+                  <TableCell>Acciones</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                <TableRow>
+                  <TableCell>5234</TableCell>
+                  <TableCell>Foro</TableCell>
+                  <TableCell></TableCell>
+                  <TableCell></TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </Paper>
         </div>
       </RecordLayout>
     </>

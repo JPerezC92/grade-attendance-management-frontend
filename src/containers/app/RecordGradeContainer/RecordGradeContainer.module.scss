@@ -1,0 +1,15 @@
+.recordGrade__content {
+  margin: 32px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+  overflow-x: visible;
+}
+
+.recordGrade__buttons {
+  margin-inline-start: auto;
+}
+
+.recordGrade__tableWrapper {
+  width: fit-content;
+}
