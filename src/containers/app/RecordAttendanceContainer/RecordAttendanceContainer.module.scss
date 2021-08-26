@@ -1,0 +1,14 @@
+.recordAttendance__content {
+  display: flex;
+  flex-direction: column;
+  margin: 32px;
+  position: relative;
+  row-gap: 16px;
+  width: fit-content;
+}
+
+.recordAttendance__buttons {
+  align-self: flex-end;
+  position: sticky;
+  right: 0;
+}

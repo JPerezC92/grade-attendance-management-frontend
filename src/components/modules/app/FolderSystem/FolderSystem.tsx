@@ -79,7 +79,7 @@ export const FolderSystem: React.FC = () => {
             <TableRow
               key={name + i}
               className={styles.folderSystem__row}
-              onClick={() => router.push(RecordRoute.ROOT(i.toString()))}
+              onClick={() => router.push(RecordRoute.GRADE(i.toString()))}
             >
               <TableCell>
                 <File file={{ name, id: i }} />
