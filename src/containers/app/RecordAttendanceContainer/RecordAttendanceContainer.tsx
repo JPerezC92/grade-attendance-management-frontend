@@ -13,6 +13,7 @@ import {
 } from '@material-ui/core';
 import React from 'react';
 import { RecordLayout } from 'src/components/modules';
+import { AttendanceTableCheckAttendanceCell } from 'src/components/modules/app/record/attendance/AttendanceTableCheckAttendanceCell';
 import { students } from 'src/helpers/gradeMock';
 import styles from './RecordAttendanceContainer.module.scss';
 
@@ -67,24 +68,7 @@ export const RecordAttendanceContainer: React.FC = () => {
                     <TableCell>{student.studentId}</TableCell>
                     <TableCell>{student.firstname}</TableCell>
                     <TableCell>{student.lastname}</TableCell>
-                    <TableCell>
-                      <FormControl>
-                        <Select
-                          labelId="demo-simple-select-helper-label"
-                          id="demo-simple-select-helper"
-                          value={'1'}
-                          // onChange={handleChange}
-                        >
-                          <MenuItem value="">
-                            <em>None</em>
-                          </MenuItem>
-                          <MenuItem value={1}>A</MenuItem>
-                          <MenuItem value={2}>T</MenuItem>
-                          <MenuItem value={3}>I</MenuItem>
-                          <MenuItem value={4}>J</MenuItem>
-                        </Select>
-                      </FormControl>
-                    </TableCell>
+                    <AttendanceTableCheckAttendanceCell />
                     <TableCell>
                       <FormControl>
                         <Select
