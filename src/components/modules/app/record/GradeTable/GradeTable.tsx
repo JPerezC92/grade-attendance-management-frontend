@@ -6,6 +6,7 @@ import {
   TableBody,
 } from '@material-ui/core';
 import { students } from 'src/helpers/gradeMock';
+import { GradeTableAssignedScoreCell } from './GradeTableAssignedScoreCell';
 
 export const GradeTable: React.FC = () => {
   return (
@@ -15,7 +16,7 @@ export const GradeTable: React.FC = () => {
           <TableHead>
             <TableRow>
               <TableCell colSpan={3} variant="head" />
-              <TableCell colSpan={3} align="center">
+              <TableCell colSpan={4} align="center">
                 Foro
               </TableCell>
               <TableCell colSpan={3} align="center">
@@ -27,9 +28,10 @@ export const GradeTable: React.FC = () => {
               <TableCell>Id</TableCell>
               <TableCell>Nombres</TableCell>
               <TableCell>Apellidos</TableCell>
-              <TableCell>Nota1</TableCell>
-              <TableCell>Nota2</TableCell>
-              <TableCell>Nota3</TableCell>
+              <TableCell>N1</TableCell>
+              <TableCell>N2</TableCell>
+              <TableCell>N3</TableCell>
+              <TableCell>Promedio</TableCell>
               <TableCell>Nota1</TableCell>
               <TableCell>Nota2</TableCell>
               <TableCell>Nota3</TableCell>
@@ -42,6 +44,10 @@ export const GradeTable: React.FC = () => {
                 <TableCell>{student.studentId}</TableCell>
                 <TableCell>{student.firstname}</TableCell>
                 <TableCell>{student.lastname}</TableCell>
+                <GradeTableAssignedScoreCell studentId={student.studentId} />
+                <GradeTableAssignedScoreCell studentId={student.studentId} />
+                <GradeTableAssignedScoreCell studentId={student.studentId} />
+                <TableCell>Prom</TableCell>
               </TableRow>
             ))}
           </TableBody>
