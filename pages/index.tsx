@@ -29,7 +29,9 @@ export const Home = (): JSX.Element => {
           dispatch(
             authActions.login({
               id: '3289479319832701839',
-              displayName: 'Philip',
+              firstname: 'Jhon',
+              lastname: 'Doe',
+              rootFolderId: 'rootFolder',
               email: 'test2@gmail.com',
             })
           )

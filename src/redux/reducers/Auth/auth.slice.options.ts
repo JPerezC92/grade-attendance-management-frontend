@@ -1,15 +1,10 @@
 import { Draft, PayloadAction } from '@reduxjs/toolkit';
-import { AuthInitialState, AuthState, User } from './auth.types';
+import { User } from 'src/interfaces/Folder';
+import { AuthInitialState, AuthState } from './auth.types';
 
 const login = (state: Draft<AuthState>, action: PayloadAction<User>): void => {
-  const { id, displayName, email } = action.payload;
-
   state.isLoggedIn = true;
-  state.user = {
-    id,
-    displayName,
-    email,
-  };
+  state.user = action.payload;
 };
 
 const logout = (): AuthState => AuthInitialState;

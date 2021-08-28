@@ -1,8 +1,4 @@
-export interface User {
-  id: string;
-  email: string;
-  displayName: string;
-}
+import { User } from 'src/interfaces/Folder';
 
 export interface AuthState {
   isLoggedIn: boolean;

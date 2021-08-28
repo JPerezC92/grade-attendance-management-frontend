@@ -1,14 +1,15 @@
-type success = boolean;
 type payload<Type> = Type;
 type message = string;
-
-export interface SuccessfulResponse<Type> {
-  success: success;
+export interface ApiResponse {
+  success: boolean;
+}
+export interface SuccessfulResponse<Type = void> extends ApiResponse {
+  success: true;
   payload: payload<Type>;
 }
 
 export interface ServerErrorResponse {
-  success: success;
+  success: false;
   message: message;
 }
 
