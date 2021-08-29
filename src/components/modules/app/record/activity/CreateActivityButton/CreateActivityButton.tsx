@@ -11,7 +11,7 @@ export const CreateActivityButton: React.FC = () => {
       <Button
         variant="contained"
         color="primary"
-        onClick={useModalCreateActivityForm.handleClickOpen}
+        onClick={useModalCreateActivityForm.handleOpenModal}
       >
         Agregar Actividad
       </Button>

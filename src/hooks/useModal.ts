@@ -1,13 +1,13 @@
 import { useState } from 'react';
 
 type isOpen = boolean;
-type handleClickOpen = () => void;
-type handleClose = () => void;
+type handleOpenModal = () => void;
+type handleCloseModal = () => void;
 
 export interface UseModalResult {
   isOpen: isOpen;
-  handleClickOpen: handleClickOpen;
-  handleClose: handleClose;
+  handleOpenModal: handleOpenModal;
+  handleCloseModal: handleCloseModal;
 }
 
 export interface UseModal {
@@ -17,13 +17,13 @@ export interface UseModal {
 export const useModal: UseModal = () => {
   const [isOpen, setIspen] = useState(false);
 
-  const handleClose = () => {
+  const handleCloseModal = () => {
     setIspen(() => false);
   };
 
-  const handleClickOpen = () => {
+  const handleOpenModal = () => {
     setIspen(() => true);
   };
 
-  return { isOpen, handleClickOpen, handleClose };
+  return { isOpen, handleOpenModal, handleCloseModal };
 };

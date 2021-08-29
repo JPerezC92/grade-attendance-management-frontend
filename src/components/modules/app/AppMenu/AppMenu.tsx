@@ -4,11 +4,14 @@ import { CreateFileButton } from './CreateFileButton';
 import { CreateFolderButton } from './CreateFolderButton ';
 import styles from './AppMenu.module.scss';
 import { RecordRoute } from 'src/routes/record.routepath';
+import { useAppSelector } from 'src/redux';
 interface AppMenuProps {
   className?: string;
 }
 
 export const AppMenu: React.FC<AppMenuProps> = ({ className }) => {
+  const { recentFiles } = useAppSelector((state) => state.fileSystemReducer);
+
   return (
     <>
       <Box className={`${styles.appMenu} ${className}`}>
@@ -22,43 +25,15 @@ export const AppMenu: React.FC<AppMenuProps> = ({ className }) => {
             Mas Recientes
           </Typography>
           <MenuList>
-            <MenuItem>
-              <NextLink href={RecordRoute.ROOT('0')}>
-                <Typography component="a" variant="body1" color="textPrimary">
-                  Registro 1
-                </Typography>
-              </NextLink>
-            </MenuItem>
-            <MenuItem>
-              <NextLink href={RecordRoute.ROOT('0')}>
-                <Typography component="a" variant="body1" color="textPrimary">
-                  Registro 2
-                </Typography>
-              </NextLink>
-            </MenuItem>
-            <MenuItem>
-              <NextLink href={RecordRoute.ROOT('0')}>
-                <Typography component="a" variant="body1" color="textPrimary">
-                  Registro 3
-                </Typography>
-              </NextLink>
-            </MenuItem>
-            <MenuItem>
-              <NextLink href={RecordRoute.ROOT('0')}>
-                <Typography component="a" variant="body1" color="textPrimary">
-                  Registro 4
-                </Typography>
-              </NextLink>
-            </MenuItem>
-            <MenuItem>
-              <NextLink href={RecordRoute.ROOT('0')}>
-                <Typography component="a" variant="body1" color="textPrimary">
-                  Registro 5
-                </Typography>
-              </NextLink>
-            </MenuItem>
-
-            <MenuItem>Final</MenuItem>
+            {recentFiles.map((fileDetail) => (
+              <MenuItem key={fileDetail.id}>
+                <NextLink href={RecordRoute.ROOT(fileDetail.id)}>
+                  <Typography component="a" variant="body1" color="textPrimary">
+                    {fileDetail.name}
+                  </Typography>
+                </NextLink>
+              </MenuItem>
+            ))}
           </MenuList>
         </Box>
       </Box>

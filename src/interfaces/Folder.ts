@@ -33,9 +33,12 @@ export interface Credentials {
   password: string;
 }
 
-interface FolderDetail {
+export interface FolderDetail {
   id: string;
   name: string;
+  createdAt: string;
+  updatedAt: string;
+  objectType: string;
 }
 
 export interface Folder extends FolderDetail {
@@ -47,6 +50,9 @@ export interface Folder extends FolderDetail {
 export interface FileRecordDetail {
   id: string;
   name: string;
+  createdAt: string;
+  updatedAt: string;
+  objectType: string;
 }
 
 export interface FileRecord extends FileRecordDetail {
@@ -56,8 +62,6 @@ export interface FileRecord extends FileRecordDetail {
   students: Student[];
   activities: Activity[];
   attendances: Attendance[];
-  createdAt: string;
-  updatedAt: string;
 }
 
 export interface Student {

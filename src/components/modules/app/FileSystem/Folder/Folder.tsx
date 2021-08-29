@@ -1,15 +1,13 @@
 import { Typography } from '@material-ui/core';
 import { FcFolder } from 'react-icons/fc';
+import { FolderDetail } from 'src/interfaces/Folder';
 import styles from './Folder.module.scss';
 
 interface FolderProps {
-  folder: {
-    id: number;
-    name: string;
-  };
+  folderDetail: FolderDetail;
 }
 
-export const Folder: React.FC<FolderProps> = ({ folder }) => {
+export const Folder: React.FC<FolderProps> = ({ folderDetail }) => {
   return (
     <>
       <div className={styles.folder}>
@@ -18,7 +16,7 @@ export const Folder: React.FC<FolderProps> = ({ folder }) => {
         </span>
 
         <Typography variant="body1" align="center" noWrap={true}>
-          {folder.name}
+          {folderDetail.name}
         </Typography>
       </div>
     </>

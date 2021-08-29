@@ -1,9 +1,10 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-import { authReducer } from '../reducers';
+import { authReducer, fileSystemReducer } from '../reducers';
 
 export const reducer = {
   authReducer,
+  fileSystemReducer,
 };
 
 const store = configureStore({

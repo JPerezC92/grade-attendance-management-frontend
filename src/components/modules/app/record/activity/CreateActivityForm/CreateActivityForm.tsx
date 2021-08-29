@@ -20,7 +20,7 @@ interface CreateActivityFormProps {
 export const CreateActivityForm: React.FC<CreateActivityFormProps> = ({
   useModalCreateActivityForm,
 }) => {
-  const { isOpen, handleClose: handleCloseModal } = useModalCreateActivityForm;
+  const { isOpen, handleCloseModal } = useModalCreateActivityForm;
 
   const { formValues, handleInputChange, reset: resetForm } = useForm({
     name: '',

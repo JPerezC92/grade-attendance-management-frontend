@@ -11,7 +11,7 @@ export const RegisterStudentButton: React.FC = () => {
       <Button
         variant="contained"
         color="primary"
-        onClick={useModalRegisterStudentForm.handleClickOpen}
+        onClick={useModalRegisterStudentForm.handleOpenModal}
       >
         Agregar estudiante
       </Button>

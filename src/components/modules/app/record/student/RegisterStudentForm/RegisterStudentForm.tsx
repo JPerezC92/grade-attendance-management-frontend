@@ -18,14 +18,14 @@ interface RegisterStudentFormProps {
 export const RegisterStudentForm: React.FC<RegisterStudentFormProps> = ({
   useModalRegisterStudentForm,
 }) => {
-  const { isOpen, handleClose: handleCloseModal } = useModalRegisterStudentForm;
+  const { isOpen, handleCloseModal } = useModalRegisterStudentForm;
   const { formValues, handleInputChange, reset: resetForm } = useForm({
     firstname: '',
     lastname: '',
     studentId: '',
   });
 
-  const handleClose = () => {
+  const handleOnCloseModal = () => {
     resetForm();
     handleCloseModal();
   };
@@ -34,7 +34,7 @@ export const RegisterStudentForm: React.FC<RegisterStudentFormProps> = ({
     <>
       <Dialog
         open={isOpen}
-        onClose={handleClose}
+        onClose={handleOnCloseModal}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title" disableTypography>
@@ -49,7 +49,7 @@ export const RegisterStudentForm: React.FC<RegisterStudentFormProps> = ({
             e.preventDefault();
             // eslint-disable-next-line no-console
             console.log({ formValues });
-            handleClose();
+            handleOnCloseModal();
           }}
         >
           <DialogContent>
@@ -91,7 +91,7 @@ export const RegisterStudentForm: React.FC<RegisterStudentFormProps> = ({
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose} color="secondary">
+            <Button onClick={handleOnCloseModal} color="secondary">
               Cancelar
             </Button>
             <Button color="primary" type="submit">
