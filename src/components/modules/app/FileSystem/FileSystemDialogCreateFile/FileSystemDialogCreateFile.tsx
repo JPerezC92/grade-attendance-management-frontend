@@ -7,7 +7,7 @@ import {
   TextField,
 } from '@material-ui/core';
 import React from 'react';
-import { useFileSystemCreateObject, useForm, UseModalResult } from 'src/hooks';
+import { useFileSystemHandler, useForm, UseModalResult } from 'src/hooks';
 
 interface FileSystemDialogCreateFileProps {
   useModalCreateFile: UseModalResult;
@@ -20,7 +20,7 @@ export const FileSystemDialogCreateFile: React.FC<FileSystemDialogCreateFileProp
     fileName: 'Nuevo registro',
   });
 
-  const { handleCreateFile } = useFileSystemCreateObject();
+  const { handleCreateFile } = useFileSystemHandler();
 
   return (
     <>
@@ -35,6 +35,7 @@ export const FileSystemDialogCreateFile: React.FC<FileSystemDialogCreateFileProp
             onSubmit={(e) => {
               e.preventDefault();
               handleCreateFile(formValues.fileName);
+              useModalCreateFile.handleCloseModal();
             }}
           >
             <DialogContent>
@@ -56,11 +57,7 @@ export const FileSystemDialogCreateFile: React.FC<FileSystemDialogCreateFileProp
               >
                 Cancelar
               </Button>
-              <Button
-                onClick={useModalCreateFile.handleCloseModal}
-                color="primary"
-                type="submit"
-              >
+              <Button color="primary" type="submit">
                 Guardar
               </Button>
             </DialogActions>

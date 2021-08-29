@@ -6,7 +6,7 @@ import {
   DialogTitle,
   TextField,
 } from '@material-ui/core';
-import { useFileSystemCreateObject, useForm, UseModalResult } from 'src/hooks';
+import { useFileSystemHandler, useForm, UseModalResult } from 'src/hooks';
 
 interface FileSystemDialogCreateFolderProps {
   useModalCreateFolder: UseModalResult;
@@ -18,7 +18,7 @@ export const FileSystemDialogCreateFolder: React.FC<FileSystemDialogCreateFolder
   const { formValues, handleInputChange } = useForm({
     folderName: 'Nueva carpeta',
   });
-  const { handleCreateFolder } = useFileSystemCreateObject();
+  const { handleCreateFolder } = useFileSystemHandler();
 
   return (
     <>
@@ -33,6 +33,7 @@ export const FileSystemDialogCreateFolder: React.FC<FileSystemDialogCreateFolder
             onSubmit={(e) => {
               e.preventDefault();
               handleCreateFolder(formValues.folderName);
+              useModalCreateFolder.handleCloseModal();
             }}
           >
             <DialogContent>
@@ -54,11 +55,7 @@ export const FileSystemDialogCreateFolder: React.FC<FileSystemDialogCreateFolder
               >
                 Cancelar
               </Button>
-              <Button
-                onClick={useModalCreateFolder.handleCloseModal}
-                color="primary"
-                type="submit"
-              >
+              <Button color="primary" type="submit">
                 Guardar
               </Button>
             </DialogActions>

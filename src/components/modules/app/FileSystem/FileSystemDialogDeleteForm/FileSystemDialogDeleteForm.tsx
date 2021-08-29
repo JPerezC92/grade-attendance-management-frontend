@@ -6,7 +6,7 @@ import {
   Divider,
   Typography,
 } from '@material-ui/core';
-import { UseModalResult } from 'src/hooks';
+import { useFileSystemHandler, UseModalResult } from 'src/hooks';
 import { useAppSelector } from 'src/redux';
 
 interface FileSystemDialogDeleteFormProps {
@@ -20,10 +20,7 @@ export const FileSystemDialogDeleteForm: React.FC<FileSystemDialogDeleteFormProp
     (state) => state.fileSystemReducer
   );
 
-  const handleDeleteFileSystemObject = () => {
-    // eslint-disable-next-line no-console
-    console.log('borrando');
-  };
+  const { handleDeleteFileSystemObject } = useFileSystemHandler();
 
   return (
     <>

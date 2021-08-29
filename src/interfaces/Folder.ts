@@ -1,3 +1,5 @@
+import { ObjectType } from 'src/redux/reducers';
+
 type payload<Type> = Type;
 type message = string;
 export interface ApiResponse {
@@ -38,7 +40,7 @@ export interface FolderDetail {
   name: string;
   createdAt: string;
   updatedAt: string;
-  objectType: string;
+  objectType: ObjectType.FOLDER;
 }
 
 export interface Folder extends FolderDetail {
@@ -52,7 +54,7 @@ export interface FileRecordDetail {
   name: string;
   createdAt: string;
   updatedAt: string;
-  objectType: string;
+  objectType: ObjectType.FILE;
 }
 
 export interface FileRecord extends FileRecordDetail {

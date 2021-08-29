@@ -1,7 +1,7 @@
 import NextLink from 'next/link';
 import { Box, MenuItem, MenuList, Typography } from '@material-ui/core';
 import { CreateFileButton } from './CreateFileButton';
-import { CreateFolderButton } from './CreateFolderButton ';
+import { CreateFolderButton } from './CreateFolderButton';
 import styles from './AppMenu.module.scss';
 import { RecordRoute } from 'src/routes/record.routepath';
 import { useAppSelector } from 'src/redux';

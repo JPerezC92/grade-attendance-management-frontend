@@ -6,7 +6,7 @@ import {
   DialogTitle,
   TextField,
 } from '@material-ui/core';
-import { useForm, UseModalResult } from 'src/hooks';
+import { useFileSystemHandler, useForm, UseModalResult } from 'src/hooks';
 import { useAppSelector } from 'src/redux';
 
 interface FileSystemDialogRenameFormProps {
@@ -26,10 +26,7 @@ export const FileSystemDialogRenameForm: React.FC<FileSystemDialogRenameFormProp
       : '',
   });
 
-  const handleRenameFileSystemObject = () => {
-    // eslint-disable-next-line no-console
-    console.log('Rename');
-  };
+  const { handleRenameFileSystemObject } = useFileSystemHandler();
 
   return (
     <>
@@ -43,16 +40,20 @@ export const FileSystemDialogRenameForm: React.FC<FileSystemDialogRenameFormProp
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              handleRenameFileSystemObject();
+              handleRenameFileSystemObject(
+                renameFileSystemObjectForm.formValues
+                  .fileSystemObjectNameUpdated
+              );
+              useModalRenameFileSystemObject.handleCloseModal();
             }}
           >
             <DialogContent>
               <TextField
                 autoFocus
                 fullWidth
-                id="fileName"
+                id="fileSystemObjectNameUpdated"
                 margin="dense"
-                name="fileName"
+                name="fileSystemObjectNameUpdated"
                 onChange={renameFileSystemObjectForm.handleInputChange}
                 type="text"
                 value={
@@ -68,11 +69,7 @@ export const FileSystemDialogRenameForm: React.FC<FileSystemDialogRenameFormProp
               >
                 Cancelar
               </Button>
-              <Button
-                onClick={useModalRenameFileSystemObject.handleCloseModal}
-                color="primary"
-                type="submit"
-              >
+              <Button color="primary" type="submit">
                 Guardar
               </Button>
             </DialogActions>
