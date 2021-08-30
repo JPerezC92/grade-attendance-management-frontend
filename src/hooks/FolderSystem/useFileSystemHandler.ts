@@ -26,24 +26,30 @@ export const useFileSystemHandler: UseFileSystemHandler = () => {
     (state) => state.fileSystemReducer
   );
 
-  const handleCreateFolder = (folderName: string) => {
-    dispatch(startCreateFolder(folderName));
+  const handleCreateFolder = async (folderName: string) => {
+    const response = await dispatch(startCreateFolder(folderName));
+
+    // eslint-disable-next-line no-console
+    if (response) console.log(response.message);
   };
 
   const handleCreateFile = (fileName: string) => {
     dispatch(startCreateFile(fileName));
   };
 
-  const handleRenameFileSystemObject = (
+  const handleRenameFileSystemObject = async (
     fileSystemObjectNameUpdated: string
   ) => {
     if (isFolderDetail(rightClickedObject)) {
-      dispatch(
+      const response = await dispatch(
         startUpdateFolder({
           ...rightClickedObject,
           name: fileSystemObjectNameUpdated,
         })
       );
+
+      // eslint-disable-next-line no-console
+      if (response) console.log(response.message);
     }
 
     if (isFileRecordDetail(rightClickedObject)) {
@@ -56,9 +62,12 @@ export const useFileSystemHandler: UseFileSystemHandler = () => {
     }
   };
 
-  const handleDeleteFileSystemObject = () => {
+  const handleDeleteFileSystemObject = async () => {
     if (isFolderDetail(rightClickedObject)) {
-      dispatch(startDeleteFolder(rightClickedObject));
+      const response = await dispatch(startDeleteFolder(rightClickedObject));
+
+      // eslint-disable-next-line no-console
+      if (response) console.log(response.message);
     }
 
     if (isFileRecordDetail(rightClickedObject)) {

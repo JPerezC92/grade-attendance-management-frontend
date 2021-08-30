@@ -2,21 +2,66 @@ import { v4 as uuidv4 } from 'uuid';
 import { AppThunk } from 'src/redux/store/store';
 import { fileSystemActions } from './fileSystem.slice';
 import { ObjectType } from './fileSystem.types';
-import { FileRecordDetail, FolderDetail } from 'src/interfaces';
+import {
+  FileRecordDetail,
+  FolderDetail,
+  ServerErrorResponse,
+} from 'src/interfaces';
+import { LaravelFolderRepository } from 'src/repositories';
+import { isServerErrorResponse } from 'src/helpers/assertions';
 
-export const startCreateFolder = (folderName: string): AppThunk => (
+const laravelFolderRepository = new LaravelFolderRepository();
+
+export const startCreateFolder = (
+  folderName: string
+): AppThunk<Promise<ServerErrorResponse | void>> => async (
   dispatch,
-  _
+  getState
 ) => {
+  const {
+    fileSystemReducer: { currentFolder },
+  } = getState();
+
+  const response = await laravelFolderRepository.create(
+    currentFolder.id,
+    folderName
+  );
+
+  if (isServerErrorResponse(response)) {
+    return response;
+  }
+
   dispatch(
     fileSystemActions.addNewFolder({
-      id: uuidv4(),
-      name: folderName,
-      createdAt: '10-07-2021',
-      updatedAt: '10-07-2021',
+      ...response.payload,
       objectType: ObjectType.FOLDER,
     })
   );
+};
+
+export const startUpdateFolder = (
+  folderDetail: FolderDetail
+): AppThunk<Promise<ServerErrorResponse | void>> => async (dispatch, _) => {
+  const response = await laravelFolderRepository.update(folderDetail);
+
+  if (isServerErrorResponse(response)) return response;
+
+  dispatch(
+    fileSystemActions.updateFolder({
+      ...response.payload,
+      objectType: ObjectType.FOLDER,
+    })
+  );
+};
+
+export const startDeleteFolder = (
+  folderDetail: FolderDetail
+): AppThunk<Promise<ServerErrorResponse | void>> => async (dispatch, _) => {
+  const response = await laravelFolderRepository.delete(folderDetail.id);
+
+  if (isServerErrorResponse(response)) return response;
+
+  dispatch(fileSystemActions.deleteFolder(folderDetail));
 };
 
 export const startCreateFile = (fileName: string): AppThunk => (
@@ -34,20 +79,6 @@ export const startCreateFile = (fileName: string): AppThunk => (
   );
 };
 
-export const startDeleteFolder = (folderDetail: FolderDetail): AppThunk => (
-  dispatch,
-  _
-) => {
-  dispatch(fileSystemActions.deleteFolder(folderDetail));
-};
-
-export const startDeleteFile = (fileDetail: FileRecordDetail): AppThunk => (
-  dispatch,
-  _
-) => {
-  dispatch(fileSystemActions.deleteFile(fileDetail));
-};
-
 export const startUpdateFile = (fileDetail: FileRecordDetail): AppThunk => (
   dispatch,
   _
@@ -55,9 +86,9 @@ export const startUpdateFile = (fileDetail: FileRecordDetail): AppThunk => (
   dispatch(fileSystemActions.updateFile(fileDetail));
 };
 
-export const startUpdateFolder = (folderDetail: FolderDetail): AppThunk => (
+export const startDeleteFile = (fileDetail: FileRecordDetail): AppThunk => (
   dispatch,
   _
 ) => {
-  dispatch(fileSystemActions.updateFolder(folderDetail));
+  dispatch(fileSystemActions.deleteFile(fileDetail));
 };
