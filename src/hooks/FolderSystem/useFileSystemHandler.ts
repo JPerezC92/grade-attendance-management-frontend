@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { isFileRecordDetail } from 'src/helpers/assertions';
 import { isFolderDetail } from 'src/helpers/assertions/isFolderDetail';
 import { useAppDispatch, useAppSelector } from 'src/redux';
@@ -29,12 +30,13 @@ export const useFileSystemHandler: UseFileSystemHandler = () => {
   const handleCreateFolder = async (folderName: string) => {
     const response = await dispatch(startCreateFolder(folderName));
 
-    // eslint-disable-next-line no-console
     if (response) console.log(response.message);
   };
 
-  const handleCreateFile = (fileName: string) => {
-    dispatch(startCreateFile(fileName));
+  const handleCreateFile = async (fileName: string) => {
+    const response = await dispatch(startCreateFile(fileName));
+
+    response && console.log(response.message);
   };
 
   const handleRenameFileSystemObject = async (
@@ -48,17 +50,18 @@ export const useFileSystemHandler: UseFileSystemHandler = () => {
         })
       );
 
-      // eslint-disable-next-line no-console
       if (response) console.log(response.message);
     }
 
     if (isFileRecordDetail(rightClickedObject)) {
-      dispatch(
+      const response = await dispatch(
         startUpdateFile({
           ...rightClickedObject,
           name: fileSystemObjectNameUpdated,
         })
       );
+
+      response && console.log(response.message);
     }
   };
 
@@ -66,12 +69,13 @@ export const useFileSystemHandler: UseFileSystemHandler = () => {
     if (isFolderDetail(rightClickedObject)) {
       const response = await dispatch(startDeleteFolder(rightClickedObject));
 
-      // eslint-disable-next-line no-console
       if (response) console.log(response.message);
     }
 
     if (isFileRecordDetail(rightClickedObject)) {
-      dispatch(startDeleteFile(rightClickedObject));
+      const response = await dispatch(startDeleteFile(rightClickedObject));
+
+      response && console.log(response.message);
     }
   };
 

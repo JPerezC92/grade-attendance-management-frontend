@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
 import { AppThunk } from 'src/redux/store/store';
 import { fileSystemActions } from './fileSystem.slice';
 import { ObjectType } from './fileSystem.types';
@@ -7,10 +6,14 @@ import {
   FolderDetail,
   ServerErrorResponse,
 } from 'src/interfaces';
-import { LaravelFolderRepository } from 'src/repositories';
+import {
+  LaravelFileRecordRepository,
+  LaravelFolderRepository,
+} from 'src/repositories';
 import { isServerErrorResponse } from 'src/helpers/assertions';
 
 const laravelFolderRepository = new LaravelFolderRepository();
+const laravelFileRecordRepository = new LaravelFileRecordRepository();
 
 export const startCreateFolder = (
   folderName: string
@@ -64,31 +67,52 @@ export const startDeleteFolder = (
   dispatch(fileSystemActions.deleteFolder(folderDetail));
 };
 
-export const startCreateFile = (fileName: string): AppThunk => (
+export const startCreateFile = (
+  fileName: string
+): AppThunk<Promise<ServerErrorResponse | void>> => async (
   dispatch,
-  _
+  getState
 ) => {
+  const { currentFolder } = getState().fileSystemReducer;
+
+  const response = await laravelFileRecordRepository.create(
+    currentFolder.id,
+    fileName
+  );
+
+  if (isServerErrorResponse(response)) return response;
+
   dispatch(
     fileSystemActions.addNewFile({
-      id: uuidv4(),
-      name: fileName,
-      createdAt: '10-07-2021',
-      updatedAt: '10-07-2021',
+      ...response.payload,
       objectType: ObjectType.FILE,
     })
   );
 };
 
-export const startUpdateFile = (fileDetail: FileRecordDetail): AppThunk => (
-  dispatch,
-  _
-) => {
-  dispatch(fileSystemActions.updateFile(fileDetail));
+export const startUpdateFile = (
+  fileRecordDetail: FileRecordDetail
+): AppThunk<Promise<ServerErrorResponse | void>> => async (dispatch, _) => {
+  const response = await laravelFileRecordRepository.update(fileRecordDetail);
+
+  if (isServerErrorResponse(response)) return response;
+
+  dispatch(
+    fileSystemActions.updateFile({
+      ...response.payload,
+      objectType: ObjectType.FILE,
+    })
+  );
 };
 
-export const startDeleteFile = (fileDetail: FileRecordDetail): AppThunk => (
-  dispatch,
-  _
-) => {
-  dispatch(fileSystemActions.deleteFile(fileDetail));
+export const startDeleteFile = (
+  fileRecordDetail: FileRecordDetail
+): AppThunk<Promise<ServerErrorResponse | void>> => async (dispatch, _) => {
+  const response = await laravelFileRecordRepository.delete(
+    fileRecordDetail.id
+  );
+
+  if (isServerErrorResponse(response)) return response;
+
+  dispatch(fileSystemActions.deleteFile(fileRecordDetail));
 };
