@@ -15,17 +15,13 @@ export interface ServerErrorResponse {
   message: message;
 }
 
-export interface User {
+export interface User extends Person {
   id: string;
-  firstname: string;
-  lastname: string;
   email: string;
   rootFolderId: string;
 }
 
-export interface RegisterUserInformation {
-  firstname: string;
-  lastname: string;
+export interface RegisterUserInformation extends Person {
   email: string;
   password: string;
 }
@@ -65,14 +61,16 @@ export interface FileRecord extends FileRecordDetail {
   activities: Activity[];
   attendances: Attendance[];
 }
-
-export interface Student {
-  id: string;
+interface Person {
   firstname: string;
   lastname: string;
-  email: string;
-  rootFolder: Folder;
 }
+export interface Student extends Person {
+  id: string;
+  studentId: string;
+}
+
+export type RegisterStudentInformation = Omit<Student, 'id'>;
 
 export interface Activity {
   id: string;
