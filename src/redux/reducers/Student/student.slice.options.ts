@@ -6,7 +6,7 @@ export const setStudents = (
   state: Draft<StudentState>,
   action: PayloadAction<Student[]>
 ): void => {
-  state.students = action.payload;
+  state.students = [...state.students, ...action.payload];
 };
 
 export const addNewStudent = (

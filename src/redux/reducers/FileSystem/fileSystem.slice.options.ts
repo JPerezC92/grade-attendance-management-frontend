@@ -59,6 +59,13 @@ const deleteFile = (
   );
 };
 
+const setCurrentFile = (
+  state: Draft<FileSystemState>,
+  action: PayloadAction<FileRecordDetail>
+): void => {
+  state.currentFile = action.payload;
+};
+
 export const fileSystemSliceOptions = {
   setRightClickedObject,
   addNewFolder,
@@ -67,4 +74,5 @@ export const fileSystemSliceOptions = {
   updateFolder,
   deleteFolder,
   deleteFile,
+  setCurrentFile,
 };

@@ -9,7 +9,8 @@ export interface FileSystemState {
   recentFiles: FileRecordDetail[];
   files: FileRecordDetail[];
   folders: FolderDetail[];
-  currentFolder: FolderDetail;
+  currentFolder: FolderDetail | null;
+  currentFile: FileRecordDetail | null;
   rightClickedObject: FileRecordDetail | FolderDetail | null;
 }
 
@@ -168,4 +169,5 @@ export const fileSystemInitialState: FileSystemState = {
     objectType: ObjectType.FOLDER,
   },
   rightClickedObject: null,
+  currentFile: null,
 };

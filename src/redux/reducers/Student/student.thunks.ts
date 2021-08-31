@@ -6,6 +6,7 @@ import {
 } from 'src/interfaces';
 import { AppThunk } from 'src/redux/store';
 import { studentAction } from './student.slice';
+import { parseCSV } from 'src/helpers/parseCSV';
 
 export const startCreateStudent = (
   studentInformation: RegisterStudentInformation
@@ -15,18 +16,14 @@ export const startCreateStudent = (
   );
 };
 
-export const startCreateStudentFromCSV = (): AppThunk<
-  Promise<ServerErrorResponse | void>
-> => async (dispatch, _) => {
+export const startCreateStudentFromCSV = (
+  file: File
+): AppThunk<Promise<ServerErrorResponse | void>> => async (dispatch, _) => {
+  const { students } = await parseCSV(file);
   dispatch(
-    studentAction.setStudents([
-      {
-        id: uuidv4(),
-        firstname: 'Create From CSV',
-        lastname: 'Create From CSV',
-        studentId: 'Create From CSV',
-      },
-    ])
+    studentAction.setStudents(
+      students.map((student) => ({ ...student, id: uuidv4() }))
+    )
   );
 };
 
