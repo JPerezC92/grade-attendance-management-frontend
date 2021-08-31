@@ -169,5 +169,11 @@ export const fileSystemInitialState: FileSystemState = {
     objectType: ObjectType.FOLDER,
   },
   rightClickedObject: null,
-  currentFile: null,
+  currentFile: {
+    id: 'fe9fc2a0-e837-4dc1-8e51-ec63c51969a9',
+    name: 'File 1',
+    createdAt: '10-07-2021',
+    updatedAt: '10-07-2021',
+    objectType: ObjectType.FILE,
+  },
 };
