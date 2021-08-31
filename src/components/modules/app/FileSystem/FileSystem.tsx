@@ -8,7 +8,7 @@ import {
   TableRow,
 } from '@material-ui/core';
 import { RecordRoute } from 'src/routes/record.routepath';
-import { useAppSelector } from 'src/redux';
+import { fileSystemActions, useAppDispatch, useAppSelector } from 'src/redux';
 import { useFileSystemRigthClick, useMouseCoordinates } from 'src/hooks';
 import { File } from './File';
 import { Folder } from './Folder';
@@ -17,6 +17,7 @@ import styles from './FileSystem.module.scss';
 
 export const FileSystem: React.FC = () => {
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const { files, folders } = useAppSelector((state) => state.fileSystemReducer);
 
   const rightClickMouseCoordinates = useMouseCoordinates();
@@ -63,7 +64,12 @@ export const FileSystem: React.FC = () => {
                   handleOpenContextMenu(event, fileDetail)
                 }
                 className={styles.folderSystem__row}
-                onClick={() => router.push(RecordRoute.GRADE(fileDetail.id))}
+                onClick={() => {
+                  dispatch(fileSystemActions.setCurrentFile(fileDetail));
+                  router.push(
+                    RecordRoute.GRADE(encodeURIComponent(fileDetail.id))
+                  );
+                }}
               >
                 <TableCell>
                   <File fileDetail={fileDetail} />
@@ -81,57 +87,6 @@ export const FileSystem: React.FC = () => {
         mouseCoordinates={mouseCoordinates}
         handleCloseContextMenu={handleCloseContextMenu}
       />
-      {/* <Menu
-        keepMounted
-        open={isMouseCoordinates(mouseCoordinates)}
-        onClose={handleClose}
-        anchorReference="anchorPosition"
-        anchorPosition={
-          isMouseCoordinates(mouseCoordinates)
-            ? { top: mouseCoordinates.mouseY, left: mouseCoordinates.mouseX }
-            : undefined
-        }
-      >
-        <MenuItem onClick={handleDelete}>Delete</MenuItem>
-        <MenuItem onClick={handleClose}>Print</MenuItem>
-        <MenuItem onClick={handleClose}>Highlight</MenuItem>
-        <MenuItem onClick={handleClose}>Email</MenuItem>
-      </Menu> */}
-
-      {/* modal */}
-      {/* <Dialog
-        open={isOpen}
-        // onClose={handleClose}
-        aria-labelledby="form-dialog-title"
-      >
-        <DialogTitle id="form-dialog-title">Borrar</DialogTitle>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-          }}
-        >
-          <DialogContent>
-            <TextField
-              autoFocus
-              fullWidth
-              id="fileName"
-              margin="dense"
-              name="fileName"
-              // onChange={handleInputChange}
-              type="text"
-              // value={objectName}
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleCloseModal} color="secondary">
-              Cancelar
-            </Button>
-            <Button onClick={handleCloseModal} color="primary" type="submit">
-              Guardar
-            </Button>
-          </DialogActions>
-        </form>
-      </Dialog> */}
     </>
   );
 };

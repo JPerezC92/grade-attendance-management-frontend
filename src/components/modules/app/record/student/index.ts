@@ -1,2 +1,5 @@
+export * from './CreateStudentFromCSVButton';
 export * from './RegisterStudentButton';
-export * from './RegisterStudentForm';
+export * from './StudentDialogEditForm';
+export * from './StudentDialogRegisterForm';
+export * from './StudentEditButton';

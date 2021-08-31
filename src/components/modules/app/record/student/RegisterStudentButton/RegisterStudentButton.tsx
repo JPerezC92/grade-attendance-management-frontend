@@ -1,6 +1,6 @@
 import { Button } from '@material-ui/core';
 import { useModal } from 'src/hooks';
-import { RegisterStudentForm } from '../RegisterStudentForm';
+import { StudentDialogRegisterForm } from '../StudentDialogRegisterForm';
 // import styles from './CreateStudentButton.module.scss';
 
 export const RegisterStudentButton: React.FC = () => {
@@ -16,9 +16,11 @@ export const RegisterStudentButton: React.FC = () => {
         Agregar estudiante
       </Button>
 
-      <RegisterStudentForm
-        useModalRegisterStudentForm={useModalRegisterStudentForm}
-      />
+      {useModalRegisterStudentForm.isOpen && (
+        <StudentDialogRegisterForm
+          useModalRegisterStudentForm={useModalRegisterStudentForm}
+        />
+      )}
     </>
   );
 };

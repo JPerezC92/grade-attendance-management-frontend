@@ -1,17 +1,28 @@
-import styles from './RecordStudentContainer.module.scss';
-
 import {
+  Box,
+  IconButton,
   Paper,
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
   Typography,
 } from '@material-ui/core';
-import { RegisterStudentButton, RecordLayout } from 'src/components/modules';
+import { AiOutlineDelete } from 'react-icons/ai';
+import {
+  RegisterStudentButton,
+  RecordLayout,
+  StudentEditButton,
+} from 'src/components/modules';
+import { useAppDispatch, useAppSelector } from 'src/redux';
+import { startDeleteStudent } from 'src/redux/reducers/Student/student.thunks';
+import styles from './RecordStudentContainer.module.scss';
 
 export const RecordStudentContainer: React.FC = () => {
+  const { students } = useAppSelector((state) => state.studentReducer);
+  const dispatch = useAppDispatch();
   return (
     <>
       <RecordLayout>
@@ -25,25 +36,41 @@ export const RecordStudentContainer: React.FC = () => {
           </div>
 
           <Paper>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>ID</TableCell>
-                  <TableCell>Apellidos</TableCell>
-                  <TableCell>Nombres</TableCell>
-                  <TableCell>Acciones</TableCell>
-                </TableRow>
-              </TableHead>
+            <TableContainer>
+              <Table size="small">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>ID</TableCell>
+                    <TableCell>Apellidos</TableCell>
+                    <TableCell>Nombres</TableCell>
+                    <TableCell align="center">Acciones</TableCell>
+                  </TableRow>
+                </TableHead>
 
-              <TableBody>
-                <TableRow>
-                  <TableCell>236798</TableCell>
-                  <TableCell>Test</TableCell>
-                  <TableCell>Test</TableCell>
-                  <TableCell></TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
+                <TableBody>
+                  {students.map((student) => (
+                    <TableRow key={student.id}>
+                      <TableCell>{student.studentId}</TableCell>
+                      <TableCell>{student.firstname}</TableCell>
+                      <TableCell>{student.lastname}</TableCell>
+                      <TableCell>
+                        <Box display="flex">
+                          <StudentEditButton student={student} />
+                          <IconButton
+                            color="secondary"
+                            onClick={() =>
+                              dispatch(startDeleteStudent(student))
+                            }
+                          >
+                            <AiOutlineDelete />
+                          </IconButton>
+                        </Box>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
           </Paper>
         </div>
       </RecordLayout>

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { TableCell, ClickAwayListener, TextField } from '@material-ui/core';
 
 interface GradeTableAssignedScoreCellProps {
-  studentId: number;
+  studentId: string;
 }
 
 export const GradeTableAssignedScoreCell: React.FC<GradeTableAssignedScoreCellProps> = () => {

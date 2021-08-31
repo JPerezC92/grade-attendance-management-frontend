@@ -9,32 +9,31 @@ import {
   Divider,
 } from '@material-ui/core';
 import { useForm, UseModalResult } from 'src/hooks';
-// import styles from  './RegisterStudentForm.module.scss';
+import { useAppDispatch } from 'src/redux';
+import { startCreateStudent } from 'src/redux/reducers/Student/student.thunks';
+// import styles from  './StudentDialogRegisterForm.module.scss';
 
-interface RegisterStudentFormProps {
+interface StudentDialogRegisterFormProps {
   useModalRegisterStudentForm: UseModalResult;
 }
 
-export const RegisterStudentForm: React.FC<RegisterStudentFormProps> = ({
+export const StudentDialogRegisterForm: React.FC<StudentDialogRegisterFormProps> = ({
   useModalRegisterStudentForm,
 }) => {
+  const dispatch = useAppDispatch();
   const { isOpen, handleCloseModal } = useModalRegisterStudentForm;
-  const { formValues, handleInputChange, reset: resetForm } = useForm({
+  const { formValues, handleInputChange } = useForm({
     firstname: '',
     lastname: '',
     studentId: '',
   });
 
-  const handleOnCloseModal = () => {
-    resetForm();
-    handleCloseModal();
-  };
-
   return (
     <>
       <Dialog
+        maxWidth="xs"
         open={isOpen}
-        onClose={handleOnCloseModal}
+        onClose={handleCloseModal}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title" disableTypography>
@@ -44,12 +43,14 @@ export const RegisterStudentForm: React.FC<RegisterStudentFormProps> = ({
         </DialogTitle>
 
         <Divider />
+
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            // eslint-disable-next-line no-console
-            console.log({ formValues });
-            handleOnCloseModal();
+
+            dispatch(startCreateStudent(formValues));
+
+            handleCloseModal();
           }}
         >
           <DialogContent>
@@ -91,7 +92,7 @@ export const RegisterStudentForm: React.FC<RegisterStudentFormProps> = ({
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleOnCloseModal} color="secondary">
+            <Button onClick={handleCloseModal} color="secondary">
               Cancelar
             </Button>
             <Button color="primary" type="submit">

@@ -14,10 +14,12 @@ import {
 import React from 'react';
 import { RecordLayout } from 'src/components/modules';
 import { AttendanceTableCheckAttendanceCell } from 'src/components/modules/app/record/attendance/AttendanceTableCheckAttendanceCell';
-import { students } from 'src/helpers/gradeMock';
+import { useAppSelector } from 'src/redux';
 import styles from './RecordAttendanceContainer.module.scss';
 
 export const RecordAttendanceContainer: React.FC = () => {
+  const { students } = useAppSelector((state) => state.studentReducer);
+
   return (
     <>
       <RecordLayout>
@@ -64,7 +66,7 @@ export const RecordAttendanceContainer: React.FC = () => {
               </TableHead>
               <TableBody>
                 {students.map((student) => (
-                  <TableRow key={student.studentId}>
+                  <TableRow key={student.id}>
                     <TableCell>{student.studentId}</TableCell>
                     <TableCell>{student.firstname}</TableCell>
                     <TableCell>{student.lastname}</TableCell>

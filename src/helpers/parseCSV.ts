@@ -1,7 +1,7 @@
 type Headers = [string, string, string];
 
 interface Student {
-  id: number;
+  studentId: string;
   firstname: string;
   lastname: string;
 }
@@ -36,7 +36,7 @@ export const parseCSV = async (file: File): Promise<CSV> => {
     students = [
       ...students,
       {
-        id: parseInt(id.trim()),
+        studentId: id.trim(),
         firstname: firstname.trim(),
         lastname: lastname.trim(),
       },
