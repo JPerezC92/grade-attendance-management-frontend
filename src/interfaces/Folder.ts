@@ -94,14 +94,28 @@ export interface AssignedScore {
 }
 
 export interface Attendance {
+  id: string;
   date: string;
   gradeId: string;
   checkAttendances: CheckAttendance[];
+}
+
+export interface AttendanceSummary {
+  A: number;
+  T: number;
+  I: number;
+  percentage: number;
 }
 
 export interface CheckAttendance {
   id: string;
   attendanceId: string;
   studentId: string;
-  statusId;
+  statusValue: string;
+  statusId: string;
+}
+
+export interface AttendanceStatus {
+  id: string;
+  value: string;
 }

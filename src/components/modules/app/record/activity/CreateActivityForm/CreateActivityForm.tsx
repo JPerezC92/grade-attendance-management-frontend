@@ -72,7 +72,7 @@ export const CreateActivityForm: React.FC<CreateActivityFormProps> = ({
             <TextareaAutosize
               aria-label="minimum height"
               maxLength={200}
-              minRows={3}
+              // minRows={3}
               onChange={handleInputChange}
               placeholder="Comentario"
               name="comment"

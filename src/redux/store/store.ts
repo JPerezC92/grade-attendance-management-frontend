@@ -4,12 +4,14 @@ import {
   authReducer,
   fileSystemReducer,
   studentReducer,
+  attendanceReducer,
 } from 'src/redux/reducers';
 
 export const reducer = {
   authReducer,
   fileSystemReducer,
   studentReducer,
+  attendanceReducer,
 };
 
 const store = configureStore({

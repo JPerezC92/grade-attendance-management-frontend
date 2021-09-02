@@ -15,7 +15,7 @@ export const studentInitialState: StudentState = {
       lastname: 'ADRIAN VIDAL',
     },
     {
-      id: uuidv4(),
+      id: '55d6b49d-6a46-4ece-84e4-d975287e243c',
       studentId: '1248167',
       firstname: 'JHEANPIER MARUAN',
       lastname: 'AGUILAR AVILA',

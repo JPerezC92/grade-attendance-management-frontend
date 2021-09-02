@@ -3,7 +3,7 @@ import { useState } from 'react';
 interface UseFormResult<FormValues> {
   formValues: FormValues;
   handleInputChange: (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | unknown>
   ) => void;
   reset: (newFormState?: FormValues) => void;
 }

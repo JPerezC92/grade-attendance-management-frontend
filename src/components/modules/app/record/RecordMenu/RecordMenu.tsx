@@ -24,36 +24,33 @@ export const RecordMenu: React.FC = () => {
       </Box>
       <Box>
         <MenuList className={styles.menu__list}>
-          <NextLink
-            href={RecordRoute.GRADE(encodeURIComponent(currentFile.id))}
-            passHref
-          >
+          <NextLink href={RecordRoute.GRADE(currentFile.id)} passHref>
             <MenuItem component="a" divider>
               Calificaciones
             </MenuItem>
           </NextLink>
-          <NextLink
-            href={RecordRoute.ATTENDANCE(encodeURIComponent(currentFile.id))}
-            passHref
-          >
-            <MenuItem component="a" divider>
-              Asistencias
-            </MenuItem>
-          </NextLink>
-          <NextLink
-            href={RecordRoute.STUDENT(encodeURIComponent(currentFile.id))}
-            passHref
-          >
+
+          <NextLink href={RecordRoute.STUDENT(currentFile.id)} passHref>
             <MenuItem component="a" divider>
               Estudiantes
             </MenuItem>
           </NextLink>
-          <NextLink
-            href={RecordRoute.ACTIVITY(encodeURIComponent(currentFile.id))}
-            passHref
-          >
+
+          <NextLink href={RecordRoute.ACTIVITY(currentFile.id)} passHref>
             <MenuItem component="a" divider>
               Actividades
+            </MenuItem>
+          </NextLink>
+
+          <NextLink href={RecordRoute.ATTENDANCE(currentFile.id)} passHref>
+            <MenuItem component="a" divider>
+              Asistencias
+            </MenuItem>
+          </NextLink>
+
+          <NextLink href={RecordRoute.ATTENDANCE_DATE(currentFile.id)} passHref>
+            <MenuItem component="a" divider>
+              Fechas de asistencia
             </MenuItem>
           </NextLink>
         </MenuList>

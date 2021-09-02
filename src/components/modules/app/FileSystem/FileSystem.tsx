@@ -66,9 +66,7 @@ export const FileSystem: React.FC = () => {
                 className={styles.folderSystem__row}
                 onClick={() => {
                   dispatch(fileSystemActions.setCurrentFile(fileDetail));
-                  router.push(
-                    RecordRoute.GRADE(encodeURIComponent(fileDetail.id))
-                  );
+                  router.push(RecordRoute.GRADE(fileDetail.id));
                 }}
               >
                 <TableCell>
@@ -81,7 +79,6 @@ export const FileSystem: React.FC = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      {/* rightClick */}
 
       <FileSystemRigthClickMenu
         mouseCoordinates={mouseCoordinates}

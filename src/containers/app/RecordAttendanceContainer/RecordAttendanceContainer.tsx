@@ -6,15 +6,21 @@ import {
   TableHead,
   TableRow,
   Typography,
-  Button,
 } from '@material-ui/core';
-import React from 'react';
-import { RecordLayout } from 'src/components/modules';
+import { format, parse } from 'date-fns';
+import {
+  AttendanceButtonCallAttendance,
+  RecordLayout,
+} from 'src/components/modules';
 import { useAppSelector } from 'src/redux';
 import styles from './RecordAttendanceContainer.module.scss';
 
 export const RecordAttendanceContainer: React.FC = () => {
-  const { students } = useAppSelector((state) => state.studentReducer);
+  const state = useAppSelector((state) => state);
+  const {
+    studentReducer: { students },
+    attendanceReducer: { attendances },
+  } = state;
 
   return (
     <>
@@ -25,9 +31,7 @@ export const RecordAttendanceContainer: React.FC = () => {
           </Typography>
 
           <div className={styles.recordAttendance__buttons}>
-            <Button variant="contained" color="primary">
-              Agregar Fecha
-            </Button>
+            <AttendanceButtonCallAttendance />
           </div>
 
           <Paper>
@@ -37,7 +41,7 @@ export const RecordAttendanceContainer: React.FC = () => {
                   <TableCell colSpan={3} align="center">
                     Lista de Estudiantes
                   </TableCell>
-                  <TableCell colSpan={2} align="center">
+                  <TableCell colSpan={attendances.length} align="center">
                     Fechas
                   </TableCell>
                   <TableCell colSpan={4} align="center">
@@ -51,8 +55,23 @@ export const RecordAttendanceContainer: React.FC = () => {
                   <TableCell>ID</TableCell>
                   <TableCell>Apellidos</TableCell>
                   <TableCell>Nombres</TableCell>
-                  <TableCell>27/02/2021</TableCell>
-                  <TableCell>Fecha</TableCell>
+                  {attendances.map((attendance) => (
+                    <TableCell
+                      style={
+                        {
+                          // transform: 'translate(-35px, 0px) rotate(270deg)',
+                          // height: '1rem',
+                          // width: '1rem !important',
+                        }
+                      }
+                      key={attendance.id}
+                    >
+                      {format(
+                        parse(attendance.date, 'yyyy-MM-dd', new Date()),
+                        'dd-MM-yy'
+                      )}
+                    </TableCell>
+                  ))}
 
                   <TableCell>A</TableCell>
                   <TableCell>T</TableCell>
@@ -64,9 +83,18 @@ export const RecordAttendanceContainer: React.FC = () => {
                 {students.map((student) => (
                   <TableRow key={student.id}>
                     <TableCell>{student.studentId}</TableCell>
-                    <TableCell>{student.firstname}</TableCell>
-                    <TableCell>{student.lastname}</TableCell>
-                    <TableCell>A</TableCell>
+                    <TableCell style={{ whiteSpace: 'pre' }}>
+                      {student.firstname}
+                    </TableCell>
+                    <TableCell style={{ whiteSpace: 'pre' }}>
+                      {student.lastname}
+                    </TableCell>
+
+                    {attendances.map((attendance) => (
+                      <TableCell key={attendance.id} align="center">
+                        A
+                      </TableCell>
+                    ))}
 
                     {/* <AttendanceTableCheckAttendanceCell /> */}
 
