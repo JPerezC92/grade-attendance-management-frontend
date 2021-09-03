@@ -12,9 +12,9 @@ import {
 } from '@material-ui/core';
 import { AiOutlineDelete } from 'react-icons/ai';
 import {
-  RegisterStudentButton,
   RecordLayout,
-  StudentEditButton,
+  StudentButtonRegister,
+  StudentButtonEdit,
 } from 'src/components/modules';
 import { useAppDispatch, useAppSelector } from 'src/redux';
 import { startDeleteStudent } from 'src/redux/reducers/Student/student.thunks';
@@ -32,7 +32,7 @@ export const RecordStudentContainer: React.FC = () => {
           </Typography>
 
           <div className={styles.recordStudent__buttons}>
-            <RegisterStudentButton />
+            <StudentButtonRegister />
           </div>
 
           <Paper>
@@ -55,7 +55,7 @@ export const RecordStudentContainer: React.FC = () => {
                       <TableCell>{student.lastname}</TableCell>
                       <TableCell>
                         <Box display="flex">
-                          <StudentEditButton student={student} />
+                          <StudentButtonEdit student={student} />
                           <IconButton
                             color="secondary"
                             onClick={() =>

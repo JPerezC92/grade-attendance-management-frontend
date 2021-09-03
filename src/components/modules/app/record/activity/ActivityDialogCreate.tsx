@@ -9,18 +9,16 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core';
-import React from 'react';
 import { useForm, UseModalResult } from 'src/hooks';
-// import styles from './CreateActivityForm.module.scss';
 
-interface CreateActivityFormProps {
-  useModalCreateActivityForm: UseModalResult;
+interface ActivityDialogCreateProps {
+  useModalActivityDialogCreate: UseModalResult;
 }
 
-export const CreateActivityForm: React.FC<CreateActivityFormProps> = ({
-  useModalCreateActivityForm,
+export const ActivityDialogCreate: React.FC<ActivityDialogCreateProps> = ({
+  useModalActivityDialogCreate,
 }) => {
-  const { isOpen, handleCloseModal } = useModalCreateActivityForm;
+  const { isOpen, handleCloseModal } = useModalActivityDialogCreate;
 
   const { formValues, handleInputChange, reset: resetForm } = useForm({
     name: '',

@@ -8,12 +8,9 @@ import {
   Typography,
 } from '@material-ui/core';
 import { RecordLayout } from 'src/components/modules';
-import { CreateActivityButton } from 'src/components/modules';
+import { ActivityButtonCreate } from 'src/components/modules';
 import styles from './RecordActivityContainer.module.scss';
 
-// interface RecordActivityContainerProps {}
-
-// export const RecordActivityContainer: React.FC<RecordActivityContainerProps> = () => {
 export const RecordActivityContainer: React.FC = () => {
   return (
     <>
@@ -24,7 +21,7 @@ export const RecordActivityContainer: React.FC = () => {
           </Typography>
 
           <div className={styles.recordActivity__buttons}>
-            <CreateActivityButton />
+            <ActivityButtonCreate />
           </div>
 
           <Paper>

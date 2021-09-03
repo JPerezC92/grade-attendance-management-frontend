@@ -16,15 +16,15 @@ import { startUpdateStudent } from 'src/redux/reducers/Student/student.thunks';
 
 interface StudentDialogEditFormProps {
   student: Student;
-  useModalEditStudent: UseModalResult;
+  useModalStudentDialogEdit: UseModalResult;
 }
 
 export const StudentDialogEditForm: React.FC<StudentDialogEditFormProps> = ({
   student,
-  useModalEditStudent,
+  useModalStudentDialogEdit,
 }) => {
   const dispatch = useAppDispatch();
-  const { isOpen, handleCloseModal } = useModalEditStudent;
+  const { isOpen, handleCloseModal } = useModalStudentDialogEdit;
 
   const { formValues, handleInputChange } = useForm({
     firstname: student.firstname,

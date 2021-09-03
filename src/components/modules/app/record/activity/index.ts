@@ -1,2 +1,2 @@
-export * from './CreateActivityButton';
-export * from './CreateActivityForm';
+export * from './ActivityButtonCreate';
+export * from './ActivityDialogCreate';

@@ -14,14 +14,14 @@ import { startCreateStudent } from 'src/redux/reducers/Student/student.thunks';
 // import styles from  './StudentDialogRegisterForm.module.scss';
 
 interface StudentDialogRegisterFormProps {
-  useModalRegisterStudentForm: UseModalResult;
+  useModalStudentDialogRegister: UseModalResult;
 }
 
-export const StudentDialogRegisterForm: React.FC<StudentDialogRegisterFormProps> = ({
-  useModalRegisterStudentForm,
+export const StudentDialogRegister: React.FC<StudentDialogRegisterFormProps> = ({
+  useModalStudentDialogRegister,
 }) => {
   const dispatch = useAppDispatch();
-  const { isOpen, handleCloseModal } = useModalRegisterStudentForm;
+  const { isOpen, handleCloseModal } = useModalStudentDialogRegister;
   const { formValues, handleInputChange } = useForm({
     firstname: '',
     lastname: '',

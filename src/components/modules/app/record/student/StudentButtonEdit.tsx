@@ -4,24 +4,27 @@ import { useModal } from 'src/hooks';
 import { Student } from 'src/interfaces';
 import { StudentDialogEditForm } from './StudentDialogEditForm';
 
-interface StudentEditButtonProps {
+interface StudentButtonEditProps {
   student: Student;
 }
 
-export const StudentEditButton: React.FC<StudentEditButtonProps> = ({
+export const StudentButtonEdit: React.FC<StudentButtonEditProps> = ({
   student,
 }) => {
-  const useModalEditStudent = useModal();
+  const useModalStudentDialogEdit = useModal();
   return (
     <>
-      <IconButton color="primary" onClick={useModalEditStudent.handleOpenModal}>
+      <IconButton
+        color="primary"
+        onClick={useModalStudentDialogEdit.handleOpenModal}
+      >
         <AiOutlineEdit />
       </IconButton>
 
-      {useModalEditStudent.isOpen && (
+      {useModalStudentDialogEdit.isOpen && (
         <StudentDialogEditForm
           student={student}
-          useModalEditStudent={useModalEditStudent}
+          useModalStudentDialogEdit={useModalStudentDialogEdit}
         />
       )}
     </>
