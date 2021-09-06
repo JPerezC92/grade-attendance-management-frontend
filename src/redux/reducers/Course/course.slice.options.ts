@@ -9,6 +9,13 @@ const setCourses = (
   state.courses = action.payload;
 };
 
+const addNewCourse = (
+  state: Draft<CourseState>,
+  action: PayloadAction<Course>
+): void => {
+  state.courses = [...state.courses, action.payload];
+};
+
 const startLoading = (state: Draft<CourseState>): void => {
   state.isLoading = true;
 };
@@ -17,4 +24,9 @@ const finishLoading = (state: Draft<CourseState>): void => {
   state.isLoading = false;
 };
 
-export const courseSliceOptions = { setCourses, startLoading, finishLoading };
+export const courseSliceOptions = {
+  setCourses,
+  addNewCourse,
+  startLoading,
+  finishLoading,
+};

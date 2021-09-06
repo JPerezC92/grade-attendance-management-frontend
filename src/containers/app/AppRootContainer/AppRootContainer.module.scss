@@ -1,4 +1,10 @@
-.folderSystemWrapper {
-  display: flex;
-  place-items: center;
+.course {
+  padding: 36px;
+}
+
+.course__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+  margin-block-start: 16px;
 }

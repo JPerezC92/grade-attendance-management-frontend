@@ -1,5 +1,5 @@
-import { Backdrop, CircularProgress } from '@material-ui/core';
 import { useEffect } from 'react';
+import { Backdrop, CircularProgress } from '@material-ui/core';
 import { Redirect } from 'src/components/common';
 import { startLoadingCourses, useAppDispatch, useAppSelector } from 'src/redux';
 import { AuthRoute } from 'src/routes';
@@ -15,12 +15,17 @@ export const IfUserIsAuthenticated: React.FC = ({ children }) => {
 
   if (!isLoggedIn || !user) return <Redirect to={AuthRoute.LOGIN} />;
 
-  if (courseReducer.isLoading)
-    return (
-      <Backdrop open={courseReducer.isLoading}>
-        <CircularProgress color="primary" />
-      </Backdrop>
-    );
-
-  return <>{children}</>;
+  return (
+    <>
+      {courseReducer.isLoading && (
+        <Backdrop
+          open={courseReducer.isLoading}
+          style={{ zIndex: 1, color: '#fff' }}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
+      )}
+      {children}
+    </>
+  );
 };
