@@ -6,7 +6,7 @@ import { CgMenuGridO } from 'react-icons/cg';
 
 import { AppNavigation } from '../AppNavigation';
 import { AppMenu } from '../AppMenu';
-import { UserOptionIcon } from './UserOptionIcon';
+import { UserOptionIcon } from '../UserOptionIcon';
 import SenatiLogoNameV2 from 'src/static/senati-logo-name-v2.svg';
 
 import styles from './AppLayout.module.scss';
