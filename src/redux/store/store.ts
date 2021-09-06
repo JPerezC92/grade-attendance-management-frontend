@@ -5,6 +5,7 @@ import {
   fileSystemReducer,
   studentReducer,
   attendanceReducer,
+  courseReducer,
 } from 'src/redux/reducers';
 
 export const reducer = {
@@ -12,6 +13,7 @@ export const reducer = {
   fileSystemReducer,
   studentReducer,
   attendanceReducer,
+  courseReducer,
 };
 
 const store = configureStore({
