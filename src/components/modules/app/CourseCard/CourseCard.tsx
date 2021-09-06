@@ -1,5 +1,6 @@
 import Image from 'next/image';
-import { Tooltip, Typography } from '@material-ui/core';
+import { FiMoreVertical } from 'react-icons/fi';
+import { IconButton, Tooltip, Typography } from '@material-ui/core';
 import { Course } from 'src/interfaces';
 import courseImg from 'src/static/course-image.jpg';
 import styles from './CourseCard.module.scss';
@@ -12,6 +13,15 @@ export const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
   return (
     <>
       <div className={styles.courseCard}>
+        <IconButton
+          aria-label="more"
+          aria-controls="long-menu"
+          aria-haspopup="true"
+          className={styles.courseCard__moreIcon}
+        >
+          <FiMoreVertical />
+        </IconButton>
+
         <div className={styles.courseCard__img}>
           <Image
             src={courseImg}
