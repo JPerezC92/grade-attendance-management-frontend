@@ -4,6 +4,7 @@ import { Typography } from '@material-ui/core';
 import { useRouter } from 'next/router';
 import { CourseLayout } from 'src/components/modules';
 import courseRecordImage from 'src/static/course-record-image.jpg';
+import { CourseRecordRoute } from 'src/routes';
 import {
   startLoadingCourseDetail,
   useAppDispatch,
@@ -40,7 +41,15 @@ export const CourseIdContainer: React.FC = () => {
 
           <div className={styles.courseId__grid}>
             {currentCourse.course_records.map((courseRecord) => (
-              <div key={courseRecord.id} className={styles.courseRecordCard}>
+              <div
+                key={courseRecord.id}
+                className={styles.courseRecordCard}
+                onClick={() =>
+                  router.push(
+                    CourseRecordRoute.ROOT(currentCourse.id, courseRecord.id)
+                  )
+                }
+              >
                 <div>
                   <NextImage src={courseRecordImage} />
                 </div>

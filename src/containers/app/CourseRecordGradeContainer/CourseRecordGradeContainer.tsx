@@ -1,8 +1,8 @@
 import { Paper, Typography } from '@material-ui/core';
 import { GradeTable, RecordLayout } from 'src/components/modules';
-import styles from './RecordGradeContainer.module.scss';
+import styles from './CourseRecordGradeContainer.module.scss';
 
-export const RecordGradeContainer: React.FC = () => {
+export const CourseRecordGradeContainer: React.FC = () => {
   return (
     <>
       <RecordLayout>
