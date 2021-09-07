@@ -5,6 +5,7 @@ export interface CourseRecord {
   career: string;
   turn: string;
   group: string;
+  semester: string;
   created_at: string;
   updated_at: string;
   instructorId: number;

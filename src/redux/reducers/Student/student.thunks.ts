@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
 import {
   RegisterStudentInformation,
   ServerErrorResponse,
@@ -11,9 +10,7 @@ import { parseCSV } from 'src/helpers/parseCSV';
 export const startCreateStudent = (
   studentInformation: RegisterStudentInformation
 ): AppThunk<Promise<ServerErrorResponse | void>> => async (dispatch, _) => {
-  dispatch(
-    studentAction.addNewStudent({ ...studentInformation, id: uuidv4() })
-  );
+  dispatch(studentAction.addNewStudent({ ...studentInformation, id: 1 }));
 };
 
 export const startCreateStudentFromCSV = (
@@ -22,7 +19,7 @@ export const startCreateStudentFromCSV = (
   const { students } = await parseCSV(file);
   dispatch(
     studentAction.setStudents(
-      students.map((student) => ({ ...student, id: uuidv4() }))
+      students.map((student) => ({ ...student, id: 1, studentCode: '1' }))
     )
   );
 };

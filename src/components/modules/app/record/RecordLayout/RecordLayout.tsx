@@ -2,17 +2,30 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { AppLayout } from '../../AppLayout/AppLayout';
 import { RecordMenu } from '../RecordMenu';
-import { useAppSelector } from 'src/redux';
+import {
+  startLoadingCourseRecord,
+  useAppDispatch,
+  useAppSelector,
+} from 'src/redux';
 
 export const RecordLayout: React.FC = ({ children }) => {
   const router = useRouter();
-  const { currentFile } = useAppSelector((state) => state.fileSystemReducer);
+  const dispatch = useAppDispatch();
+  const { currentCourseRecord } = useAppSelector(
+    (state) => state.courseRecordReducer
+  );
 
   useEffect(() => {
+    const courseRecordId = parseInt(router.query.courseRecordId as string);
+
+    if (!currentCourseRecord && courseRecordId) {
+      dispatch(startLoadingCourseRecord(courseRecordId));
+    }
     // eslint-disable-next-line no-console
     console.log(router.query);
   }, [router.query]);
-  if (!currentFile) {
+
+  if (!currentCourseRecord) {
     return null;
   }
 

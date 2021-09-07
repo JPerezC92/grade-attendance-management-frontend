@@ -1,5 +1,5 @@
-import { Box, Button, MenuItem, MenuList, Typography } from '@material-ui/core';
 import NextLink from 'next/link';
+import { Box, Button, MenuItem, MenuList, Typography } from '@material-ui/core';
 import { useAppSelector } from 'src/redux';
 import { AppRoute } from 'src/routes';
 import { RecordRoute } from 'src/routes/record.routepath';
@@ -7,7 +7,9 @@ import { CreateStudentFromCSVButton } from '../student';
 import styles from './RecordMenu.module.scss';
 
 export const RecordMenu: React.FC = () => {
-  const { currentFile } = useAppSelector((state) => state.fileSystemReducer);
+  const { currentCourseRecord } = useAppSelector(
+    (state) => state.courseRecordReducer
+  );
 
   return (
     <Box>
@@ -24,31 +26,48 @@ export const RecordMenu: React.FC = () => {
       </Box>
       <Box>
         <MenuList className={styles.menu__list}>
-          <NextLink href={RecordRoute.GRADE(currentFile.id)} passHref>
+          <NextLink
+            href={RecordRoute.GRADE(currentCourseRecord.id.toString())}
+            passHref
+          >
             <MenuItem component="a" divider>
               Calificaciones
             </MenuItem>
           </NextLink>
 
-          <NextLink href={RecordRoute.STUDENT(currentFile.id)} passHref>
+          <NextLink
+            href={RecordRoute.STUDENT(currentCourseRecord.id.toString())}
+            passHref
+          >
             <MenuItem component="a" divider>
               Estudiantes
             </MenuItem>
           </NextLink>
 
-          <NextLink href={RecordRoute.ACTIVITY(currentFile.id)} passHref>
+          <NextLink
+            href={RecordRoute.ACTIVITY(currentCourseRecord.id.toString())}
+            passHref
+          >
             <MenuItem component="a" divider>
               Actividades
             </MenuItem>
           </NextLink>
 
-          <NextLink href={RecordRoute.ATTENDANCE(currentFile.id)} passHref>
+          <NextLink
+            href={RecordRoute.ATTENDANCE(currentCourseRecord.id.toString())}
+            passHref
+          >
             <MenuItem component="a" divider>
               Asistencias
             </MenuItem>
           </NextLink>
 
-          <NextLink href={RecordRoute.ATTENDANCE_DATE(currentFile.id)} passHref>
+          <NextLink
+            href={RecordRoute.ATTENDANCE_DATE(
+              currentCourseRecord.id.toString()
+            )}
+            passHref
+          >
             <MenuItem component="a" divider>
               Fechas de asistencia
             </MenuItem>

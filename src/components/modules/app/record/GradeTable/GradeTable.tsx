@@ -6,10 +6,12 @@ import {
   TableBody,
 } from '@material-ui/core';
 import { useAppSelector } from 'src/redux';
-import { GradeTableAssignedScoreCell } from './GradeTableAssignedScoreCell';
 
 export const GradeTable: React.FC = () => {
-  const { students } = useAppSelector((state) => state.studentReducer);
+  const {
+    studentReducer: { students },
+    activityReducer: { activities },
+  } = useAppSelector((state) => state);
 
   return (
     <>
@@ -20,12 +22,18 @@ export const GradeTable: React.FC = () => {
               <TableCell colSpan={3} variant="head" align="center">
                 Lista de estudiantes
               </TableCell>
-              <TableCell colSpan={4} variant="head" align="center">
-                Foro
-              </TableCell>
-              <TableCell colSpan={3} variant="head" align="center">
-                Foro
-              </TableCell>
+
+              {activities.map((activity) => (
+                <TableCell
+                  key={activity.id}
+                  colSpan={activity.scores.length | 1}
+                  variant="head"
+                  align="center"
+                >
+                  {activity.name}
+                </TableCell>
+              ))}
+
               <TableCell rowSpan={2} variant="head">
                 Total
               </TableCell>
@@ -34,26 +42,40 @@ export const GradeTable: React.FC = () => {
               <TableCell>Id</TableCell>
               <TableCell>Nombres</TableCell>
               <TableCell>Apellidos</TableCell>
-              <TableCell>N1</TableCell>
-              <TableCell>N2</TableCell>
-              <TableCell>N3</TableCell>
-              <TableCell>Promedio</TableCell>
-              <TableCell>Nota1</TableCell>
-              <TableCell>Nota2</TableCell>
-              <TableCell>Nota3</TableCell>
+              {activities.map((activity) =>
+                activity.scores.map((score) => (
+                  <TableCell
+                    key={score.id}
+                    colSpan={activity.scores.length | 1}
+                    variant="head"
+                    align="center"
+                  >
+                    {score.name}
+                  </TableCell>
+                ))
+              )}
+              {/* <TableCell>N1</TableCell> */}
             </TableRow>
           </TableHead>
 
           <TableBody>
             {students.map((student) => (
               <TableRow key={student.id}>
-                <TableCell>{student.studentId}</TableCell>
+                <TableCell>{student.studentCode}</TableCell>
                 <TableCell>{student.firstname}</TableCell>
                 <TableCell>{student.lastname}</TableCell>
-                <GradeTableAssignedScoreCell studentId={student.studentId} />
-                <GradeTableAssignedScoreCell studentId={student.studentId} />
-                <GradeTableAssignedScoreCell studentId={student.studentId} />
-                <TableCell>Prom</TableCell>
+                {activities.map((activity) =>
+                  activity.scores.map((score) => (
+                    <TableCell key={score.id} align="center">
+                      {score.scores_assigned.length
+                        ? score.scores_assigned.find(
+                            (scoreAssigned) =>
+                              scoreAssigned.studentId === student.id
+                          ).value
+                        : 0}
+                    </TableCell>
+                  ))
+                )}
               </TableRow>
             ))}
           </TableBody>

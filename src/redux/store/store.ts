@@ -2,16 +2,18 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import {
   authReducer,
-  fileSystemReducer,
+  courseRecordReducer,
   studentReducer,
+  activityReducer,
   attendanceReducer,
   courseReducer,
 } from 'src/redux/reducers';
 
 export const reducer = {
   authReducer,
-  fileSystemReducer,
+  courseRecordReducer,
   studentReducer,
+  activityReducer,
   attendanceReducer,
   courseReducer,
 };

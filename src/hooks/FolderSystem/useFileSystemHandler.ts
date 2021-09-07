@@ -9,7 +9,7 @@ import {
   startDeleteFolder,
   startUpdateFile,
   startUpdateFolder,
-} from 'src/redux/reducers/FileSystem';
+} from 'src/redux/reducers/CourseRecord';
 
 interface UseFileSystemHandler {
   (): {
