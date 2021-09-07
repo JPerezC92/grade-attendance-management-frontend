@@ -1,1 +1,1 @@
-export * from './AppRootContainer';
+export * from './CourseContainer';

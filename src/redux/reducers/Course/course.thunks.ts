@@ -26,12 +26,14 @@ export const startLoadingCourseDetail = (
   dispatch,
   getState
 ) => {
+  dispatch(courseAction.startLoadingCurrentCourse());
   const { user } = getState().authReducer;
   const response = await laravelCourseRepository.getById(
     parseInt(user.id, 10),
     courseId
   );
 
+  dispatch(courseAction.finishLoadingCurrentCourse());
   if (isServerErrorResponse(response)) return response;
 
   dispatch(courseAction.setCurrentCourse(response.payload));
