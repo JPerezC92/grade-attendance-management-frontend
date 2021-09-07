@@ -17,12 +17,14 @@
           "url": "webpack://_n_e/src",
           "path": "${workspaceFolder}/src"
         },
-        // made by vscode
         {
           "url": "webpack://_n_e/src",
           "path": "${workspaceFolder}/src"
         },
-        // made by vscode
+        {
+          "url": "webpack://_n_e/src",
+          "path": "${workspaceFolder}/src"
+        },
         {
           "url": "http://127.0.0.1:3000/_next/",
           "path": "${webRoot}/.next/"

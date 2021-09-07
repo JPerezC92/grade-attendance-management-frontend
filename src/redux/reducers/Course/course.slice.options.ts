@@ -1,5 +1,6 @@
 import { PayloadAction, Draft } from '@reduxjs/toolkit';
 import { Course } from 'src/interfaces';
+import { CourseWithCourseRecords } from 'src/interfaces/CourseDetail';
 import { CourseState } from 'src/redux';
 
 const setCourses = (
@@ -20,6 +21,13 @@ const startLoading = (state: Draft<CourseState>): void => {
   state.isLoading = true;
 };
 
+const setCurrentCourse = (
+  state: Draft<CourseState>,
+  action: PayloadAction<CourseWithCourseRecords>
+): void => {
+  state.currentCourse = action.payload;
+};
+
 const finishLoading = (state: Draft<CourseState>): void => {
   state.isLoading = false;
 };
@@ -27,6 +35,7 @@ const finishLoading = (state: Draft<CourseState>): void => {
 export const courseSliceOptions = {
   setCourses,
   addNewCourse,
+  setCurrentCourse,
   startLoading,
   finishLoading,
 };

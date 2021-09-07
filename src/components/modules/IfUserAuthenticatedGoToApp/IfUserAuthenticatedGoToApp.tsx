@@ -1,11 +1,11 @@
 import { useAppSelector } from 'src/redux';
 import { Redirect } from 'src/components/common';
-import { AppRoute } from 'src/routes';
+import { CourseRoute } from 'src/routes/course.routepath';
 
 export const IfUserAuthenticatedGoToApp: React.FC = ({ children }) => {
   const { isLoggedIn, user } = useAppSelector((state) => state.authReducer);
 
-  if (isLoggedIn && user) return <Redirect to={AppRoute.ROOT} />;
+  if (isLoggedIn && user) return <Redirect to={CourseRoute.ROOT} />;
 
   return <>{children}</>;
 };

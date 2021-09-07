@@ -20,6 +20,23 @@ export const startLoadingCourses = (): AppThunk<
   dispatch(courseAction.setCourses(response.payload));
 };
 
+export const startLoadingCourseDetail = (
+  courseId: number
+): AppThunk<Promise<ServerErrorResponse | void>> => async (
+  dispatch,
+  getState
+) => {
+  const { user } = getState().authReducer;
+  const response = await laravelCourseRepository.getById(
+    parseInt(user.id, 10),
+    courseId
+  );
+
+  if (isServerErrorResponse(response)) return response;
+
+  dispatch(courseAction.setCurrentCourse(response.payload));
+};
+
 export const startCreateCourse = (
   courseName: string
 ): AppThunk<Promise<ServerErrorResponse | void>> => async (

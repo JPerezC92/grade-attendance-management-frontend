@@ -1,0 +1,28 @@
+.courseId {
+  margin: 32px;
+}
+
+.courseId__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+  margin-block-start: 16px;
+}
+
+.courseRecordCard {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  overflow: hidden;
+  cursor: pointer;
+  padding-block-end: 4px;
+}
+
+.courseCard__content {
+  padding-inline: 1em;
+}
+.courseCard__actions {
+  padding-inline: 1em;
+}

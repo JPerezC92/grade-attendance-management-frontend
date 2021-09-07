@@ -3,8 +3,7 @@ import { CourseCard, IfUserIsAuthenticated } from 'src/components/modules';
 import { CourseButtonCreate } from 'src/components/modules/app/course';
 import { CourseLayout } from 'src/components/modules/app/CourseLayout';
 import { useAppSelector } from 'src/redux';
-// import { FileSystem } from 'src/components/modules/app';
-import styles from './AppRootContainer.module.scss';
+import styles from './CourseContainer.module.scss';
 
 export const AppRootContainer: React.FC = () => {
   const { courses } = useAppSelector((state) => state.courseReducer);
