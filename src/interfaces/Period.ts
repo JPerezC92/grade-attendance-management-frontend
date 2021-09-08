@@ -1,7 +1,8 @@
-export interface Period {
+import { Timestamps } from '.';
+
+export interface Period extends Timestamps {
   id: number;
   value: string;
-  created_at: string;
-  updated_at: string;
+  status: string;
   instructorId: number;
 }

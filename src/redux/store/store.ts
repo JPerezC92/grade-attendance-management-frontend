@@ -7,6 +7,7 @@ import {
   activityReducer,
   attendanceReducer,
   courseReducer,
+  periodReducer,
 } from 'src/redux/reducers';
 
 export const reducer = {
@@ -16,6 +17,7 @@ export const reducer = {
   activityReducer,
   attendanceReducer,
   courseReducer,
+  periodReducer,
 };
 
 const store = configureStore({

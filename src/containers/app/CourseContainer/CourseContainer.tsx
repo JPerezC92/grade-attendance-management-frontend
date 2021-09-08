@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import NextLink from 'next/link';
 import { Backdrop, CircularProgress, Typography } from '@material-ui/core';
 import { CourseCard } from 'src/components/modules';
 import { CourseButtonCreate } from 'src/components/modules/app/course';
@@ -30,6 +31,9 @@ export const CourseContainer: React.FC = () => {
           <Typography component="h2" variant="h4" align="left">
             Cursos
           </Typography>
+          <NextLink href="./period">
+            <a> Periodo</a>
+          </NextLink>
           <div className={styles.course__grid}>
             {courseReducer.courses.map((course) => (
               <CourseCard key={course.id} course={course} />
