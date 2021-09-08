@@ -10,7 +10,7 @@ import {
   TableRow,
   Typography,
 } from '@material-ui/core';
-import { CourseLayout } from 'src/components/modules';
+import { CourseLayout, PeriodButtonCreate } from 'src/components/modules';
 import { startLoadingPeriods, useAppDispatch, useAppSelector } from 'src/redux';
 import styles from './PeriodContainer.module.scss';
 
@@ -39,6 +39,10 @@ export const PeriodContainer: React.FC = () => {
             Periodos
           </Typography>
 
+          <div>
+            <PeriodButtonCreate />
+          </div>
+
           <TableContainer>
             <Table>
               <TableHead>
@@ -50,7 +54,7 @@ export const PeriodContainer: React.FC = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {!periodReducer.isLoading &&
+                {periodReducer.periods.length &&
                   periodReducer.periods.map((period, index) => (
                     <TableRow key={period.id}>
                       <TableCell>{++index}</TableCell>
