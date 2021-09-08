@@ -1,6 +1,11 @@
 import { useEffect } from 'react';
 import NextImage from 'next/image';
-import { Backdrop, CircularProgress, Typography } from '@material-ui/core';
+import {
+  Backdrop,
+  CircularProgress,
+  Divider,
+  Typography,
+} from '@material-ui/core';
 import { useRouter } from 'next/router';
 import { CourseLayout } from 'src/components/modules';
 import courseRecordImage from 'src/static/course-record-image.jpg';
@@ -66,7 +71,8 @@ export const CourseIdContainer: React.FC = () => {
                       <div>Seccion: {courseRecord.group}</div>
                       <div>Periodo: {courseRecord.period.value}</div>
                     </div>
-                    <div className={styles.courseCard__actions}>Actions</div>
+                    <Divider />
+                    <div className={styles.courseCard__actions}>fds</div>
                   </div>
                 ))}
               </div>

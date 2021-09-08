@@ -16,7 +16,7 @@ export interface ServerErrorResponse {
 }
 
 export interface User extends Person {
-  id: string;
+  id: number;
   email: string;
   rootFolderId: string;
 }

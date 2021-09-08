@@ -16,6 +16,15 @@ const addNewCourse = (
   state.courses = [...state.courses, action.payload];
 };
 
+const updateCourse = (
+  state: Draft<CourseState>,
+  action: PayloadAction<Course>
+): void => {
+  state.courses = state.courses.map((course) =>
+    course.id === action.payload.id ? action.payload : course
+  );
+};
+
 const setCurrentCourse = (
   state: Draft<CourseState>,
   action: PayloadAction<CourseWithCourseRecords>
@@ -40,6 +49,7 @@ const finishLoadingCurrentCourse = (state: Draft<CourseState>): void => {
 export const courseSliceOptions = {
   setCourses,
   addNewCourse,
+  updateCourse,
   setCurrentCourse,
   startLoading,
   finishLoading,

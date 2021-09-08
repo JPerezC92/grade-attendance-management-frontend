@@ -1,32 +1,13 @@
 .courseCard {
-  // background-color: transparent;
-  // padding: 0;
-  // margin: 0;
-  // border: none;
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
   border-radius: 5px;
-  transition: all 0.3s ease-in-out;
-  overflow: hidden;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
   cursor: pointer;
+  overflow: hidden;
   position: relative;
-
-  .courseCard__moreIcon {
-    position: absolute;
-    top: 0;
-    right: 0;
-  }
+  transition: all 0.3s ease-in-out;
 
   &:hover {
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.6);
-    transform: scale(1.1);
-
-    .courseCard__moreIcon {
-      color: #fff;
-      background-color: rgba(0, 0, 0, 0.5);
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0;
-      z-index: 1;
-    }
+    box-shadow: 0px 0px 5px 5px rgba(173, 180, 187, 0.75);
   }
 }
 
@@ -42,4 +23,9 @@
   margin-block: 0.5em;
   margin-inline: 1em;
   place-content: center;
+}
+
+.courseCard__actions {
+  display: flex;
+  flex-direction: row-reverse;
 }
