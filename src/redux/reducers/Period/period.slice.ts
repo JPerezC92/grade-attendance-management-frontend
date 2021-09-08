@@ -21,6 +21,11 @@ const periodSlice = createSlice({
     addNewPeriod: (state, action: PayloadAction<Period>) => {
       state.periods = [...state.periods, action.payload];
     },
+    update: (state, action: PayloadAction<Period>) => {
+      state.periods = state.periods.map((period) =>
+        period.id === action.payload.id ? action.payload : period
+      );
+    },
     startLoading: (state) => {
       state.isLoading = true;
     },

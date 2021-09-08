@@ -1,2 +1,4 @@
 export * from './PeriodButtonCreate';
-export * from './PeriodDialogRegister';
+export * from './PeriodButtonUpdate';
+export * from './PeriodDialogCreate';
+export * from './PeriodDialogUpdate';

@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import {
   Backdrop,
   CircularProgress,
+  IconButton,
   Table,
   TableBody,
   TableCell,
@@ -10,8 +11,19 @@ import {
   TableRow,
   Typography,
 } from '@material-ui/core';
-import { CourseLayout, PeriodButtonCreate } from 'src/components/modules';
-import { startLoadingPeriods, useAppDispatch, useAppSelector } from 'src/redux';
+import { MdArchive, MdUnarchive } from 'react-icons/md';
+import {
+  CourseLayout,
+  PeriodButtonCreate,
+  PeriodButtonUpdate,
+} from 'src/components/modules';
+import {
+  startArchivePeriod,
+  startLoadingPeriods,
+  startUnarchivePeriod,
+  useAppDispatch,
+  useAppSelector,
+} from 'src/redux';
 import styles from './PeriodContainer.module.scss';
 
 export const PeriodContainer: React.FC = () => {
@@ -39,12 +51,12 @@ export const PeriodContainer: React.FC = () => {
             Periodos
           </Typography>
 
-          <div>
+          <div className={styles.periodContainer__buttons}>
             <PeriodButtonCreate />
           </div>
 
           <TableContainer>
-            <Table>
+            <Table size="small">
               <TableHead>
                 <TableRow>
                   <TableCell>Nº</TableCell>
@@ -54,13 +66,29 @@ export const PeriodContainer: React.FC = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {periodReducer.periods.length &&
+                {periodReducer.periods.length !== 0 &&
                   periodReducer.periods.map((period, index) => (
                     <TableRow key={period.id}>
                       <TableCell>{++index}</TableCell>
                       <TableCell>{period.value}</TableCell>
                       <TableCell>{period.status}</TableCell>
-                      <TableCell>botones</TableCell>
+                      <TableCell>
+                        <PeriodButtonUpdate period={period} />
+
+                        <IconButton
+                          color="primary"
+                          onClick={() => dispatch(startUnarchivePeriod(period))}
+                        >
+                          <MdUnarchive style={{ fontSize: '24px' }} />
+                        </IconButton>
+
+                        <IconButton
+                          color="secondary"
+                          onClick={() => dispatch(startArchivePeriod(period))}
+                        >
+                          <MdArchive style={{ fontSize: '24px' }} />
+                        </IconButton>
+                      </TableCell>
                     </TableRow>
                   ))}
               </TableBody>

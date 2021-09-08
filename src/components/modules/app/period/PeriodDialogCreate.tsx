@@ -12,14 +12,14 @@ import { useForm, UseModalResult } from 'src/hooks';
 import { startCreatePeriod, useAppDispatch } from 'src/redux';
 
 interface PeriodDialogRegisterProps {
-  modalPeriodDialogRegister: UseModalResult;
+  modalPeriodDialogCreate: UseModalResult;
 }
 
-export const PeriodDialogRegister: React.FC<PeriodDialogRegisterProps> = ({
-  modalPeriodDialogRegister,
+export const PeriodDialogCreate: React.FC<PeriodDialogRegisterProps> = ({
+  modalPeriodDialogCreate,
 }) => {
   const dispatch = useAppDispatch();
-  const { isOpen, handleCloseModal } = modalPeriodDialogRegister;
+  const { isOpen, handleCloseModal } = modalPeriodDialogCreate;
   const { formValues, handleInputChange } = useForm({
     period: '',
   });

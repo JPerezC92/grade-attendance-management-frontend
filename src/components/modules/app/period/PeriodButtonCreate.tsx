@@ -1,24 +1,22 @@
 import { Button } from '@material-ui/core';
 import { useModal } from 'src/hooks';
-import { PeriodDialogRegister } from '.';
+import { PeriodDialogCreate } from '.';
 
 export const PeriodButtonCreate: React.FC = () => {
-  const modalPeriodDialogRegister = useModal();
+  const modalPeriodDialogCreate = useModal();
 
   return (
     <>
       <Button
         variant="contained"
         color="primary"
-        onClick={modalPeriodDialogRegister.handleOpenModal}
+        onClick={modalPeriodDialogCreate.handleOpenModal}
       >
         Nuevo periodo
       </Button>
 
-      {modalPeriodDialogRegister.isOpen && (
-        <PeriodDialogRegister
-          modalPeriodDialogRegister={modalPeriodDialogRegister}
-        />
+      {modalPeriodDialogCreate.isOpen && (
+        <PeriodDialogCreate modalPeriodDialogCreate={modalPeriodDialogCreate} />
       )}
     </>
   );
