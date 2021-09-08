@@ -27,7 +27,7 @@ export class LaravelAuthRepository implements AuthRepository {
       return {
         success: true,
         payload: {
-          id: '1',
+          id: 1,
           firstname: 'TestFirstname',
           lastname: 'TestLastname',
           email: 'test@test.com',
@@ -54,7 +54,7 @@ export class LaravelAuthRepository implements AuthRepository {
       return {
         success: true,
         payload: {
-          id: 'ef6d8e51-f047-4ed9-a274-98b746a52ab6',
+          id: 1,
           firstname: 'TestFirsname',
           lastname: 'TestLastname',
           email: 'test@test.com',

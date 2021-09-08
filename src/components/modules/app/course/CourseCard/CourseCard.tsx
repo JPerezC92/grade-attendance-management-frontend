@@ -6,7 +6,7 @@ import { Course } from 'src/interfaces';
 import courseImg from 'src/static/course-image.jpg';
 import styles from './CourseCard.module.scss';
 import { CourseRoute } from 'src/routes/course.routepath';
-import { CourseButtonUpdate } from '../course';
+import { CourseButtonUpdate } from '..';
 
 interface CourseCardProps {
   course: Course;

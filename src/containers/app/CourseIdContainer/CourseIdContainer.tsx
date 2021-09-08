@@ -16,6 +16,7 @@ import {
   useAppSelector,
 } from 'src/redux';
 import styles from './CourseIdContainer.module.scss';
+import { CourseIdButtonCreate } from 'src/components/modules/app/courseId';
 
 export const CourseIdContainer: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -72,10 +73,12 @@ export const CourseIdContainer: React.FC = () => {
                       <div>Periodo: {courseRecord.period.value}</div>
                     </div>
                     <Divider />
-                    <div className={styles.courseCard__actions}>fds</div>
+                    <div className={styles.courseCard__actions}>dsa</div>
                   </div>
                 ))}
               </div>
+
+              <CourseIdButtonCreate />
             </div>
           </>
         )}

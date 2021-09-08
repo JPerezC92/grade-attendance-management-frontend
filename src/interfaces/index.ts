@@ -2,6 +2,7 @@ export * from './Activity';
 export * from './Attendance';
 export * from './Course';
 export * from './CourseRecord';
+export * from './CourseRecordRegister';
 export * from './CourseWithCourseRecords';
 export * from './Folder';
 export * from './Period';

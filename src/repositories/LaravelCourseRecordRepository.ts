@@ -2,6 +2,7 @@ import { baseApiURL } from 'src/helpers/global';
 import {
   Activity,
   CourseRecord,
+  CourseRecordRegister,
   ServerErrorResponse,
   SuccessfulResponse,
 } from 'src/interfaces';
@@ -20,9 +21,33 @@ interface CourseRecordRepository {
     | SuccessfulResponse<CourseRecordWithStudentActivitiesAttendance>
     | ServerErrorResponse
   >;
+
+  create(
+    courseRecord: CourseRecordRegister
+  ): Promise<SuccessfulResponse<CourseRecord> | ServerErrorResponse>;
 }
 
 export class LaravelCourseRecordRepository implements CourseRecordRepository {
+  async create(
+    courseRecord: CourseRecordRegister
+  ): Promise<SuccessfulResponse<CourseRecord> | ServerErrorResponse> {
+    try {
+      const response = await fetch(`${baseApiURL}/course-record`, {
+        method: 'POST',
+        body: JSON.stringify(courseRecord),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      return (await response.json()) as SuccessfulResponse<CourseRecord>;
+    } catch (error) {
+      return {
+        success: false,
+        message: 'Error al crear nuevo registro',
+      };
+    }
+  }
   async getById(
     courseRecordId: number
   ): Promise<

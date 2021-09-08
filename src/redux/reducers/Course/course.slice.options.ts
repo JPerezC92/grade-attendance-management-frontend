@@ -1,5 +1,5 @@
 import { PayloadAction, Draft } from '@reduxjs/toolkit';
-import { Course, CourseWithCourseRecords } from 'src/interfaces';
+import { Course, CourseRecord, CourseWithCourseRecords } from 'src/interfaces';
 import { CourseState } from 'src/redux';
 
 const setCourses = (
@@ -31,6 +31,17 @@ const setCurrentCourse = (
 ): void => {
   state.currentCourse = action.payload;
 };
+
+const addNewCourseRecord = (
+  state: Draft<CourseState>,
+  action: PayloadAction<CourseRecord>
+): void => {
+  state.currentCourse.course_records = [
+    ...state.currentCourse.course_records,
+    action.payload,
+  ];
+};
+
 const startLoading = (state: Draft<CourseState>): void => {
   state.isLoading = true;
 };
@@ -51,6 +62,7 @@ export const courseSliceOptions = {
   addNewCourse,
   updateCourse,
   setCurrentCourse,
+  addNewCourseRecord,
   startLoading,
   finishLoading,
   startLoadingCurrentCourse,

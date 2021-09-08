@@ -1,15 +1,9 @@
+import { CourseRecordRegister } from './CourseRecordRegister';
 import { Period } from './Period';
 
-export interface CourseRecord {
+export interface CourseRecord extends CourseRecordRegister {
   id: number;
-  career: string;
-  turn: string;
-  group: string;
-  semester: string;
   created_at: string;
   updated_at: string;
-  instructorId: number;
-  courseId: number;
-  periodId: number;
   period: Period;
 }
