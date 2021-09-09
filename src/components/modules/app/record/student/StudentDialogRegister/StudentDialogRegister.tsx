@@ -9,8 +9,8 @@ import {
   Divider,
 } from '@material-ui/core';
 import { useForm, UseModalResult } from 'src/hooks';
-import { useAppDispatch } from 'src/redux';
-import { startCreateStudent } from 'src/redux/reducers/Student/student.thunks';
+// import { useAppDispatch } from 'src/redux';
+
 // import styles from  './StudentDialogRegisterForm.module.scss';
 
 interface StudentDialogRegisterFormProps {
@@ -20,7 +20,7 @@ interface StudentDialogRegisterFormProps {
 export const StudentDialogRegister: React.FC<StudentDialogRegisterFormProps> = ({
   useModalStudentDialogRegister,
 }) => {
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
   const { isOpen, handleCloseModal } = useModalStudentDialogRegister;
   const { formValues, handleInputChange } = useForm({
     firstname: '',
@@ -48,7 +48,7 @@ export const StudentDialogRegister: React.FC<StudentDialogRegisterFormProps> = (
           onSubmit={(e) => {
             e.preventDefault();
 
-            dispatch(startCreateStudent(formValues));
+            // dispatch(startCreateStudent(formValues));
 
             handleCloseModal();
           }}

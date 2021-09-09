@@ -39,8 +39,9 @@ export const AttendanceDialogCallAttendance: React.FC<AttendanceDialogCallAttend
   const studentsWithCheckAttendance = currentCheckAttendances
     ? students.map((student) => {
         const checkAttendance = currentCheckAttendances.find(
-          (checkAttendance) =>
-            checkAttendance.studentId === student.id ? checkAttendance : null
+          () =>
+            // checkAttendance.studentId === student.id ? checkAttendance : null
+            null
         );
         return { ...student, checkAttendance };
       })
@@ -99,14 +100,14 @@ export const AttendanceDialogCallAttendance: React.FC<AttendanceDialogCallAttend
                 onChange={(e) => {
                   dispatch(attendanceAction.setCurrentCheckAttendances(null));
                   attendanceForm.handleInputChange(e);
-                  e.target.value !== '' &&
-                    dispatch(
-                      attendanceAction.setCurrentCheckAttendances(
-                        attendances.find(
-                          (attendance) => attendance.id === e.target.value
-                        ).checkAttendances
-                      )
-                    );
+                  // e.target.value !== '' &&
+                  //   dispatch(
+                  //     attendanceAction.setCurrentCheckAttendances(
+                  //       attendances.find(
+                  //         (attendance) => attendance.id === e.target.value
+                  //       ).checkAttendances
+                  //     )
+                  //   );
                 }}
               >
                 <MenuItem value="">Seleccionar fecha</MenuItem>
@@ -144,7 +145,7 @@ export const AttendanceDialogCallAttendance: React.FC<AttendanceDialogCallAttend
                           checkAttendanceForm.formValues[student.id] ===
                           attendanceStatus.id
                         }
-                        name={student.id}
+                        name={student.id.toString()}
                         onChange={checkAttendanceForm.handleInputChange}
                         value={attendanceStatus.id}
                       />

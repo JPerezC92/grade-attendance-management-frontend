@@ -1,14 +1,21 @@
 import {
+  Backdrop,
   Button,
+  CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
+  Divider,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
   TextField,
 } from '@material-ui/core';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm, UseModalResult } from 'src/hooks';
-import { useAppDispatch } from 'src/redux';
+import { startLoadingPeriods, useAppDispatch, useAppSelector } from 'src/redux';
 import { startCreateCourseRecord } from 'src/redux/reducers/CourseRecord/thunks/startCreateCourseRecord';
 
 interface CourseIdDialogCreateProps {
@@ -18,12 +25,14 @@ interface CourseIdDialogCreateProps {
 export const CourseIdDialogCreate: React.FC<CourseIdDialogCreateProps> = ({
   useModalCourseIdDialogCreate,
 }) => {
+  const { periodReducer } = useAppSelector((state) => state);
   const { isOpen, handleCloseModal } = useModalCourseIdDialogCreate;
   const { formValues, handleInputChange } = useForm({
     career: '',
     turn: '',
     group: '',
     semester: '',
+    periodId: '',
   });
 
   const dispatch = useAppDispatch();
@@ -31,6 +40,21 @@ export const CourseIdDialogCreate: React.FC<CourseIdDialogCreateProps> = ({
   const handleCreateCourse = () => {
     dispatch(startCreateCourseRecord(formValues));
   };
+
+  useEffect(() => {
+    dispatch(startLoadingPeriods());
+  }, []);
+
+  if (periodReducer.isLoading) {
+    return (
+      <Backdrop
+        open={periodReducer.isLoading}
+        style={{ zIndex: 1, color: '#fff' }}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+    );
+  }
 
   return (
     <>
@@ -42,6 +66,9 @@ export const CourseIdDialogCreate: React.FC<CourseIdDialogCreateProps> = ({
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle id="form-dialog-title">Nuevo registro</DialogTitle>
+
+          <Divider />
+
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -92,7 +119,25 @@ export const CourseIdDialogCreate: React.FC<CourseIdDialogCreateProps> = ({
                 type="text"
                 value={formValues.turn}
               />
+
+              <FormControl fullWidth>
+                <InputLabel>Periodo</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  name="periodId"
+                  value={formValues.periodId}
+                  onChange={handleInputChange}
+                >
+                  {periodReducer.periods.map((period) => (
+                    <MenuItem key={period.id} value={period.id}>
+                      {period.value}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
             </DialogContent>
+
             <DialogActions>
               <Button onClick={handleCloseModal} color="secondary">
                 Cancelar

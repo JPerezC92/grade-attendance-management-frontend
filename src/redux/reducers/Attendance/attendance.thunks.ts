@@ -9,15 +9,15 @@ export const startCreateAttendance = (
   dispatch,
   getState
 ) => {
-  const { currentFile } = getState().fileSystemReducer;
-  dispatch(
-    attendanceAction.addNewAttendance({
-      id: uuidv4(),
-      gradeId: currentFile.id,
-      checkAttendances: [],
-      date: attendanceDate,
-    })
-  );
+  // const { currentFile } = getState().fileSystemReducer;
+  // dispatch(
+  //   attendanceAction.addNewAttendance({
+  //     id: uuidv4(),
+  //     gradeId: currentFile.id,
+  //     checkAttendances: [],
+  //     date: attendanceDate,
+  //   })
+  // );
 };
 
 export const startUpdateAttendance = (

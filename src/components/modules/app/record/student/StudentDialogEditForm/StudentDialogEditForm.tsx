@@ -29,7 +29,7 @@ export const StudentDialogEditForm: React.FC<StudentDialogEditFormProps> = ({
   const { formValues, handleInputChange } = useForm({
     firstname: student.firstname,
     lastname: student.lastname,
-    studentId: student.studentId,
+    studentId: student.studentCode,
   });
 
   return (

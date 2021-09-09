@@ -26,7 +26,7 @@ export const GradeTable: React.FC = () => {
               {activities.map((activity) => (
                 <TableCell
                   key={activity.id}
-                  colSpan={activity.scores.length | 1}
+                  colSpan={activity.scores.length || 1}
                   variant="head"
                   align="center"
                 >
@@ -46,7 +46,7 @@ export const GradeTable: React.FC = () => {
                 activity.scores.map((score) => (
                   <TableCell
                     key={score.id}
-                    colSpan={activity.scores.length | 1}
+                    colSpan={1}
                     variant="head"
                     align="center"
                   >
@@ -67,7 +67,10 @@ export const GradeTable: React.FC = () => {
                 {activities.map((activity) =>
                   activity.scores.map((score) => (
                     <TableCell key={score.id} align="center">
-                      {score.scores_assigned.length
+                      {score?.scores_assigned.find(
+                        (scoreAssigned) =>
+                          scoreAssigned.studentId === student.id
+                      )?.value
                         ? score.scores_assigned.find(
                             (scoreAssigned) =>
                               scoreAssigned.studentId === student.id

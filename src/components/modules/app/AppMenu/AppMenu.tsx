@@ -1,20 +1,20 @@
-import NextLink from 'next/link';
-import { Box, MenuItem, MenuList, Typography } from '@material-ui/core';
-import { CreateFileButton } from './CreateFileButton';
-import { CreateFolderButton } from './CreateFolderButton';
-import { RecordRoute } from 'src/routes/record.routepath';
-import { useAppSelector } from 'src/redux';
-import styles from './AppMenu.module.scss';
+// import NextLink from 'next/link';
+// import { Box, MenuItem, MenuList, Typography } from '@material-ui/core';
+// import { CreateFileButton } from './CreateFileButton';
+// import { CreateFolderButton } from './CreateFolderButton';
+// import { RecordRoute } from 'src/routes/record.routepath';
+// import { useAppSelector } from 'src/redux';
+// import styles from './AppMenu.module.scss';
 interface AppMenuProps {
   className?: string;
 }
 
-export const AppMenu: React.FC<AppMenuProps> = ({ className }) => {
-  const { recentFiles } = useAppSelector((state) => state.fileSystemReducer);
+export const AppMenu: React.FC<AppMenuProps> = () => {
+  // const { recentFiles } = useAppSelector((state) => state.fileSystemReducer);
 
   return (
     <>
-      <Box className={`${styles.appMenu} ${className}`}>
+      {/* <Box className={`${styles.appMenu} ${className}`}>
         <Box className={styles.appMenuButtons}>
           <CreateFileButton />
           <CreateFolderButton />
@@ -36,7 +36,7 @@ export const AppMenu: React.FC<AppMenuProps> = ({ className }) => {
             ))}
           </MenuList>
         </Box>
-      </Box>
+      </Box> */}
     </>
   );
 };

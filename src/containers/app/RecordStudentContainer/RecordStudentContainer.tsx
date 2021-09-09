@@ -50,7 +50,7 @@ export const RecordStudentContainer: React.FC = () => {
                 <TableBody>
                   {students.map((student) => (
                     <TableRow key={student.id}>
-                      <TableCell>{student.studentId}</TableCell>
+                      <TableCell>{student.studentCode}</TableCell>
                       <TableCell>{student.firstname}</TableCell>
                       <TableCell>{student.lastname}</TableCell>
                       <TableCell>

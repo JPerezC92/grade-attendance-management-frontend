@@ -73,7 +73,7 @@ export const CourseIdContainer: React.FC = () => {
                       <div>Periodo: {courseRecord.period.value}</div>
                     </div>
                     <Divider />
-                    <div className={styles.courseCard__actions}>dsa</div>
+                    <div className={styles.courseCard__actions}>Botones</div>
                   </div>
                 ))}
               </div>

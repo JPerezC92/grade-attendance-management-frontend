@@ -1,18 +1,17 @@
 import { v4 as uuidv4 } from 'uuid';
-import {
-  FileRecordDetail,
-  ServerErrorResponse,
-  SuccessfulResponse,
-} from 'src/interfaces';
+import { ServerErrorResponse, SuccessfulResponse } from 'src/interfaces';
 
+interface FileRecordDetail {
+  id: string;
+}
 interface FileRecordRepository {
-  create(
-    parentFolderId: string,
-    fileName: string
-  ): Promise<
-    | SuccessfulResponse<Omit<FileRecordDetail, 'objectType'>>
-    | ServerErrorResponse
-  >;
+  // create(
+  //   parentFolderId: string,
+  //   fileName: string
+  // ): Promise<
+  //   | SuccessfulResponse<Omit<FileRecordDetail, 'objectType'>>
+  //   | ServerErrorResponse
+  // >;
 
   update(
     file: FileRecordDetail
@@ -27,27 +26,27 @@ interface FileRecordRepository {
 }
 
 export class LaravelFileRecordRepository implements FileRecordRepository {
-  async create(
-    folderId: string,
-    fileName: string
-  ): Promise<
-    | SuccessfulResponse<Omit<FileRecordDetail, 'objectType'>>
-    | ServerErrorResponse
-  > {
-    if (!folderId || !fileName) {
-      return { success: false, message: 'Problem creating file record' };
-    }
+  //   async create(
+  //     folderId: string,
+  //     fileName: string
+  //   ): Promise<
+  //     | SuccessfulResponse<Omit<FileRecordDetail, 'objectType'>>
+  //     | ServerErrorResponse
+  //   > {
+  //     if (!folderId || !fileName) {
+  //       return { success: false, message: 'Problem creating file record' };
+  //     }
 
-    return {
-      success: true,
-      payload: {
-        id: uuidv4(),
-        name: fileName,
-        createdAt: '10-07-2021',
-        updatedAt: '10-07-2021',
-      },
-    };
-  }
+  //     return {
+  //       success: true,
+  //       payload: {
+  //         id: uuidv4(),
+  //         name: fileName,
+  //         createdAt: '10-07-2021',
+  //         updatedAt: '10-07-2021',
+  //       },
+  //     };
+  //   }
 
   async update(
     fileRecordDetail: FileRecordDetail

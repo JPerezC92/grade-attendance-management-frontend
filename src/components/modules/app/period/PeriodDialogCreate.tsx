@@ -34,7 +34,7 @@ export const PeriodDialogCreate: React.FC<PeriodDialogRegisterProps> = ({
       >
         <DialogTitle id="form-dialog-title" disableTypography>
           <Typography component="h2" variant="h4">
-            Nuevo Periodo
+            Nuevo periodo
           </Typography>
         </DialogTitle>
 

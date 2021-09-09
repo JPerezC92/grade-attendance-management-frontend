@@ -4,7 +4,9 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  Divider,
   TextField,
+  Typography,
 } from '@material-ui/core';
 import { useForm, UseModalResult } from 'src/hooks';
 import { Period } from 'src/interfaces';
@@ -40,7 +42,14 @@ export const PeriodDialogUpdate: React.FC<PeriodDialogUpdateProps> = ({
           aria-labelledby="form-dialog-title"
           onClick={(e) => e.stopPropagation()}
         >
-          <DialogTitle id="form-dialog-title">Cambiar nombre</DialogTitle>
+          <DialogTitle id="form-dialog-title" disableTypography>
+            <Typography component="h2" variant="h4">
+              Periodo
+            </Typography>
+          </DialogTitle>
+
+          <Divider />
+
           <form
             onSubmit={(e) => {
               e.preventDefault();

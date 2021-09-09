@@ -28,7 +28,7 @@ export const Home = (): JSX.Element => {
         onClick={() =>
           dispatch(
             authActions.login({
-              id: '3289479319832701839',
+              id: 1,
               firstname: 'Jhon',
               lastname: 'Doe',
               rootFolderId: 'rootFolder',

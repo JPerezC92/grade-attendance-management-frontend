@@ -82,7 +82,7 @@ export const RecordAttendanceContainer: React.FC = () => {
               <TableBody>
                 {students.map((student) => (
                   <TableRow key={student.id}>
-                    <TableCell>{student.studentId}</TableCell>
+                    <TableCell>{student.studentCode}</TableCell>
                     <TableCell style={{ whiteSpace: 'pre' }}>
                       {student.firstname}
                     </TableCell>
