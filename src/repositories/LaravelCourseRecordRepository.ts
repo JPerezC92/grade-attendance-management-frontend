@@ -3,24 +3,23 @@ import {
   Activity,
   CourseRecord,
   CourseRecordRegister,
+  ScoreCalculation,
   ServerErrorResponse,
   SuccessfulResponse,
 } from 'src/interfaces';
 import { Student } from 'src/interfaces/Student';
 
-interface CourseRecordWithStudentActivitiesAttendance extends CourseRecord {
+interface CourseRecordInfo extends CourseRecord {
   students: Student[];
   activities: Activity[];
+  scoresCalculation: ScoreCalculation[];
   attendances: Activity[];
 }
 
 interface CourseRecordRepository {
   getById(
     courseRecordId: number
-  ): Promise<
-    | SuccessfulResponse<CourseRecordWithStudentActivitiesAttendance>
-    | ServerErrorResponse
-  >;
+  ): Promise<SuccessfulResponse<CourseRecordInfo> | ServerErrorResponse>;
 
   create(
     courseRecord: CourseRecordRegister
@@ -50,10 +49,7 @@ export class LaravelCourseRecordRepository implements CourseRecordRepository {
   }
   async getById(
     courseRecordId: number
-  ): Promise<
-    | SuccessfulResponse<CourseRecordWithStudentActivitiesAttendance>
-    | ServerErrorResponse
-  > {
+  ): Promise<SuccessfulResponse<CourseRecordInfo> | ServerErrorResponse> {
     try {
       const response = await fetch(
         `${baseApiURL}/course-record/${courseRecordId}`,
@@ -65,9 +61,7 @@ export class LaravelCourseRecordRepository implements CourseRecordRepository {
         }
       );
 
-      return (await response.json()) as SuccessfulResponse<
-        CourseRecordWithStudentActivitiesAttendance
-      >;
+      return (await response.json()) as SuccessfulResponse<CourseRecordInfo>;
     } catch (error) {
       return { success: false, message: 'Error al cargar el registro' };
     }

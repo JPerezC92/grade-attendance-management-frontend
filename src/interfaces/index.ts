@@ -8,6 +8,7 @@ export * from './CreatePeriod';
 export * from './Folder';
 export * from './Period';
 export * from './Score';
+export * from './ScoreCalculation';
 export * from './ScoresAssigned';
 export * from './Student';
 export * from './Timestamps';

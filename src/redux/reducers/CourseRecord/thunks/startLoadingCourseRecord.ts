@@ -15,5 +15,8 @@ export const startLoadingCourseRecord = (
 
   dispatch(studentAction.setStudents(response.payload.students));
   dispatch(activityAction.setActivities(response.payload.activities));
+  dispatch(
+    activityAction.setScoresCalculation(response.payload.scoresCalculation)
+  );
   dispatch(courseRecordAction.setCurrentCourseRecord(response.payload));
 };
