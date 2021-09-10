@@ -13,9 +13,9 @@ import {
   RecordLayout,
 } from 'src/components/modules';
 import { useAppSelector } from 'src/redux';
-import styles from './RecordAttendanceContainer.module.scss';
+import styles from './CourseRecordAttendaceContainer.module.scss';
 
-export const RecordAttendanceContainer: React.FC = () => {
+export const CourseRecordAttendaceContainer: React.FC = () => {
   const state = useAppSelector((state) => state);
   const {
     studentReducer: { students },

@@ -2,6 +2,13 @@ import { Draft, PayloadAction } from '@reduxjs/toolkit';
 import { Attendance, CheckAttendance } from 'src/interfaces';
 import { AttendanceState } from './attendance.types';
 
+const setAttendances = (
+  state: Draft<AttendanceState>,
+  action: PayloadAction<Attendance[]>
+): void => {
+  state.attendances = action.payload;
+};
+
 const addNewAttendance = (
   state: Draft<AttendanceState>,
   action: PayloadAction<Attendance>
@@ -35,6 +42,7 @@ const setCurrentCheckAttendances = (
 };
 
 export const attendanceSliceOptions = {
+  setAttendances,
   updateAttendance,
   deleteAttendance,
   addNewAttendance,

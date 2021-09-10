@@ -10,7 +10,11 @@ import {
 } from '@material-ui/core';
 import { format } from 'date-fns';
 import { useForm, UseModalResult } from 'src/hooks';
-import { startCreateAttendance, useAppDispatch } from 'src/redux';
+import {
+  startCreateAttendance,
+  useAppDispatch,
+  useAppSelector,
+} from 'src/redux';
 
 interface AttendanceDateDialogCreateProps {
   useModalAttendanceDateDialogCreate: UseModalResult;
@@ -20,6 +24,9 @@ export const AttendanceDateDialogCreate: React.FC<AttendanceDateDialogCreateProp
   useModalAttendanceDateDialogCreate,
 }) => {
   const dispatch = useAppDispatch();
+  const {
+    courseRecordReducer: { currentCourseRecord },
+  } = useAppSelector((state) => state);
 
   const { isOpen, handleCloseModal } = useModalAttendanceDateDialogCreate;
   const { formValues, handleInputChange } = useForm({
@@ -45,7 +52,12 @@ export const AttendanceDateDialogCreate: React.FC<AttendanceDateDialogCreateProp
         <form
           onSubmit={async (e) => {
             e.preventDefault();
-            dispatch(startCreateAttendance(formValues.date));
+            dispatch(
+              startCreateAttendance({
+                ...formValues,
+                courseRecordId: currentCourseRecord.id,
+              })
+            );
             handleCloseModal();
           }}
         >

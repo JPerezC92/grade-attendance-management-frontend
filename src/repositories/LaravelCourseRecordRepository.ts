@@ -1,6 +1,7 @@
 import { baseApiURL } from 'src/helpers/global';
 import {
   Activity,
+  Attendance,
   CourseRecord,
   CourseRecordRegister,
   ScoreCalculation,
@@ -13,7 +14,7 @@ interface CourseRecordInfo extends CourseRecord {
   students: Student[];
   activities: Activity[];
   scoresCalculation: ScoreCalculation[];
-  attendances: Activity[];
+  attendances: Attendance[];
 }
 
 interface CourseRecordRepository {

@@ -21,9 +21,9 @@ export const AttendanceDateDialogEdit: React.FC<AttendanceDateDialogEditProps> =
   attendance,
   useModalAttendanceDateDialogEdit,
 }) => {
-  const { isOpen, handleCloseModal } = useModalAttendanceDateDialogEdit;
-
   const dispatch = useAppDispatch();
+
+  const { isOpen, handleCloseModal } = useModalAttendanceDateDialogEdit;
 
   const { formValues, handleInputChange } = useForm({ date: attendance.date });
 
@@ -46,9 +46,7 @@ export const AttendanceDateDialogEdit: React.FC<AttendanceDateDialogEditProps> =
         <form
           onSubmit={(e) => {
             e.preventDefault();
-
             dispatch(startUpdateAttendance({ ...attendance, ...formValues }));
-
             handleCloseModal();
           }}
         >

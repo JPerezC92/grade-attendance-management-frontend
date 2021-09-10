@@ -4,6 +4,7 @@ export * from './Course';
 export * from './CourseRecord';
 export * from './CourseRecordRegister';
 export * from './CourseWithCourseRecords';
+export * from './CreateAttendance';
 export * from './CreatePeriod';
 export * from './CreateStudent';
 export * from './Folder';

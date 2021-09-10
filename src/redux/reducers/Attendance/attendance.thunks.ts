@@ -1,33 +1,41 @@
-import { v4 as uuidv4 } from 'uuid';
-import { Attendance, ServerErrorResponse } from 'src/interfaces';
+import {
+  Attendance,
+  CreateAttendance,
+  ServerErrorResponse,
+} from 'src/interfaces';
 import { AppThunk } from 'src/redux/store';
 import { attendanceAction } from './attendance.slice';
+import { LaravelAttendanceRepository } from 'src/repositories';
+import { isServerErrorResponse } from 'src/helpers/assertions';
+
+const laravelAttendanceRepository = new LaravelAttendanceRepository();
 
 export const startCreateAttendance = (
-  attendanceDate: string
-): AppThunk<Promise<ServerErrorResponse | void>> => async (
-  dispatch,
-  getState
-) => {
-  // const { currentFile } = getState().fileSystemReducer;
-  // dispatch(
-  //   attendanceAction.addNewAttendance({
-  //     id: uuidv4(),
-  //     gradeId: currentFile.id,
-  //     checkAttendances: [],
-  //     date: attendanceDate,
-  //   })
-  // );
+  createAttendance: CreateAttendance
+): AppThunk<Promise<ServerErrorResponse | void>> => async (dispatch, _) => {
+  const response = await laravelAttendanceRepository.create(createAttendance);
+
+  if (isServerErrorResponse(response)) return response;
+
+  dispatch(attendanceAction.addNewAttendance(response.payload));
 };
 
 export const startUpdateAttendance = (
   attendance: Attendance
 ): AppThunk<Promise<ServerErrorResponse | void>> => async (dispatch, _) => {
-  dispatch(attendanceAction.updateAttendance(attendance));
+  const response = await laravelAttendanceRepository.update(attendance);
+
+  if (isServerErrorResponse(response)) return response;
+
+  dispatch(attendanceAction.updateAttendance(response.payload));
 };
 
 export const startDeleteAttendance = (
   attendance: Attendance
 ): AppThunk<Promise<ServerErrorResponse | void>> => async (dispatch, _) => {
+  const response = await laravelAttendanceRepository.delete(attendance.id);
+
+  if (isServerErrorResponse(response)) return response;
+
   dispatch(attendanceAction.deleteAttendance(attendance));
 };

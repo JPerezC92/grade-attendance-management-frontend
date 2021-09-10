@@ -1,7 +1,6 @@
-import React from 'react';
 import { CourseRecordGradeContainer } from 'src/containers';
 
-const CourseRecordId: React.FC = () => {
+const CourseRecordGrade: React.FC = () => {
   return (
     <>
       <CourseRecordGradeContainer />
@@ -9,4 +8,4 @@ const CourseRecordId: React.FC = () => {
   );
 };
 
-export default CourseRecordId;
+export default CourseRecordGrade;

@@ -2,7 +2,12 @@ import { AppThunk } from 'src/redux/store/store';
 import { ServerErrorResponse } from 'src/interfaces';
 import { isServerErrorResponse } from 'src/helpers/assertions';
 import { LaravelCourseRecordRepository } from 'src/repositories/LaravelCourseRecordRepository';
-import { activityAction, courseRecordAction, studentAction } from 'src/redux';
+import {
+  activityAction,
+  attendanceAction,
+  courseRecordAction,
+  studentAction,
+} from 'src/redux';
 
 const laravelCourseRecordRepository = new LaravelCourseRecordRepository();
 
@@ -14,6 +19,7 @@ export const startLoadingCourseRecord = (
   if (isServerErrorResponse(response)) return response;
 
   dispatch(studentAction.setStudents(response.payload.students));
+  dispatch(attendanceAction.setAttendances(response.payload.attendances));
   dispatch(activityAction.setActivities(response.payload.activities));
   dispatch(
     activityAction.setScoresCalculation(response.payload.scoresCalculation)
