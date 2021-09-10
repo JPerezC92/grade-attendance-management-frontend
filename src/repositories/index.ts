@@ -4,3 +4,4 @@ export * from './LaravelCourseRepository';
 export * from './LaravelFileRecordRepository';
 export * from './LaravelFolderRepository';
 export * from './LaravelPeriodRepository';
+export * from './LaravelStudentRepository';

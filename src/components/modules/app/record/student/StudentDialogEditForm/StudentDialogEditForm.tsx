@@ -29,7 +29,7 @@ export const StudentDialogEditForm: React.FC<StudentDialogEditFormProps> = ({
   const { formValues, handleInputChange } = useForm({
     firstname: student.firstname,
     lastname: student.lastname,
-    studentId: student.studentCode,
+    studentCode: student.studentCode,
   });
 
   return (
@@ -85,14 +85,14 @@ export const StudentDialogEditForm: React.FC<StudentDialogEditFormProps> = ({
 
             <TextField
               fullWidth
-              id="studentId"
+              id="studentCode"
               margin="dense"
-              name="studentId"
+              name="studentCode"
               onChange={handleInputChange}
               type="text"
               variant="outlined"
               label="Codigo de estudiante"
-              value={formValues.studentId}
+              value={formValues.studentCode}
             />
           </DialogContent>
           <DialogActions>

@@ -36,8 +36,6 @@ export interface Person {
   lastname: string;
 }
 
-export type RegisterStudentInformation = Omit<Student, 'id'>;
-
 export interface AttendanceSummary {
   A: number;
   T: number;

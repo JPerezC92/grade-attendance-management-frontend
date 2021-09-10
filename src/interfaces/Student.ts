@@ -1,6 +1,5 @@
-import { Person } from '.';
+import { CreateStudent } from './CreateStudent';
 
-export interface Student extends Person {
+export interface Student extends CreateStudent {
   id: number;
-  studentCode: string;
 }

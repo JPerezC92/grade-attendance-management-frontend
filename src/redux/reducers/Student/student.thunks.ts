@@ -1,16 +1,24 @@
-import {
-  RegisterStudentInformation,
-  ServerErrorResponse,
-  Student,
-} from 'src/interfaces';
+import { CreateStudent, ServerErrorResponse, Student } from 'src/interfaces';
 import { AppThunk } from 'src/redux/store';
 import { studentAction } from './student.slice';
 import { parseCSV } from 'src/helpers/parseCSV';
+import { LaravelStudentRepository } from 'src/repositories';
+import { isServerErrorResponse } from 'src/helpers/assertions';
+import { courseRecordAction } from 'src/redux';
+
+const laravelStudentRepository = new LaravelStudentRepository();
 
 export const startCreateStudent = (
-  studentInformation: RegisterStudentInformation
+  createStudent: CreateStudent
 ): AppThunk<Promise<ServerErrorResponse | void>> => async (dispatch, _) => {
-  dispatch(studentAction.addNewStudent({ ...studentInformation, id: 1 }));
+  dispatch(courseRecordAction.startLoading());
+
+  const response = await laravelStudentRepository.create(createStudent);
+
+  dispatch(courseRecordAction.finishLoading());
+  if (isServerErrorResponse(response)) return response;
+
+  dispatch(studentAction.addNewStudent(response.payload));
 };
 
 export const startCreateStudentFromCSV = (
@@ -18,20 +26,33 @@ export const startCreateStudentFromCSV = (
 ): AppThunk<Promise<ServerErrorResponse | void>> => async (dispatch, _) => {
   const { students } = await parseCSV(file);
   dispatch(
-    studentAction.setStudents(
-      students.map((student) => ({ ...student, id: 1, studentCode: '1' }))
-    )
+    studentAction
+      .setStudents
+      // students.map((student) => ({ ...student, id: 1, studentCode: '1' }))
+      ()
   );
 };
 
 export const startUpdateStudent = (
   student: Student
 ): AppThunk<Promise<ServerErrorResponse | void>> => async (dispatch, _) => {
-  dispatch(studentAction.updateStudent(student));
+  dispatch(courseRecordAction.startLoading());
+  const response = await laravelStudentRepository.update(student);
+  dispatch(courseRecordAction.finishLoading());
+
+  if (isServerErrorResponse(response)) return response;
+
+  dispatch(studentAction.updateStudent(response.payload));
 };
 
 export const startDeleteStudent = (
   student: Student
 ): AppThunk<Promise<ServerErrorResponse | void>> => async (dispatch, _) => {
+  dispatch(courseRecordAction.startLoading());
+  const response = await laravelStudentRepository.delete(student.id);
+  dispatch(courseRecordAction.finishLoading());
+
+  if (isServerErrorResponse(response)) return response;
+
   dispatch(studentAction.deleteStudent(student));
 };

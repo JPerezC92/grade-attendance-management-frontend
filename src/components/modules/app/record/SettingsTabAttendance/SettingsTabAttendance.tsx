@@ -7,21 +7,20 @@ import {
   TableRow,
   Typography,
 } from '@material-ui/core';
-import { RecordLayout } from 'src/components/modules';
 import {
   AttendanceDateButtonCreate,
   AttendanceDateButtonEdit,
 } from 'src/components/modules/app/record/attendance';
 import { AttendanceDateButtonDelete } from 'src/components/modules/app/record/attendance/AttendanceDateButtonDelete';
 import { useAppSelector } from 'src/redux';
-import styles from './RecordAttendanceDateContainer.module.scss';
+import styles from './SettingsTabAttendance.module.scss';
 
-export const RecordAttendanceDateContainer: React.FC = () => {
+export const SettingsTabAttendance: React.FC = () => {
   const { attendances } = useAppSelector((state) => state.attendanceReducer);
 
   return (
     <>
-      <RecordLayout>
+      <>
         <div className={styles.recordAttendanceDate__content}>
           <Typography className={styles.title} component="h1" variant="h3">
             Fechas de asistencias
@@ -60,7 +59,7 @@ export const RecordAttendanceDateContainer: React.FC = () => {
             </Table>
           </Paper>
         </div>
-      </RecordLayout>
+      </>
     </>
   );
 };

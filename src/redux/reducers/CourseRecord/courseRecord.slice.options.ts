@@ -9,6 +9,16 @@ const setCurrentCourseRecord = (
   state.currentCourseRecord = action.payload;
 };
 
+const startLoading = (state: Draft<CourseRecordState>): void => {
+  state.isLoading = true;
+};
+
+const finishLoading = (state: Draft<CourseRecordState>): void => {
+  state.isLoading = true;
+};
+
 export const courseRecordSliceOptions = {
   setCurrentCourseRecord,
+  startLoading,
+  finishLoading,
 };

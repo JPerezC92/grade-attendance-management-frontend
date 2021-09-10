@@ -57,7 +57,7 @@ export const CourseIdContainer: React.FC = () => {
                     className={styles.courseRecordCard}
                     onClick={() =>
                       router.push(
-                        CourseRecordRoute.ROOT(
+                        CourseRecordRoute.GRADE(
                           currentCourse.id,
                           courseRecord.id
                         )

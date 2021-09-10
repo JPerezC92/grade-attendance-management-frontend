@@ -9,9 +9,8 @@ import {
   Divider,
 } from '@material-ui/core';
 import { useForm, UseModalResult } from 'src/hooks';
-// import { useAppDispatch } from 'src/redux';
-
-// import styles from  './StudentDialogRegisterForm.module.scss';
+import { useAppDispatch, useAppSelector } from 'src/redux';
+import { startCreateStudent } from 'src/redux/reducers/Student/student.thunks';
 
 interface StudentDialogRegisterFormProps {
   useModalStudentDialogRegister: UseModalResult;
@@ -20,12 +19,15 @@ interface StudentDialogRegisterFormProps {
 export const StudentDialogRegister: React.FC<StudentDialogRegisterFormProps> = ({
   useModalStudentDialogRegister,
 }) => {
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
+  const {
+    courseRecordReducer: { currentCourseRecord },
+  } = useAppSelector((state) => state);
   const { isOpen, handleCloseModal } = useModalStudentDialogRegister;
   const { formValues, handleInputChange } = useForm({
     firstname: '',
     lastname: '',
-    studentId: '',
+    studentCode: '',
   });
 
   return (
@@ -48,7 +50,12 @@ export const StudentDialogRegister: React.FC<StudentDialogRegisterFormProps> = (
           onSubmit={(e) => {
             e.preventDefault();
 
-            // dispatch(startCreateStudent(formValues));
+            dispatch(
+              startCreateStudent({
+                ...formValues,
+                courseRecordId: currentCourseRecord.id,
+              })
+            );
 
             handleCloseModal();
           }}
@@ -81,14 +88,14 @@ export const StudentDialogRegister: React.FC<StudentDialogRegisterFormProps> = (
 
             <TextField
               fullWidth
-              id="studentId"
+              id="studentCode"
               margin="dense"
-              name="studentId"
+              name="studentCode"
               onChange={handleInputChange}
               type="text"
               variant="outlined"
               label="Codigo de estudiante"
-              value={formValues.studentId}
+              value={formValues.studentCode}
             />
           </DialogContent>
           <DialogActions>

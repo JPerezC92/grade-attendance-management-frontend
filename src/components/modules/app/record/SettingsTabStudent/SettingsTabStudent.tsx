@@ -12,20 +12,19 @@ import {
 } from '@material-ui/core';
 import { AiOutlineDelete } from 'react-icons/ai';
 import {
-  RecordLayout,
   StudentButtonRegister,
   StudentButtonEdit,
 } from 'src/components/modules';
 import { useAppDispatch, useAppSelector } from 'src/redux';
 import { startDeleteStudent } from 'src/redux/reducers/Student/student.thunks';
-import styles from './RecordStudentContainer.module.scss';
+import styles from './SettingsTabStudent.module.scss';
 
-export const RecordStudentContainer: React.FC = () => {
+export const SettingsTabStudent: React.FC = () => {
   const { students } = useAppSelector((state) => state.studentReducer);
   const dispatch = useAppDispatch();
   return (
     <>
-      <RecordLayout>
+      <>
         <div className={styles.recordStudent__content}>
           <Typography className={styles.title} component="h1" variant="h3">
             Estudiantes
@@ -73,7 +72,7 @@ export const RecordStudentContainer: React.FC = () => {
             </TableContainer>
           </Paper>
         </div>
-      </RecordLayout>
+      </>
     </>
   );
 };

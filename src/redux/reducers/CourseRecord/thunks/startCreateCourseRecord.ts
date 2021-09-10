@@ -1,7 +1,7 @@
 import { AppThunk } from 'src/redux/store/store';
 import { CourseRecordRegister, ServerErrorResponse } from 'src/interfaces';
 import { isServerErrorResponse } from 'src/helpers/assertions';
-import { LaravelCourseRecordRepository } from 'src/repositories/LaravelCourseRecordRepository';
+import { LaravelCourseRecordRepository } from 'src/repositories';
 import { courseAction } from 'src/redux';
 
 const laravelCourseRecordRepository = new LaravelCourseRecordRepository();
