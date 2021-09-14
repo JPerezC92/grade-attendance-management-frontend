@@ -1,3 +1,5 @@
+import Cookies from 'js-cookie';
+import { baseApiURL } from 'src/helpers/global';
 import {
   Credentials,
   User,
@@ -13,10 +15,35 @@ interface AuthRepository {
   register(
     registerUserInformation: RegisterUserInformation
   ): Promise<SuccessfulResponse<User> | ServerErrorResponse>;
+  userInfo(
+    token: string
+  ): Promise<SuccessfulResponse<User> | ServerErrorResponse>;
+
   logout(): Promise<void>;
 }
 
 export class LaravelAuthRepository implements AuthRepository {
+  async userInfo(
+    token: string
+  ): Promise<SuccessfulResponse<User> | ServerErrorResponse> {
+    try {
+      const response = await fetch(`${baseApiURL}/instructor/infouser`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      return (await response.json()) as SuccessfulResponse<User>;
+    } catch (error) {
+      return {
+        success: false,
+        message: 'Token invalido',
+      };
+    }
+  }
+
   async login(
     credentials: Credentials
   ): Promise<SuccessfulResponse<User> | ServerErrorResponse> {
@@ -31,7 +58,6 @@ export class LaravelAuthRepository implements AuthRepository {
           firstname: 'TestFirstname',
           lastname: 'TestLastname',
           email: 'test@test.com',
-          rootFolderId: '8e0a6672-2d85-4ff0-b944-a15b56eabc13',
         },
       };
     }
@@ -45,28 +71,55 @@ export class LaravelAuthRepository implements AuthRepository {
   async register(
     registerUserInformation: RegisterUserInformation
   ): Promise<SuccessfulResponse<User> | ServerErrorResponse> {
-    if (
-      registerUserInformation.firstname === 'TestFirstname' &&
-      registerUserInformation.lastname === 'TestLastname' &&
-      registerUserInformation.email === 'test@gmail.com' &&
-      registerUserInformation.password === '123456aA'
-    ) {
+    // if (
+    //   registerUserInformation.firstname === 'TestFirstname' &&
+    //   registerUserInformation.lastname === 'TestLastname' &&
+    //   registerUserInformation.email === 'test@gmail.com' &&
+    //   registerUserInformation.password === '123456aA'
+    // ) {
+    //   return {
+    //     success: true,
+    //     payload: {
+    //       id: 1,
+    //       firstname: 'TestFirsname',
+    //       lastname: 'TestLastname',
+    //       email: 'test@test.com',
+    //       rootFolderId: '8e0a6672-2d85-4ff0-b944-a15b56eabc13',
+    //     },
+    //   };
+    // }
+
+    try {
+      const responseRegister = await fetch(
+        `${baseApiURL}/instructor/register`,
+        {
+          method: 'POST',
+          body: JSON.stringify(registerUserInformation),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      const {
+        payload: token,
+      } = (await responseRegister.json()) as SuccessfulResponse<string>;
+
+      Cookies.set('token', token, {
+        secure: false,
+        path: '/',
+        expires: 3600 * 9,
+        sameSite: 'strict',
+      });
+
+      const response = await this.userInfo(token);
+      return response;
+    } catch (error) {
       return {
-        success: true,
-        payload: {
-          id: 1,
-          firstname: 'TestFirsname',
-          lastname: 'TestLastname',
-          email: 'test@test.com',
-          rootFolderId: '8e0a6672-2d85-4ff0-b944-a15b56eabc13',
-        },
+        success: false,
+        message: 'Registration trouble! Please try again',
       };
     }
-
-    return {
-      success: false,
-      message: 'Registration trouble! Please try again',
-    };
   }
 
   async logout(): Promise<void> {

@@ -26,9 +26,9 @@ interface UseAuthentication {
 const registerInitialValue: RegisterValues = {
   firstname: 'TestFirstname',
   lastname: 'TestLastname',
-  email: 'test@gmail.com',
+  email: 'test2@gmail.com',
   password: '123456aA',
-  confirmPassword: '',
+  confirmPassword: '123456aA',
 };
 
 const loginInitialValue: Credentials = {

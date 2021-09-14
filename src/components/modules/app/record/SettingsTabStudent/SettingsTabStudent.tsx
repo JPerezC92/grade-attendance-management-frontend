@@ -1,6 +1,5 @@
 import {
   Box,
-  IconButton,
   Paper,
   Table,
   TableBody,
@@ -10,18 +9,17 @@ import {
   TableRow,
   Typography,
 } from '@material-ui/core';
-import { AiOutlineDelete } from 'react-icons/ai';
 import {
   StudentButtonRegister,
   StudentButtonEdit,
+  StudentButtonCreateFromCSV,
 } from 'src/components/modules';
-import { useAppDispatch, useAppSelector } from 'src/redux';
-import { startDeleteStudent } from 'src/redux/reducers/Student/student.thunks';
+import { useAppSelector } from 'src/redux';
+import { StudentButtonDelete } from '../student/StudentButtonDelete';
 import styles from './SettingsTabStudent.module.scss';
 
 export const SettingsTabStudent: React.FC = () => {
   const { students } = useAppSelector((state) => state.studentReducer);
-  const dispatch = useAppDispatch();
   return (
     <>
       <>
@@ -31,6 +29,7 @@ export const SettingsTabStudent: React.FC = () => {
           </Typography>
 
           <div className={styles.recordStudent__buttons}>
+            <StudentButtonCreateFromCSV />
             <StudentButtonRegister />
           </div>
 
@@ -55,14 +54,7 @@ export const SettingsTabStudent: React.FC = () => {
                       <TableCell>
                         <Box display="flex">
                           <StudentButtonEdit student={student} />
-                          <IconButton
-                            color="secondary"
-                            onClick={() =>
-                              dispatch(startDeleteStudent(student))
-                            }
-                          >
-                            <AiOutlineDelete />
-                          </IconButton>
+                          <StudentButtonDelete student={student} />
                         </Box>
                       </TableCell>
                     </TableRow>

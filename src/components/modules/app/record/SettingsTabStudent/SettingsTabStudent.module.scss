@@ -6,5 +6,7 @@
 }
 
 .recordStudent__buttons {
+  display: flex;
   margin-inline-start: auto;
+  gap: 16px;
 }

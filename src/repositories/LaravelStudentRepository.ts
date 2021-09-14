@@ -11,6 +11,10 @@ interface StudentRepository {
     registerStudent: CreateStudent
   ): Promise<SuccessfulResponse<Student> | ServerErrorResponse>;
 
+  createFromCSV(
+    formData: FormData
+  ): Promise<SuccessfulResponse<Student[]> | ServerErrorResponse>;
+
   update(
     student: Student
   ): Promise<SuccessfulResponse<Student> | ServerErrorResponse>;
@@ -21,6 +25,22 @@ interface StudentRepository {
 }
 
 export class LaravelStudentRepository implements StudentRepository {
+  async createFromCSV(
+    formData: FormData
+  ): Promise<SuccessfulResponse<Student[]> | ServerErrorResponse> {
+    try {
+      const response = await fetch(`${baseApiURL}/student/csv-file`, {
+        method: 'POST',
+        body: formData,
+        redirect: 'follow',
+      });
+
+      return (await response.json()) as SuccessfulResponse<Student[]>;
+    } catch (error) {
+      return { success: false, message: 'Error al registrar estudiante' };
+    }
+  }
+
   async update(
     student: Student
   ): Promise<SuccessfulResponse<Student> | ServerErrorResponse> {

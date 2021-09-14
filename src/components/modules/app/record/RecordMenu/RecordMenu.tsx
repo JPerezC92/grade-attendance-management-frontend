@@ -2,7 +2,6 @@ import NextLink from 'next/link';
 import { Box, Button, MenuItem, MenuList, Typography } from '@material-ui/core';
 import { useAppSelector } from 'src/redux';
 import { AppRoute, CourseRecordRoute } from 'src/routes';
-import { CreateStudentFromCSVButton } from '../student';
 import styles from './RecordMenu.module.scss';
 
 export const RecordMenu: React.FC = () => {
@@ -14,8 +13,6 @@ export const RecordMenu: React.FC = () => {
   return (
     <Box>
       <Box className={styles.appRecordButtons}>
-        <CreateStudentFromCSVButton />
-
         <NextLink href={AppRoute.ROOT}>
           <Button component="a" variant="outlined" color="primary">
             <Typography variant="button" align="center">

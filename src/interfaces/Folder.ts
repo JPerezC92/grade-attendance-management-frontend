@@ -1,5 +1,3 @@
-import { Student } from './Student';
-
 type payload<Type> = Type;
 type message = string;
 export interface ApiResponse {
@@ -18,7 +16,6 @@ export interface ServerErrorResponse {
 export interface User extends Person {
   id: number;
   email: string;
-  rootFolderId: string;
 }
 
 export interface RegisterUserInformation extends Person {

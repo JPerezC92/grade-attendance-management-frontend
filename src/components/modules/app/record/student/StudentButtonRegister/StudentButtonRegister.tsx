@@ -12,7 +12,7 @@ export const StudentButtonRegister: React.FC = () => {
         color="primary"
         onClick={useModalStudentDialogRegister.handleOpenModal}
       >
-        Agregar estudiante
+        Agregar
       </Button>
 
       {useModalStudentDialogRegister.isOpen && (

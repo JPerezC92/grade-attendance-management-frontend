@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import { AppThunk } from 'src/redux/store/store';
 import { authActions } from './auth.slice';
 import { LaravelAuthRepository } from 'src/repositories/LaravelAuthRepository';
@@ -53,4 +54,18 @@ export const startLogout = (): AppThunk => (dispatch, _getState) => {
   laravelAuthRepository.logout();
 
   dispatch(authActions.logout());
+};
+
+export const startVerifyToken = (): AppThunk<
+  Promise<ServerErrorResponse | void>
+> => async (dispatch, _getState) => {
+  dispatch(authActions.startLoading());
+  const token = Cookies.get('token');
+
+  const response = await laravelAuthRepository.userInfo(token);
+
+  dispatch(authActions.finishLoading());
+  if (isServerErrorResponse(response)) return response;
+
+  dispatch(authActions.login(response.payload));
 };
