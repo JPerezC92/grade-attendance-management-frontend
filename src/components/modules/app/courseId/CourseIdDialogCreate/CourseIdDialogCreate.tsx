@@ -80,13 +80,14 @@ export const CourseIdDialogCreate: React.FC<CourseIdDialogCreateProps> = ({
               <TextField
                 autoFocus
                 fullWidth
-                label="Carrera"
                 id="career"
+                label="Carrera"
                 margin="dense"
                 name="career"
                 onChange={handleInputChange}
                 type="text"
                 value={formValues.career}
+                variant="outlined"
               />
 
               <TextField
@@ -98,6 +99,7 @@ export const CourseIdDialogCreate: React.FC<CourseIdDialogCreateProps> = ({
                 onChange={handleInputChange}
                 type="text"
                 value={formValues.semester}
+                variant="outlined"
               />
               <TextField
                 fullWidth
@@ -108,6 +110,7 @@ export const CourseIdDialogCreate: React.FC<CourseIdDialogCreateProps> = ({
                 onChange={handleInputChange}
                 type="text"
                 value={formValues.group}
+                variant="outlined"
               />
               <TextField
                 fullWidth
@@ -118,16 +121,16 @@ export const CourseIdDialogCreate: React.FC<CourseIdDialogCreateProps> = ({
                 onChange={handleInputChange}
                 type="text"
                 value={formValues.turn}
+                variant="outlined"
               />
 
-              <FormControl fullWidth>
+              <FormControl fullWidth margin="dense" variant="outlined">
                 <InputLabel>Periodo</InputLabel>
                 <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
                   name="periodId"
                   value={formValues.periodId}
                   onChange={handleInputChange}
+                  label="Periodo"
                 >
                   {periodReducer.periods.map((period) => (
                     <MenuItem key={period.id} value={period.id}>

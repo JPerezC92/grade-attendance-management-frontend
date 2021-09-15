@@ -5,5 +5,6 @@ export interface Activity extends Timestamps {
   name: string;
   value: number;
   courseRecordId: number;
+  scoresQuantity: number;
   scores: Score[];
 }

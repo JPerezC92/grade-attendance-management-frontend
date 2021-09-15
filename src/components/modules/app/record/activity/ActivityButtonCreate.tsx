@@ -3,21 +3,21 @@ import { useModal } from 'src/hooks';
 import { ActivityDialogCreate } from './ActivityDialogCreate';
 
 export const ActivityButtonCreate: React.FC = () => {
-  const useModalActivityDialogCreate = useModal();
+  const modalActivityDialogCreate = useModal();
 
   return (
     <>
       <Button
         variant="contained"
         color="primary"
-        onClick={useModalActivityDialogCreate.handleOpenModal}
+        onClick={modalActivityDialogCreate.handleOpenModal}
       >
         Agregar Actividad
       </Button>
 
-      {useModalActivityDialogCreate.isOpen && (
+      {modalActivityDialogCreate.isOpen && (
         <ActivityDialogCreate
-          useModalActivityDialogCreate={useModalActivityDialogCreate}
+          modalActivityDialogCreate={modalActivityDialogCreate}
         />
       )}
     </>

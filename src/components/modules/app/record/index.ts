@@ -1,6 +1,7 @@
 export * from './GradeTable';
 export * from './RecordLayout';
 export * from './RecordMenu';
+export * from './SettingsTabActivity';
 export * from './SettingsTabAttendance';
 export * from './SettingsTabStudent';
 export * from './activity';

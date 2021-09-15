@@ -19,6 +19,9 @@ const activitySlice = createSlice({
     setActivities: (state, action: PayloadAction<Activity[]>) => {
       state.activities = action.payload;
     },
+    addNewActivity: (state, action: PayloadAction<Activity>) => {
+      state.activities = [...state.activities, action.payload];
+    },
     setScoresCalculation: (
       state,
       action: PayloadAction<ScoreCalculation[]>

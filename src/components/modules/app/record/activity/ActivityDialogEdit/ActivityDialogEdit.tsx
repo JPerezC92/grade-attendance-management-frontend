@@ -9,44 +9,39 @@ import {
   Typography,
 } from '@material-ui/core';
 import { useForm, UseModalResult } from 'src/hooks';
-import { useAppDispatch, useAppSelector } from 'src/redux';
-import { startCreateActivity } from 'src/redux/reducers/Activity/activity.thunks';
+import { Activity } from 'src/interfaces';
+import { startUpdateActivity, useAppDispatch } from 'src/redux';
 
-interface ActivityDialogCreateProps {
-  modalActivityDialogCreate: UseModalResult;
+interface ActivityDialogEditProps {
+  activity: Activity;
+  modalActivityDialogEdit: UseModalResult;
 }
 
-export const ActivityDialogCreate: React.FC<ActivityDialogCreateProps> = ({
-  modalActivityDialogCreate,
+export const ActivityDialogEdit: React.FC<ActivityDialogEditProps> = ({
+  activity,
+  modalActivityDialogEdit,
 }) => {
   const dispatch = useAppDispatch();
-  const {
-    courseRecordReducer: { currentCourseRecord },
-  } = useAppSelector((state) => state);
-  const { isOpen, handleCloseModal } = modalActivityDialogCreate;
 
-  const { formValues, handleInputChange, reset: resetForm } = useForm({
-    name: '',
-    value: '',
-    scoresQuantity: '',
+  const { isOpen, handleCloseModal } = modalActivityDialogEdit;
+
+  const { formValues, handleInputChange } = useForm({
+    name: activity.name,
+    value: activity.value,
+    scoresQuantity: activity.scoresQuantity,
   });
-
-  const handleClose = () => {
-    resetForm();
-    handleCloseModal();
-  };
 
   return (
     <>
       <Dialog
         maxWidth="xs"
         open={isOpen}
-        onClose={handleClose}
+        onClose={handleCloseModal}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title" disableTypography>
           <Typography component="h2" variant="h4">
-            Nueva Actividad
+            Editar actividad
           </Typography>
         </DialogTitle>
 
@@ -55,16 +50,15 @@ export const ActivityDialogCreate: React.FC<ActivityDialogCreateProps> = ({
         <form
           onSubmit={(e) => {
             e.preventDefault();
-
             dispatch(
-              startCreateActivity({
+              startUpdateActivity({
+                ...activity,
                 ...formValues,
-                value: parseInt(formValues.value, 10),
-                scoresQuantity: parseInt(formValues.scoresQuantity, 10),
-                courseRecordId: currentCourseRecord.id,
+                value: parseInt(`${formValues.value}`, 10),
+                scoresQuantity: parseInt(`${formValues.scoresQuantity}`, 10),
               })
             );
-            handleClose();
+            handleCloseModal();
           }}
         >
           <DialogContent>
@@ -72,52 +66,40 @@ export const ActivityDialogCreate: React.FC<ActivityDialogCreateProps> = ({
               autoFocus
               fullWidth
               id="name"
+              label="Actividad"
               margin="dense"
               name="name"
               onChange={handleInputChange}
               type="text"
-              variant="outlined"
-              label="Nombre"
               value={formValues.name}
+              variant="outlined"
             />
 
             <TextField
               fullWidth
               id="value"
+              label="Valor"
               margin="dense"
               name="value"
               onChange={handleInputChange}
               type="number"
-              variant="outlined"
-              label="Valor"
               value={formValues.value}
+              variant="outlined"
             />
-
             <TextField
               fullWidth
               id="scoresQuantity"
+              label="Número de calificaciones"
               margin="dense"
               name="scoresQuantity"
               onChange={handleInputChange}
               type="number"
-              variant="outlined"
-              label="Numero de calificaciones"
               value={formValues.scoresQuantity}
+              variant="outlined"
             />
-
-            {/* <TextareaAutosize
-              aria-label="minimum height"
-              maxLength={200}
-              // minRows={3}
-              onChange={handleInputChange}
-              placeholder="Comentario"
-              name="comment"
-              style={{ width: '100%' }}
-              value={formValues.comment}
-            /> */}
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose} color="secondary">
+            <Button onClick={handleCloseModal} color="secondary">
               Cancelar
             </Button>
             <Button color="primary" type="submit">

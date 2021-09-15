@@ -3,7 +3,7 @@ import { AppThunk } from 'src/redux/store';
 import { studentAction } from './student.slice';
 import { LaravelStudentRepository } from 'src/repositories';
 import { isServerErrorResponse } from 'src/helpers/assertions';
-import { courseRecordAction } from 'src/redux';
+import { courseRecordAction, startLoadingCourseRecord } from 'src/redux';
 
 const laravelStudentRepository = new LaravelStudentRepository();
 
@@ -22,12 +22,19 @@ export const startCreateStudent = (
 
 export const startCreateStudentFromCSV = (
   formData: FormData
-): AppThunk<Promise<ServerErrorResponse | void>> => async (dispatch, _) => {
+): AppThunk<Promise<ServerErrorResponse | void>> => async (
+  dispatch,
+  getState
+) => {
+  const {
+    courseRecordReducer: { currentCourseRecord },
+  } = getState();
+
   const response = await laravelStudentRepository.createFromCSV(formData);
 
   if (isServerErrorResponse(response)) return response;
 
-  dispatch(studentAction.setStudents(response.payload));
+  dispatch(startLoadingCourseRecord(currentCourseRecord.id));
 };
 
 export const startUpdateStudent = (

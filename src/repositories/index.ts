@@ -1,3 +1,4 @@
+export * from './LaravelActivityRepository';
 export * from './LaravelAttendanceRepository';
 export * from './LaravelAuthRepository';
 export * from './LaravelCourseRecordRepository';

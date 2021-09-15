@@ -6,6 +6,7 @@ import { RecordLayout, TabPanel } from 'src/components/modules';
 import {
   SettingsTabStudent,
   SettingsTabAttendance,
+  SettingsTabActivity,
 } from 'src/components/modules/app/record';
 
 function a11yProps(index: number) {
@@ -43,7 +44,7 @@ export const CourseRecordSettingsContainer: React.FC = () => {
           <SettingsTabStudent />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          Item Two
+          <SettingsTabActivity />
         </TabPanel>
         <TabPanel value={value} index={2}>
           <SettingsTabAttendance />

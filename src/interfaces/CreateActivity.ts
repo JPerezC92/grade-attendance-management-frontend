@@ -1,0 +1,6 @@
+export interface CreateActivity {
+  name: string;
+  value: number;
+  courseRecordId: number;
+  scoresQuantity: number;
+}
