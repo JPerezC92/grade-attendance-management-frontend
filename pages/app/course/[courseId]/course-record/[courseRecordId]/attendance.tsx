@@ -1,9 +1,9 @@
-import { CourseRecordAttendaceContainer } from 'src/containers';
+import AttendanceContainer from 'src/modules/attendance/components/AttendanceContainer';
 
 const CourseRecordAttendace: React.FC = () => {
   return (
     <>
-      <CourseRecordAttendaceContainer />
+      <AttendanceContainer />
     </>
   );
 };

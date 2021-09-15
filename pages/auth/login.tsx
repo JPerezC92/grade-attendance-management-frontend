@@ -1,4 +1,4 @@
-import { LoginContainer } from 'src/containers/auth';
+import LoginContainer from 'src/modules/auth/components/LoginContainer';
 
 export const login = (): JSX.Element => (
   <>

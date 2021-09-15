@@ -4,8 +4,8 @@ import { Button } from '@material-ui/core';
 
 import { useAppDispatch, useAppSelector } from 'src/redux';
 import { AuthRoute } from 'src/routes';
-import { authActions } from 'src/redux/reducers';
-import { Redirect } from 'src/components/common';
+import { authActions } from 'src/modules/auth/reducer';
+import Redirect from 'src/shared/components/Redirect';
 
 export const Home = (): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -31,7 +31,6 @@ export const Home = (): JSX.Element => {
               id: 1,
               firstname: 'Jhon',
               lastname: 'Doe',
-              rootFolderId: 'rootFolder',
               email: 'test2@gmail.com',
             })
           )

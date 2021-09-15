@@ -1,5 +1,5 @@
-import { CourseContainer } from 'src/containers/app';
-import { IfUserIsAuthenticated } from 'src/components/modules';
+import CourseContainer from 'src/modules/course/components/CourseContainer';
+import IfUserIsAuthenticated from 'src/modules/auth/components/IfUserIsAuthenticated';
 
 const AppRoot: React.FC = () => {
   return (

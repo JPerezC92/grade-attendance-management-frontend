@@ -1,7 +1,11 @@
 import { FormikHelpers } from 'formik';
-import { Credentials, RegisterUserInformation } from 'src/interfaces/Folder';
+import {
+  startLogin,
+  startLogout,
+  startRegister,
+} from 'src/modules/auth/reducer';
+import { Credentials, RegisterUserInformation } from 'src/modules/auth/types';
 import { useAppDispatch } from 'src/redux';
-import { startLogin, startLogout, startRegister } from 'src/redux/reducers';
 
 interface RegisterValues extends RegisterUserInformation {
   confirmPassword: string;

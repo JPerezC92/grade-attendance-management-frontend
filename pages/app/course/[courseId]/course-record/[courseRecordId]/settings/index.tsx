@@ -1,9 +1,9 @@
-import { CourseRecordSettingsContainer } from 'src/containers';
+import SettingsContainer from 'src/modules/courseRecord/components/SettingsContainer';
 
 const CourseRecordSettings: React.FC = () => {
   return (
     <>
-      <CourseRecordSettingsContainer />
+      <SettingsContainer />
     </>
   );
 };

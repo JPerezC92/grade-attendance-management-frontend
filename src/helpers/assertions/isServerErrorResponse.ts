@@ -1,4 +1,4 @@
-import { ApiResponse, ServerErrorResponse } from 'src/interfaces/Folder';
+import { ApiResponse, ServerErrorResponse } from 'src/shared/types';
 
 export function isServerErrorResponse(
   response: ApiResponse

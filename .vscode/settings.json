@@ -1,0 +1,14 @@
+{
+  "exportall.config.relExclusion": ["/src/courseRecord/reducer/thunks"],
+  "exportall.config.folderListener": [
+    "/src/modules/attendance/types",
+    "/src/modules/activity/types",
+    "/src/shared/types",
+    "/src/modules/auth/types",
+    "/src/modules/student/types",
+    "/src/modules/grade/types",
+    "/src/modules/course/types",
+    "/src/modules/period/types",
+    "/src/modules/courseRecord/types"
+  ]
+}

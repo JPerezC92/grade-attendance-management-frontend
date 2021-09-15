@@ -1,4 +1,4 @@
-import { RegisterContainer } from 'src/containers/auth';
+import RegisterContainer from 'src/modules/auth/components/RegisterContainer';
 
 export const register = (): JSX.Element => (
   <>

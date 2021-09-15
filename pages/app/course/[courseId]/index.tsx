@@ -1,7 +1,7 @@
-import { CourseIdContainer } from 'src/containers/app';
+import CourseContentContainer from 'src/modules/course/components/CourseContentContainer';
 
 const CourseId: React.FC = () => {
-  return <CourseIdContainer />;
+  return <CourseContentContainer />;
 };
 
 export default CourseId;
