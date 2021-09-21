@@ -1,0 +1,14 @@
+.navbar {
+  padding-block: 1.2%;
+  padding-inline: 2.2%;
+  align-items: center;
+  gap: 1em;
+}
+
+.navbar__navigation {
+  flex-basis: 10rem;
+  flex-grow: 99;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

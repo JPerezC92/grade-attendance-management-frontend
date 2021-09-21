@@ -2,11 +2,16 @@ import { useState } from 'react';
 import { Box, MenuItem, Typography, Menu } from '@material-ui/core';
 
 import { useAuthentication } from 'src/hooks/useAuthentication';
-import UserInfoCard from '../UserInfoCard';
-import styles from './UserOptionIcon.module.scss';
 import UserAvatar from 'src/modules/user/components/UserAvatar';
 
-const UserOptionIcon: React.FC = () => {
+import UserInfoCard from '../UserInfoCard';
+import styles from './UserOptionsIcon.module.scss';
+
+interface UserOptionsIconProps {
+  className?: string;
+}
+
+const UserOptionsIcon: React.FC<UserOptionsIconProps> = ({ className }) => {
   const { handleLogout } = useAuthentication();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -21,7 +26,7 @@ const UserOptionIcon: React.FC = () => {
 
   return (
     <>
-      <Box onClick={handleClick}>
+      <Box className={`${className}`} onClick={handleClick}>
         <UserAvatar className={styles.userAvatar} />
       </Box>
 
@@ -51,4 +56,4 @@ const UserOptionIcon: React.FC = () => {
   );
 };
 
-export default UserOptionIcon;
+export default UserOptionsIcon;

@@ -12,24 +12,13 @@
   padding-block: 1.2%;
   padding-inline: 2.2%;
   column-gap: 2em;
+}
 
-  .header__hamburguer {
-    cursor: pointer;
-    & svg {
-      font-size: 28px;
-      vertical-align: middle;
-    }
-  }
-
-  & picture {
-    // margin-inline-start: auto;
-    min-width: 120px;
-    max-width: 200px;
-    width: 14%;
-  }
-
-  .header__miscellaneousOptions {
-    margin-left: auto;
+.navbar__hamburguer {
+  cursor: pointer;
+  & svg {
+    font-size: 28px;
+    vertical-align: middle;
   }
 }
 

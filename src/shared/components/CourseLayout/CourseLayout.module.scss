@@ -7,23 +7,6 @@
   grid-template-rows: auto 1fr;
 }
 
-.header {
-  display: flex;
-  padding-block: 1.2%;
-  padding-inline: 2.2%;
-  column-gap: 2em;
-
-  & picture {
-    min-width: 120px;
-    max-width: 200px;
-    width: 14%;
-  }
-
-  .header__miscellaneousOptions {
-    margin-left: auto;
-  }
-}
-
 .content {
   overflow: auto;
   width: 100%;

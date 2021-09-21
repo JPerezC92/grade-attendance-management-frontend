@@ -1,13 +1,12 @@
 import { useState } from 'react';
-import Image from 'next/image';
-import { AppBar, Toolbar } from '@material-ui/core';
-import classNames from 'classnames/bind';
 import { CgMenuGridO } from 'react-icons/cg';
+import classNames from 'classnames/bind';
 
-import SenatiLogoNameV2 from 'src/static/senati-logo-name-v2.svg';
 import AppMenu from '../AppMenu';
-import UserOptionIcon from '../UserOptionIcon';
+import UserOptionsIcon from '../UserOptionsIcon';
 import AppNavigation from '../AppNavigation';
+import Navbar from '../Navbar';
+import LogoWithName from '../LogoWithName';
 import styles from './AppLayout.module.scss';
 
 const cx = classNames.bind(styles);
@@ -22,27 +21,18 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children, CustomMenu }) => {
 
   return (
     <div className={styles.appRootContainer}>
-      <AppBar position="static">
-        <Toolbar className={styles.header}>
+      <Navbar
+        MenuIcon={
           <span
-            className={styles.header__hamburguer}
+            className={styles.navbar__hamburguer}
             onClick={() => setToggleNavigation((toggle) => (toggle = !toggle))}
           >
             <CgMenuGridO />
           </span>
-
-          <picture>
-            <Image
-              src={SenatiLogoNameV2}
-              alt="logo senati with institution name"
-              layout="responsive"
-            />
-          </picture>
-          <div className={styles.header__miscellaneousOptions}>
-            <UserOptionIcon />
-          </div>
-        </Toolbar>
-      </AppBar>
+        }
+        Logo={<LogoWithName />}
+        UserOptionsIcon={<UserOptionsIcon />}
+      />
 
       <div
         className={cx({
