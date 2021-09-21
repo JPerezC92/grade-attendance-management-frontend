@@ -27,7 +27,11 @@ const RecordLayout: React.FC = ({ children }) => {
     return null;
   }
 
-  return <AppLayout CustomMenu={RecordMenu}>{children}</AppLayout>;
+  return (
+    <>
+      <AppLayout AsideMenu={<RecordMenu />}>{children}</AppLayout>
+    </>
+  );
 };
 
 export default RecordLayout;

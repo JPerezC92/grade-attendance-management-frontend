@@ -1,8 +1,8 @@
 import NextLink from 'next/link';
-import { Box, Button, MenuItem, MenuList, Typography } from '@material-ui/core';
+import { Box, MenuItem, MenuList } from '@material-ui/core';
 
 import { useAppSelector } from 'src/redux';
-import { AppRoute, CourseRecordRoute } from 'src/routes';
+import { CourseRecordRoute } from 'src/routes';
 import styles from './RecordMenu.module.scss';
 
 const RecordMenu: React.FC = () => {
@@ -13,15 +13,6 @@ const RecordMenu: React.FC = () => {
 
   return (
     <Box>
-      <Box className={styles.appRecordButtons}>
-        <NextLink href={AppRoute.ROOT}>
-          <Button component="a" variant="outlined" color="primary">
-            <Typography variant="button" align="center">
-              Ir a la pantalla principal
-            </Typography>
-          </Button>
-        </NextLink>
-      </Box>
       <Box>
         <MenuList className={styles.menu__list}>
           <NextLink
