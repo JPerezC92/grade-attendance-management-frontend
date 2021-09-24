@@ -4,13 +4,18 @@ import { authActions } from './auth.slice';
 import { LaravelAuthRepository } from 'src/modules/auth/repositories';
 import { isServerErrorResponse } from 'src/helpers/assertions';
 import { ServerErrorResponse } from 'src/shared/types';
-import { RegisterUserInformation } from '../types';
+import { RegisterUserInformation, Token } from '../types';
 
 const laravelAuthRepository = new LaravelAuthRepository();
 
-// function isString(val: any): val is string {
-//   return typeof val === 'string';
-// }
+const setTokenOnCookie = (token: Token) => {
+  Cookies.set('token', token, {
+    secure: false,
+    path: '/',
+    expires: 3600 * 9,
+    sameSite: 'strict',
+  });
+};
 
 export const startLogin = (
   email: string,
@@ -24,11 +29,11 @@ export const startLogin = (
     password,
   });
 
-  if (isServerErrorResponse(response)) {
-    return response;
-  }
+  if (isServerErrorResponse(response)) return response;
 
-  dispatch(authActions.login(response.payload));
+  setTokenOnCookie(response.payload);
+
+  dispatch(startLoadingUser());
 };
 
 export const startRegister = (
@@ -45,7 +50,9 @@ export const startRegister = (
     return response;
   }
 
-  dispatch(authActions.login(response.payload));
+  setTokenOnCookie(response.payload);
+
+  dispatch(startLoadingUser());
 };
 
 export const startLogout = (): AppThunk => (dispatch, _getState) => {
@@ -54,15 +61,11 @@ export const startLogout = (): AppThunk => (dispatch, _getState) => {
   dispatch(authActions.logout());
 };
 
-export const startVerifyToken = (): AppThunk<
+export const startLoadingUser = (): AppThunk<
   Promise<ServerErrorResponse | void>
 > => async (dispatch, _getState) => {
-  dispatch(authActions.startLoading());
-  const token = Cookies.get('token');
+  const response = await laravelAuthRepository.userInfo();
 
-  const response = await laravelAuthRepository.userInfo(token);
-
-  dispatch(authActions.finishLoading());
   if (isServerErrorResponse(response)) return response;
 
   dispatch(authActions.login(response.payload));
