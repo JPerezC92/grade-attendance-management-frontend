@@ -1,12 +1,16 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import type { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
 import { CssBaseline } from '@material-ui/core';
+
 import { store } from 'src/redux';
+import { startLoadingUser } from 'src/modules/auth/reducer';
+import LoadingSpinner from 'src/shared/components/LoadingSpinner';
 import '../styles/globals.scss';
-// import { authActions } from 'src/redux/reducers/Auth/auth.slice';
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     const jssStyles = document.querySelector('#jss-server-side');
     if (jssStyles) {
@@ -14,17 +18,14 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
     }
   }, []);
 
-  // useEffect(() => {
-  //   store.dispatch(
-  //     authActions.login({
-  //       id: 'test',
-  //       email: 'Test@gmail.co',
-  //       displayName: 'test',
-  //     })
-  //   );
-  //   // eslint-disable-next-line no-console
-  //   console.log('🎊');
-  // }, []);
+  useEffect(() => {
+    // restore user data on refresh window if authenticated
+    store.dispatch(startLoadingUser()).finally(() => setIsLoading(() => false));
+  }, []);
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <div id="root-app">
