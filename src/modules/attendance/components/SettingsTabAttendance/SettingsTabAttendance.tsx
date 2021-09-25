@@ -9,13 +9,20 @@ import {
 } from '@material-ui/core';
 
 import { useAppSelector } from 'src/redux';
+import { CourseRoute } from 'src/routes';
+import Link from 'src/shared/components/Link';
+import NavigationBreadcrumbs from 'src/shared/components/NavigationBreadcrumbs';
 import AttendanceButtonCreate from '../AttendanceButtonCreate';
 import AttendanceButtonDelete from '../AttendanceButtonDelete';
 import AttendanceButtonEdit from '../AttendanceButtonEdit';
 import styles from './SettingsTabAttendance.module.scss';
 
 const SettingsTabAttendance: React.FC = () => {
-  const { attendances } = useAppSelector((state) => state.attendanceReducer);
+  const {
+    attendanceReducer: { attendances },
+    courseReducer: { currentCourse },
+    courseRecordReducer: { currentCourseRecord },
+  } = useAppSelector((state) => state);
 
   return (
     <>
@@ -24,6 +31,19 @@ const SettingsTabAttendance: React.FC = () => {
           <Typography className={styles.title} component="h1" variant="h3">
             Fechas de asistencias
           </Typography>
+
+          <NavigationBreadcrumbs>
+            <Link href={CourseRoute.ROOT}>Cursos</Link>
+
+            <Link href={CourseRoute.COURSE(currentCourse.id)}>
+              {currentCourse.name}
+            </Link>
+
+            <Typography color="textPrimary">
+              {currentCourseRecord.career} - S{currentCourseRecord.semester} -{' '}
+              {currentCourseRecord.group}
+            </Typography>
+          </NavigationBreadcrumbs>
 
           <div className={styles.recordAttendanceDate__buttons}>
             <AttendanceButtonCreate />

@@ -13,12 +13,16 @@ import { useAppSelector } from 'src/redux';
 import AttendanceButtonCallAttendance from 'src/modules/attendance/components/AttendanceButtonCallAttendance';
 import RecordLayout from 'src/modules/courseRecord/components/RecordLayout';
 import styles from './AttendanceContainer.module.scss';
+import NavigationBreadcrumbs from 'src/shared/components/NavigationBreadcrumbs';
+import Link from 'src/shared/components/Link';
+import { CourseRoute } from 'src/routes';
 
 const CourseRecordAttendaceContainer: React.FC = () => {
   const state = useAppSelector((state) => state);
   const {
     studentReducer: { students },
     attendanceReducer: { attendances },
+    courseReducer: { currentCourse },
   } = state;
 
   return (
@@ -28,6 +32,16 @@ const CourseRecordAttendaceContainer: React.FC = () => {
           <Typography className={styles.title} component="h1" variant="h3">
             Asistencias
           </Typography>
+
+          <NavigationBreadcrumbs>
+            <Link href={CourseRoute.ROOT}>Cursos</Link>
+
+            <Link href={CourseRoute.COURSE(currentCourse.id)}>
+              {currentCourse.name}
+            </Link>
+
+            <Typography color="textPrimary">Asistencias</Typography>
+          </NavigationBreadcrumbs>
 
           <div className={styles.recordAttendance__buttons}>
             <AttendanceButtonCallAttendance />

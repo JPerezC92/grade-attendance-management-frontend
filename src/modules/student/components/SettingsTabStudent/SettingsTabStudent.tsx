@@ -16,9 +16,16 @@ import StudentButtonEdit from 'src/modules/student/components/StudentButtonEdit'
 import StudentButtonRegister from 'src/modules/student/components/StudentButtonRegister';
 
 import styles from './SettingsTabStudent.module.scss';
+import Link from 'src/shared/components/Link';
+import NavigationBreadcrumbs from 'src/shared/components/NavigationBreadcrumbs';
+import { CourseRoute } from 'src/routes';
 
 const SettingsTabStudent: React.FC = () => {
-  const { students } = useAppSelector((state) => state.studentReducer);
+  const {
+    studentReducer: { students },
+    courseReducer: { currentCourse },
+    courseRecordReducer: { currentCourseRecord },
+  } = useAppSelector((state) => state);
   return (
     <>
       <>
@@ -26,6 +33,19 @@ const SettingsTabStudent: React.FC = () => {
           <Typography className={styles.title} component="h1" variant="h3">
             Estudiantes
           </Typography>
+
+          <NavigationBreadcrumbs>
+            <Link href={CourseRoute.ROOT}>Cursos</Link>
+
+            <Link href={CourseRoute.COURSE(currentCourse.id)}>
+              {currentCourse.name}
+            </Link>
+
+            <Typography color="textPrimary">
+              {currentCourseRecord.career} - S{currentCourseRecord.semester} -{' '}
+              {currentCourseRecord.group}
+            </Typography>
+          </NavigationBreadcrumbs>
 
           <div className={styles.recordStudent__buttons}>
             <StudentButtonCreateFromCSV />

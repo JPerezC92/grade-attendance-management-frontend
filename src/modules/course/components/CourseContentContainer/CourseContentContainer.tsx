@@ -9,12 +9,14 @@ import {
 } from '@material-ui/core';
 
 import courseRecordImage from 'src/static/course-record-image.jpg';
-import { CourseRecordRoute } from 'src/routes';
+import { CourseRecordRoute, CourseRoute } from 'src/routes';
 import { useAppDispatch, useAppSelector } from 'src/redux';
 import { startLoadingCourseDetail } from 'src/modules/course/reducer';
-import CourseLayout from 'src/shared/components/CourseLayout';
+import AppLayout from 'src/shared/components/AppLayout';
 import CourseRecordButtonCreate from 'src/modules/courseRecord/components/CourseRecordButtonCreate';
 import styles from './CourseContentContainer.module.scss';
+import Link from 'src/shared/components/Link';
+import NavigationBreadcrumbs from 'src/shared/components/NavigationBreadcrumbs';
 
 const CourseContentContainer: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -33,7 +35,7 @@ const CourseContentContainer: React.FC = () => {
 
   return (
     <>
-      <CourseLayout>
+      <AppLayout>
         {!currentCourse || isLoadingCurrentCourse ? (
           <Backdrop
             open={isLoadingCurrentCourse}
@@ -47,6 +49,14 @@ const CourseContentContainer: React.FC = () => {
               <Typography component="h2" variant="h4">
                 {currentCourse?.name || ''}
               </Typography>
+
+              <NavigationBreadcrumbs>
+                <Link href={CourseRoute.ROOT}>Cursos</Link>
+
+                <Typography color="textPrimary">
+                  {currentCourse.name}
+                </Typography>
+              </NavigationBreadcrumbs>
 
               <div className={styles.courseId__grid}>
                 {currentCourse.course_records.map((courseRecord) => (
@@ -80,7 +90,7 @@ const CourseContentContainer: React.FC = () => {
             </div>
           </>
         )}
-      </CourseLayout>
+      </AppLayout>
     </>
   );
 };

@@ -1,11 +1,13 @@
 import { useEffect } from 'react';
-import NextLink from 'next/link';
+
 import { Backdrop, CircularProgress, Typography } from '@material-ui/core';
 import { useAppDispatch, useAppSelector } from 'src/redux';
 import { startLoadingCourses } from 'src/modules/course/reducer';
-import CourseLayout from 'src/shared/components/CourseLayout';
+
+import AppLayout from 'src/shared/components/AppLayout';
 import CourseCard from '../CourseCard';
 import CourseButtonCreate from '../CourseButtonCreate';
+
 import styles from './CourseContainer.module.scss';
 
 const CourseContainer: React.FC = () => {
@@ -18,7 +20,7 @@ const CourseContainer: React.FC = () => {
 
   return (
     <>
-      <CourseLayout>
+      <AppLayout>
         {courseReducer.isLoading && (
           <Backdrop
             open={courseReducer.isLoading}
@@ -32,9 +34,7 @@ const CourseContainer: React.FC = () => {
           <Typography component="h2" variant="h4" align="left">
             Cursos
           </Typography>
-          <NextLink href="./period">
-            <a> Periodo</a>
-          </NextLink>
+
           <div className={styles.course__grid}>
             {courseReducer.courses.map((course) => (
               <CourseCard key={course.id} course={course} />
@@ -42,7 +42,7 @@ const CourseContainer: React.FC = () => {
           </div>
           <CourseButtonCreate />
         </div>
-      </CourseLayout>
+      </AppLayout>
     </>
   );
 };

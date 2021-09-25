@@ -21,7 +21,7 @@ import {
 } from 'src/modules/period/reducer';
 import PeriodButtonCreate from '../PeriodButtonCreate';
 import PeriodButtonUpdate from '../PeriodButtonUpdate';
-import CourseLayout from 'src/shared/components/CourseLayout';
+import AppLayout from 'src/shared/components/AppLayout';
 import styles from './PeriodContainer.module.scss';
 
 export const PeriodContainer: React.FC = () => {
@@ -34,7 +34,7 @@ export const PeriodContainer: React.FC = () => {
 
   return (
     <>
-      <CourseLayout>
+      <AppLayout>
         {periodReducer.isLoading && (
           <Backdrop
             open={periodReducer.isLoading}
@@ -93,7 +93,7 @@ export const PeriodContainer: React.FC = () => {
             </Table>
           </TableContainer>
         </div>
-      </CourseLayout>
+      </AppLayout>
     </>
   );
 };

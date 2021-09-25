@@ -11,11 +11,16 @@ import ActivityButtonCreate from 'src/modules/activity/components/ActivityButton
 import ActivityButtonDelete from 'src/modules/activity/components/ActivityButtonDelete';
 import ActivityButtonUpdate from 'src/modules/activity/components/ActivityButtonUpdate';
 import { useAppSelector } from 'src/redux';
+import { CourseRoute } from 'src/routes';
+import Link from 'src/shared/components/Link';
+import NavigationBreadcrumbs from 'src/shared/components/NavigationBreadcrumbs';
 import styles from './SettingsTabActivity.module.scss';
 
 const SettingsTabActivity: React.FC = () => {
   const {
     activityReducer: { activities },
+    courseReducer: { currentCourse },
+    courseRecordReducer: { currentCourseRecord },
   } = useAppSelector((state) => state);
 
   return (
@@ -26,6 +31,19 @@ const SettingsTabActivity: React.FC = () => {
             <Typography className={styles.title} component="h1" variant="h3">
               Actividades
             </Typography>
+
+            <NavigationBreadcrumbs>
+              <Link href={CourseRoute.ROOT}>Cursos</Link>
+
+              <Link href={CourseRoute.COURSE(currentCourse.id)}>
+                {currentCourse.name}
+              </Link>
+
+              <Typography color="textPrimary">
+                {currentCourseRecord.career} - S{currentCourseRecord.semester} -{' '}
+                {currentCourseRecord.group}
+              </Typography>
+            </NavigationBreadcrumbs>
 
             <div className={styles.tabActivity__buttons}>
               <ActivityButtonCreate />

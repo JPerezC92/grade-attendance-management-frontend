@@ -47,21 +47,3 @@
   overflow: auto;
   width: 100%;
 }
-
-@media screen and (min-width: 768px) {
-  .wrapperNavigationContent {
-    grid-template-columns: minmax(180px, 220px) 1fr;
-  }
-
-  .wrapperNavigationContent__2column {
-    grid-template-columns: 1fr;
-  }
-
-  .navigation {
-    display: initial;
-  }
-
-  .openNavigation {
-    display: none;
-  }
-}
