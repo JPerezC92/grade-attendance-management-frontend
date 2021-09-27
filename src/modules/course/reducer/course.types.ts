@@ -1,15 +1,14 @@
-import { Course, CourseWithCourseRecords } from '../types';
+import { NotLoaded } from 'src/shared/types';
+import { Course, CurrentCourseLoaded } from '../types';
 
 export interface CourseState {
-  isLoading: boolean;
-  isLoadingCurrentCourse: boolean;
+  isLoaded: boolean;
   courses: Course[];
-  currentCourse: CourseWithCourseRecords | null;
+  currentCourse: CurrentCourseLoaded | NotLoaded;
 }
 
 export const courseInitialState: CourseState = {
-  isLoading: false,
-  isLoadingCurrentCourse: false,
+  isLoaded: false,
   courses: [],
-  currentCourse: null,
+  currentCourse: { isLoaded: false },
 };

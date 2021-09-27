@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 import {
-  Backdrop,
   Button,
-  CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
@@ -19,6 +17,7 @@ import { useAppDispatch, useAppSelector } from 'src/redux';
 import { useForm, UseModalResult } from 'src/hooks';
 import { startLoadingPeriods } from 'src/modules/period/reducer';
 import { startCreateCourseRecord } from 'src/modules/courseRecord/reducer/thunks';
+import LoadPeriods from 'src/modules/period/components/LoadPeriods';
 
 interface CourseIdDialogCreateProps {
   useModalCourseIdDialogCreate: UseModalResult;
@@ -47,20 +46,9 @@ const CourseRecordDialogCreate: React.FC<CourseIdDialogCreateProps> = ({
     dispatch(startLoadingPeriods());
   }, []);
 
-  if (periodReducer.isLoading) {
-    return (
-      <Backdrop
-        open={periodReducer.isLoading}
-        style={{ zIndex: 1, color: '#fff' }}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
-    );
-  }
-
   return (
     <>
-      <>
+      <LoadPeriods>
         <Dialog
           maxWidth="xs"
           open={isOpen}
@@ -153,7 +141,7 @@ const CourseRecordDialogCreate: React.FC<CourseIdDialogCreateProps> = ({
             </DialogActions>
           </form>
         </Dialog>
-      </>
+      </LoadPeriods>
     </>
   );
 };

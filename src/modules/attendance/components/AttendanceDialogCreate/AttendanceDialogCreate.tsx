@@ -10,7 +10,8 @@ import {
 } from '@material-ui/core';
 import { format } from 'date-fns';
 import { useForm, UseModalResult } from 'src/hooks';
-import { useAppDispatch, useAppSelector } from 'src/redux';
+import CurrentCourseRecord from 'src/modules/courseRecord/components/CurrentCourseRecord';
+import { useAppDispatch } from 'src/redux';
 import { startCreateAttendance } from '../../reducer';
 
 interface AttendanceDateDialogCreateProps {
@@ -21,9 +22,6 @@ const AttendanceDateDialogCreate: React.FC<AttendanceDateDialogCreateProps> = ({
   useModalAttendanceDateDialogCreate,
 }) => {
   const dispatch = useAppDispatch();
-  const {
-    courseRecordReducer: { currentCourseRecord },
-  } = useAppSelector((state) => state);
 
   const { isOpen, handleCloseModal } = useModalAttendanceDateDialogCreate;
   const { formValues, handleInputChange } = useForm({
@@ -46,41 +44,45 @@ const AttendanceDateDialogCreate: React.FC<AttendanceDateDialogCreateProps> = ({
 
         <Divider />
 
-        <form
-          onSubmit={async (e) => {
-            e.preventDefault();
-            dispatch(
-              startCreateAttendance({
-                ...formValues,
-                courseRecordId: currentCourseRecord.id,
-              })
-            );
-            handleCloseModal();
-          }}
-        >
-          <DialogContent>
-            <TextField
-              id="date"
-              label="Fecha"
-              type="date"
-              name="date"
-              onChange={handleInputChange}
-              defaultValue={formValues.date}
-              InputLabelProps={{
-                shrink: true,
+        <CurrentCourseRecord>
+          {(currentCourseRecord) => (
+            <form
+              onSubmit={async (e) => {
+                e.preventDefault();
+                dispatch(
+                  startCreateAttendance({
+                    ...formValues,
+                    courseRecordId: currentCourseRecord.id,
+                  })
+                );
+                handleCloseModal();
               }}
-              fullWidth
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleCloseModal} color="secondary">
-              Cancelar
-            </Button>
-            <Button color="primary" type="submit">
-              Guardar
-            </Button>
-          </DialogActions>
-        </form>
+            >
+              <DialogContent>
+                <TextField
+                  id="date"
+                  label="Fecha"
+                  type="date"
+                  name="date"
+                  onChange={handleInputChange}
+                  defaultValue={formValues.date}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  fullWidth
+                />
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleCloseModal} color="secondary">
+                  Cancelar
+                </Button>
+                <Button color="primary" type="submit">
+                  Guardar
+                </Button>
+              </DialogActions>
+            </form>
+          )}
+        </CurrentCourseRecord>
       </Dialog>
     </>
   );

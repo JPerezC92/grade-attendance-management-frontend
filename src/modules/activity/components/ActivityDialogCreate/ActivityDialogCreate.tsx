@@ -8,9 +8,11 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core';
+
+import { useAppDispatch } from 'src/redux';
 import { startCreateActivity } from 'src/modules/activity/reducer';
 import { useForm, UseModalResult } from 'src/hooks';
-import { useAppDispatch, useAppSelector } from 'src/redux';
+import CurrentCourseRecord from 'src/modules/courseRecord/components/CurrentCourseRecord';
 
 interface ActivityDialogCreateProps {
   modalActivityDialogCreate: UseModalResult;
@@ -20,9 +22,6 @@ const ActivityDialogCreate: React.FC<ActivityDialogCreateProps> = ({
   modalActivityDialogCreate,
 }) => {
   const dispatch = useAppDispatch();
-  const {
-    courseRecordReducer: { currentCourseRecord },
-  } = useAppSelector((state) => state);
   const { isOpen, handleCloseModal } = modalActivityDialogCreate;
 
   const { formValues, handleInputChange, reset: resetForm } = useForm({
@@ -52,60 +51,62 @@ const ActivityDialogCreate: React.FC<ActivityDialogCreateProps> = ({
 
         <Divider />
 
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
+        <CurrentCourseRecord>
+          {(currentCourseRecord) => (
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
 
-            dispatch(
-              startCreateActivity({
-                ...formValues,
-                value: parseInt(formValues.value, 10),
-                scoresQuantity: parseInt(formValues.scoresQuantity, 10),
-                courseRecordId: currentCourseRecord.id,
-              })
-            );
-            handleClose();
-          }}
-        >
-          <DialogContent>
-            <TextField
-              autoFocus
-              fullWidth
-              id="name"
-              margin="dense"
-              name="name"
-              onChange={handleInputChange}
-              type="text"
-              variant="outlined"
-              label="Nombre"
-              value={formValues.name}
-            />
+                dispatch(
+                  startCreateActivity({
+                    ...formValues,
+                    value: parseInt(formValues.value, 10),
+                    scoresQuantity: parseInt(formValues.scoresQuantity, 10),
+                    courseRecordId: currentCourseRecord.id,
+                  })
+                );
+                handleClose();
+              }}
+            >
+              <DialogContent>
+                <TextField
+                  autoFocus
+                  fullWidth
+                  id="name"
+                  margin="dense"
+                  name="name"
+                  onChange={handleInputChange}
+                  type="text"
+                  variant="outlined"
+                  label="Nombre"
+                  value={formValues.name}
+                />
 
-            <TextField
-              fullWidth
-              id="value"
-              margin="dense"
-              name="value"
-              onChange={handleInputChange}
-              type="number"
-              variant="outlined"
-              label="Valor"
-              value={formValues.value}
-            />
+                <TextField
+                  fullWidth
+                  id="value"
+                  margin="dense"
+                  name="value"
+                  onChange={handleInputChange}
+                  type="number"
+                  variant="outlined"
+                  label="Valor"
+                  value={formValues.value}
+                />
 
-            <TextField
-              fullWidth
-              id="scoresQuantity"
-              margin="dense"
-              name="scoresQuantity"
-              onChange={handleInputChange}
-              type="number"
-              variant="outlined"
-              label="Numero de calificaciones"
-              value={formValues.scoresQuantity}
-            />
+                <TextField
+                  fullWidth
+                  id="scoresQuantity"
+                  margin="dense"
+                  name="scoresQuantity"
+                  onChange={handleInputChange}
+                  type="number"
+                  variant="outlined"
+                  label="Numero de calificaciones"
+                  value={formValues.scoresQuantity}
+                />
 
-            {/* <TextareaAutosize
+                {/* <TextareaAutosize
               aria-label="minimum height"
               maxLength={200}
               // minRows={3}
@@ -115,16 +116,18 @@ const ActivityDialogCreate: React.FC<ActivityDialogCreateProps> = ({
               style={{ width: '100%' }}
               value={formValues.comment}
             /> */}
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose} color="secondary">
-              Cancelar
-            </Button>
-            <Button color="primary" type="submit">
-              Guardar
-            </Button>
-          </DialogActions>
-        </form>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleClose} color="secondary">
+                  Cancelar
+                </Button>
+                <Button color="primary" type="submit">
+                  Guardar
+                </Button>
+              </DialogActions>
+            </form>
+          )}
+        </CurrentCourseRecord>
       </Dialog>
     </>
   );

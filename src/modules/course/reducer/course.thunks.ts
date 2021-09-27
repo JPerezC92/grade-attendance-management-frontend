@@ -22,13 +22,11 @@ export const startLoadingCourses = (): AppThunk<
   dispatch(courseAction.setCourses(response.payload));
 };
 
-export const startLoadingCourseDetail = (
+export const startLoadingCourseContent = (
   courseId: number
 ): AppThunk<Promise<ServerErrorResponse | void>> => async (dispatch, _) => {
-  dispatch(courseAction.startLoadingCurrentCourse());
   const response = await laravelCourseRepository.getById(courseId);
 
-  dispatch(courseAction.finishLoadingCurrentCourse());
   if (isServerErrorResponse(response)) return response;
 
   dispatch(courseAction.setCurrentCourse(response.payload));

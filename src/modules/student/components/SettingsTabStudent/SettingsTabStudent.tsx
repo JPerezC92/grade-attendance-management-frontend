@@ -19,13 +19,14 @@ import styles from './SettingsTabStudent.module.scss';
 import Link from 'src/shared/components/Link';
 import NavigationBreadcrumbs from 'src/shared/components/NavigationBreadcrumbs';
 import { CourseRoute } from 'src/routes';
+import CurrentCourse from 'src/modules/course/components/CurrentCourse';
+import CurrentCourseRecord from 'src/modules/courseRecord/components/CurrentCourseRecord';
 
 const SettingsTabStudent: React.FC = () => {
   const {
     studentReducer: { students },
-    courseReducer: { currentCourse },
-    courseRecordReducer: { currentCourseRecord },
   } = useAppSelector((state) => state);
+
   return (
     <>
       <>
@@ -34,24 +35,32 @@ const SettingsTabStudent: React.FC = () => {
             Estudiantes
           </Typography>
 
-          <NavigationBreadcrumbs>
-            <Link href={CourseRoute.ROOT}>Cursos</Link>
+          <CurrentCourse>
+            {(currentCourse) => (
+              <CurrentCourseRecord>
+                {(currentCourseRecord) => (
+                  <NavigationBreadcrumbs>
+                    <Link href={CourseRoute.ROOT}>Cursos</Link>
 
-            <Link href={CourseRoute.COURSE(currentCourse.id)}>
-              {currentCourse.name}
-            </Link>
+                    <Link href={CourseRoute.COURSE(currentCourse.id)}>
+                      {currentCourse.name}
+                    </Link>
 
-            <Typography color="textPrimary">
-              {currentCourseRecord.career} - S{currentCourseRecord.semester} -{' '}
-              {currentCourseRecord.group}
-            </Typography>
-          </NavigationBreadcrumbs>
+                    <Typography color="textPrimary">
+                      {currentCourseRecord.career} - S
+                      {currentCourseRecord.semester} -{' '}
+                      {currentCourseRecord.group}
+                    </Typography>
+                  </NavigationBreadcrumbs>
+                )}
+              </CurrentCourseRecord>
+            )}
+          </CurrentCourse>
 
           <div className={styles.recordStudent__buttons}>
             <StudentButtonCreateFromCSV />
             <StudentButtonRegister />
           </div>
-
           <Paper>
             <TableContainer>
               <Table size="small">

@@ -1,49 +1,27 @@
-import { useEffect } from 'react';
 import NextImage from 'next/image';
 import { useRouter } from 'next/router';
-import {
-  Backdrop,
-  CircularProgress,
-  Divider,
-  Typography,
-} from '@material-ui/core';
+import { Divider, Typography } from '@material-ui/core';
 
-import courseRecordImage from 'src/static/course-record-image.jpg';
+import { useAppSelector } from 'src/redux';
 import { CourseRecordRoute, CourseRoute } from 'src/routes';
-import { useAppDispatch, useAppSelector } from 'src/redux';
-import { startLoadingCourseDetail } from 'src/modules/course/reducer';
+import courseRecordImage from 'src/static/course-record-image.jpg';
 import AppLayout from 'src/shared/components/AppLayout';
 import CourseRecordButtonCreate from 'src/modules/courseRecord/components/CourseRecordButtonCreate';
-import styles from './CourseContentContainer.module.scss';
 import Link from 'src/shared/components/Link';
 import NavigationBreadcrumbs from 'src/shared/components/NavigationBreadcrumbs';
+import LoadCurrentCourse from '../LoadCurrentCourse';
+import styles from './CourseContentContainer.module.scss';
 
 const CourseContentContainer: React.FC = () => {
-  const dispatch = useAppDispatch();
+  const router = useRouter();
   const {
-    courseReducer: { currentCourse, isLoadingCurrentCourse },
+    courseReducer: { currentCourse },
   } = useAppSelector((state) => state);
 
-  const router = useRouter();
-
-  useEffect(() => {
-    const courseId = parseInt(router.query.courseId as string);
-    if (!currentCourse || currentCourse.id !== courseId) {
-      dispatch(startLoadingCourseDetail(courseId));
-    }
-  }, [router.query]);
-
   return (
-    <>
-      <AppLayout>
-        {!currentCourse || isLoadingCurrentCourse ? (
-          <Backdrop
-            open={isLoadingCurrentCourse}
-            style={{ zIndex: 1, color: '#fff' }}
-          >
-            <CircularProgress color="inherit" />
-          </Backdrop>
-        ) : (
+    <AppLayout>
+      <LoadCurrentCourse>
+        {currentCourse.isLoaded && (
           <>
             <div className={styles.courseId}>
               <Typography component="h2" variant="h4">
@@ -90,8 +68,8 @@ const CourseContentContainer: React.FC = () => {
             </div>
           </>
         )}
-      </AppLayout>
-    </>
+      </LoadCurrentCourse>
+    </AppLayout>
   );
 };
 

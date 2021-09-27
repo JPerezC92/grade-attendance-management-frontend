@@ -1,6 +1,9 @@
 import { AppThunk } from 'src/redux/store';
 
-import { isServerErrorResponse } from 'src/helpers/assertions';
+import {
+  isCurrentCourseRecordLoaded,
+  isServerErrorResponse,
+} from 'src/helpers/assertions';
 import { courseRecordAction } from 'src/modules/courseRecord/reducer';
 import { studentAction } from './student.slice';
 import { startLoadingCourseRecord } from 'src/modules/courseRecord/reducer/thunks';
@@ -37,7 +40,9 @@ export const startCreateStudentFromCSV = (
 
   if (isServerErrorResponse(response)) return response;
 
-  dispatch(startLoadingCourseRecord(currentCourseRecord.id));
+  if (isCurrentCourseRecordLoaded(currentCourseRecord)) {
+    dispatch(startLoadingCourseRecord(currentCourseRecord.id));
+  }
 };
 
 export const startUpdateStudent = (

@@ -2,7 +2,7 @@ export * from './AttendanceButtonCallAttendance';
 export * from './AttendanceButtonCreate';
 export * from './AttendanceButtonDelete';
 export * from './AttendanceButtonEdit';
-export * from './AttendanceContainer';
+export * from './CourseRecordAttendaceContainer';
 export * from './AttendanceDialogCallAttendance';
 export * from './AttendanceDialogCreate';
 export * from './AttendanceDialogDelete';

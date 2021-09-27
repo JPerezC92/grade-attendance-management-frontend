@@ -1,12 +1,6 @@
 import { Breadcrumbs } from '@material-ui/core';
 
-interface NavigationBreadcrumbsProps {
-  BreadcrumbItem?: React.FC[];
-}
-
-const NavigationBreadcrumbs: React.FC<NavigationBreadcrumbsProps> = ({
-  children,
-}) => {
+const NavigationBreadcrumbs: React.FC = ({ children }) => {
   return (
     <>
       <Breadcrumbs aria-label="breadcrumb">{children}</Breadcrumbs>

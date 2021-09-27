@@ -1,11 +1,14 @@
-import { CourseRecord } from '../types';
+import { NotLoaded } from 'src/shared/types';
+import { CurrentCourseRecordLoaded } from '../types';
+
+
 
 export interface CourseRecordState {
   isLoading: boolean;
-  currentCourseRecord: CourseRecord | null;
+  currentCourseRecord: CurrentCourseRecordLoaded | NotLoaded;
 }
 
 export const courseRecordInitialState: CourseRecordState = {
   isLoading: false,
-  currentCourseRecord: null,
+  currentCourseRecord: { isLoaded: false },
 };

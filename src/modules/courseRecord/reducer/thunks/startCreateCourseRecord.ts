@@ -1,4 +1,7 @@
-import { isServerErrorResponse } from 'src/helpers/assertions';
+import {
+  isCurrentCourseLoaded,
+  isServerErrorResponse,
+} from 'src/helpers/assertions';
 import { courseAction } from 'src/modules/course/reducer';
 import { AppThunk } from 'src/redux';
 import { ServerErrorResponse } from 'src/shared/types';
@@ -21,7 +24,10 @@ export const startCreateCourseRecord = (
     courseReducer: { currentCourse },
   } = getState();
 
-  dispatch(courseAction.startLoadingCurrentCourse());
+  if (!isCurrentCourseLoaded(currentCourse)) {
+    return;
+  }
+
   const response = await laravelCourseRecordRepository.create({
     ...courseRecord,
     instructorId: user.id,
@@ -30,8 +36,6 @@ export const startCreateCourseRecord = (
   });
 
   if (isServerErrorResponse(response)) return response;
-
-  dispatch(courseAction.finishLoadingCurrentCourse());
 
   dispatch(courseAction.addNewCourseRecord(response.payload));
 };

@@ -5,6 +5,7 @@ import { ServerErrorResponse } from 'src/shared/types';
 
 import { Activity, CreateActivity } from '../types';
 import { LaravelActivityRepository } from '../repositories';
+import { isCurrentCourseRecordLoaded } from 'src/helpers/assertions';
 
 const laravelActivityRepository = new LaravelActivityRepository();
 
@@ -22,7 +23,9 @@ export const startCreateActivity = (
 
   if (isServerErrorResponse(response)) return response;
 
-  dispatch(startLoadingCourseRecord(currentCourseRecord.id));
+  if (isCurrentCourseRecordLoaded(currentCourseRecord)) {
+    dispatch(startLoadingCourseRecord(currentCourseRecord.id));
+  }
 };
 
 export const startUpdateActivity = (
@@ -39,7 +42,9 @@ export const startUpdateActivity = (
 
   if (isServerErrorResponse(response)) return response;
 
-  dispatch(startLoadingCourseRecord(currentCourseRecord.id));
+  if (isCurrentCourseRecordLoaded(currentCourseRecord)) {
+    dispatch(startLoadingCourseRecord(currentCourseRecord.id));
+  }
 };
 
 export const startDeleteActivity = (
@@ -56,5 +61,7 @@ export const startDeleteActivity = (
 
   if (isServerErrorResponse(response)) return response;
 
-  dispatch(startLoadingCourseRecord(currentCourseRecord.id));
+  if (isCurrentCourseRecordLoaded(currentCourseRecord)) {
+    dispatch(startLoadingCourseRecord(currentCourseRecord.id));
+  }
 };

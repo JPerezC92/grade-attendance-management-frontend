@@ -10,19 +10,20 @@ import {
 import { format, parse } from 'date-fns';
 
 import { useAppSelector } from 'src/redux';
+import { CourseRoute } from 'src/routes';
 import AttendanceButtonCallAttendance from 'src/modules/attendance/components/AttendanceButtonCallAttendance';
 import RecordLayout from 'src/modules/courseRecord/components/RecordLayout';
-import styles from './AttendanceContainer.module.scss';
 import NavigationBreadcrumbs from 'src/shared/components/NavigationBreadcrumbs';
 import Link from 'src/shared/components/Link';
-import { CourseRoute } from 'src/routes';
+import CurrentCourse from 'src/modules/course/components/CurrentCourse';
+import styles from './CourseRecordAttendaceContainer.module.scss';
+import CurrentCourseRecord from 'src/modules/courseRecord/components/CurrentCourseRecord';
 
 const CourseRecordAttendaceContainer: React.FC = () => {
   const state = useAppSelector((state) => state);
   const {
     studentReducer: { students },
     attendanceReducer: { attendances },
-    courseReducer: { currentCourse },
   } = state;
 
   return (
@@ -33,15 +34,29 @@ const CourseRecordAttendaceContainer: React.FC = () => {
             Asistencias
           </Typography>
 
-          <NavigationBreadcrumbs>
-            <Link href={CourseRoute.ROOT}>Cursos</Link>
+          <CurrentCourse>
+            {(currentCourse) => (
+              <CurrentCourseRecord>
+                {(currentCourseRecord) => (
+                  <div className={styles.recordGrade__content}>
+                    <NavigationBreadcrumbs>
+                      <Link href={CourseRoute.ROOT}>Cursos</Link>
 
-            <Link href={CourseRoute.COURSE(currentCourse.id)}>
-              {currentCourse.name}
-            </Link>
+                      <Link href={CourseRoute.COURSE(currentCourse.id)}>
+                        {currentCourse.name}
+                      </Link>
 
-            <Typography color="textPrimary">Asistencias</Typography>
-          </NavigationBreadcrumbs>
+                      <Typography color="textPrimary">
+                        {currentCourseRecord.career} - S
+                        {currentCourseRecord.semester} -{' '}
+                        {currentCourseRecord.group}
+                      </Typography>
+                    </NavigationBreadcrumbs>
+                  </div>
+                )}
+              </CurrentCourseRecord>
+            )}
+          </CurrentCourse>
 
           <div className={styles.recordAttendance__buttons}>
             <AttendanceButtonCallAttendance />

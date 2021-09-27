@@ -32,18 +32,20 @@ const SettingsTabAttendance: React.FC = () => {
             Fechas de asistencias
           </Typography>
 
-          <NavigationBreadcrumbs>
-            <Link href={CourseRoute.ROOT}>Cursos</Link>
+          {currentCourse.isLoaded && currentCourseRecord.isLoaded && (
+            <NavigationBreadcrumbs>
+              <Link href={CourseRoute.ROOT}>Cursos</Link>
 
-            <Link href={CourseRoute.COURSE(currentCourse.id)}>
-              {currentCourse.name}
-            </Link>
+              <Link href={CourseRoute.COURSE(currentCourse.id)}>
+                {currentCourse.name}
+              </Link>
 
-            <Typography color="textPrimary">
-              {currentCourseRecord.career} - S{currentCourseRecord.semester} -{' '}
-              {currentCourseRecord.group}
-            </Typography>
-          </NavigationBreadcrumbs>
+              <Typography color="textPrimary">
+                {currentCourseRecord.career} - S{currentCourseRecord.semester} -{' '}
+                {currentCourseRecord.group}
+              </Typography>
+            </NavigationBreadcrumbs>
+          )}
 
           <div className={styles.recordAttendanceDate__buttons}>
             <AttendanceButtonCreate />

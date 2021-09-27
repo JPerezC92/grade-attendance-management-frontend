@@ -6,7 +6,7 @@ const setCurrentCourseRecord = (
   state: Draft<CourseRecordState>,
   action: PayloadAction<CourseRecord>
 ): void => {
-  state.currentCourseRecord = action.payload;
+  state.currentCourseRecord = { isLoaded: true, ...action.payload };
 };
 
 const startLoading = (state: Draft<CourseRecordState>): void => {

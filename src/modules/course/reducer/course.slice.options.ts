@@ -30,32 +30,27 @@ const setCurrentCourse = (
   state: Draft<CourseState>,
   action: PayloadAction<CourseWithCourseRecords>
 ): void => {
-  state.currentCourse = action.payload;
+  state.currentCourse = { isLoaded: true, ...action.payload };
 };
 
 const addNewCourseRecord = (
   state: Draft<CourseState>,
   action: PayloadAction<CourseRecord>
 ): void => {
-  state.currentCourse.course_records = [
-    ...state.currentCourse.course_records,
-    action.payload,
-  ];
+  if (state.currentCourse.isLoaded) {
+    state.currentCourse.course_records = [
+      ...state.currentCourse.course_records,
+      action.payload,
+    ];
+  }
 };
 
 const startLoading = (state: Draft<CourseState>): void => {
-  state.isLoading = true;
+  state.isLoaded = false;
 };
 
 const finishLoading = (state: Draft<CourseState>): void => {
-  state.isLoading = false;
-};
-const startLoadingCurrentCourse = (state: Draft<CourseState>): void => {
-  state.isLoadingCurrentCourse = true;
-};
-
-const finishLoadingCurrentCourse = (state: Draft<CourseState>): void => {
-  state.isLoadingCurrentCourse = false;
+  state.isLoaded = true;
 };
 
 export const courseSliceOptions = {
@@ -66,6 +61,4 @@ export const courseSliceOptions = {
   addNewCourseRecord,
   startLoading,
   finishLoading,
-  startLoadingCurrentCourse,
-  finishLoadingCurrentCourse,
 };

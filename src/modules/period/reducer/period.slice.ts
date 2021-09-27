@@ -2,12 +2,12 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Period } from '../types';
 
 interface PeriodState {
-  isLoading: boolean;
+  isLoaded: boolean;
   periods: Period[];
 }
 
 const periodInitialState: PeriodState = {
-  isLoading: false,
+  isLoaded: false,
   periods: [],
 };
 
@@ -27,10 +27,10 @@ const periodSlice = createSlice({
       );
     },
     startLoading: (state) => {
-      state.isLoading = true;
+      state.isLoaded = false;
     },
     finishLoading: (state) => {
-      state.isLoading = false;
+      state.isLoaded = true;
     },
   },
 });

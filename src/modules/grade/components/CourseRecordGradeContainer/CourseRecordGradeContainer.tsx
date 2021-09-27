@@ -1,18 +1,15 @@
 import { Paper, Typography } from '@material-ui/core';
 
-import RecordLayout from 'src/modules/courseRecord/components/RecordLayout';
-import { useAppSelector } from 'src/redux';
 import { CourseRoute } from 'src/routes';
+import RecordLayout from 'src/modules/courseRecord/components/RecordLayout';
+import CurrentCourse from 'src/modules/course/components/CurrentCourse';
+import CurrentCourseRecord from 'src/modules/courseRecord/components/CurrentCourseRecord';
 import Link from 'src/shared/components/Link';
 import NavigationBreadcrumbs from 'src/shared/components/NavigationBreadcrumbs';
 import GradeTable from '../GradeTable';
 import styles from './CourseRecordGradeContainer.module.scss';
 
 const CourseRecordGradeContainer: React.FC = () => {
-  const {
-    courseReducer: { currentCourse },
-  } = useAppSelector((state) => state);
-
   return (
     <>
       <RecordLayout>
@@ -21,15 +18,27 @@ const CourseRecordGradeContainer: React.FC = () => {
             Calificaciones
           </Typography>
 
-          <NavigationBreadcrumbs>
-            <Link href={CourseRoute.ROOT}>Cursos</Link>
+          <CurrentCourse>
+            {(currentCourse) => (
+              <CurrentCourseRecord>
+                {(currentCourseRecord) => (
+                  <NavigationBreadcrumbs>
+                    <Link href={CourseRoute.ROOT}>Cursos</Link>
 
-            <Link href={CourseRoute.COURSE(currentCourse.id)}>
-              {currentCourse.name}
-            </Link>
+                    <Link href={CourseRoute.COURSE(currentCourse.id)}>
+                      {currentCourse.name}
+                    </Link>
 
-            <Typography color="textPrimary">Calificaciones</Typography>
-          </NavigationBreadcrumbs>
+                    <Typography color="textPrimary">
+                      {currentCourseRecord.career} - S
+                      {currentCourseRecord.semester} -{' '}
+                      {currentCourseRecord.group}
+                    </Typography>
+                  </NavigationBreadcrumbs>
+                )}
+              </CurrentCourseRecord>
+            )}
+          </CurrentCourse>
 
           <Paper className={styles.recordGrade__tableWrapper}>
             <GradeTable />
