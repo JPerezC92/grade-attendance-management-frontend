@@ -4,6 +4,7 @@
     "dev": "next dev",
     "debugger": "NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
+    "export": "next build && next export",
     "start": "next start",
     "type-check": "tsc --pretty --noEmit",
     "format": "prettier --write .",

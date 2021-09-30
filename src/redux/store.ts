@@ -7,6 +7,7 @@ import { courseReducer } from 'src/modules/course/reducer';
 import { courseRecordReducer } from 'src/modules/courseRecord/reducer';
 import { studentReducer } from 'src/modules/student/reducer';
 import { attendanceReducer } from 'src/modules/attendance/reducer';
+import { gradeReducer } from 'src/modules/grade/reducer';
 
 export const reducer = {
   authReducer,
@@ -16,6 +17,7 @@ export const reducer = {
   studentReducer,
   activityReducer,
   attendanceReducer,
+  gradeReducer,
 };
 
 const store = configureStore({

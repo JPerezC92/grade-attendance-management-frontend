@@ -6,6 +6,8 @@ import CurrentCourse from 'src/modules/course/components/CurrentCourse';
 import CurrentCourseRecord from 'src/modules/courseRecord/components/CurrentCourseRecord';
 import Link from 'src/shared/components/Link';
 import NavigationBreadcrumbs from 'src/shared/components/NavigationBreadcrumbs';
+
+import GradeActivitiesButtons from '../GradeActivitiesButtons';
 import GradeTable from '../GradeTable';
 import styles from './CourseRecordGradeContainer.module.scss';
 
@@ -39,6 +41,8 @@ const CourseRecordGradeContainer: React.FC = () => {
               </CurrentCourseRecord>
             )}
           </CurrentCourse>
+
+          <GradeActivitiesButtons />
 
           <Paper className={styles.recordGrade__tableWrapper}>
             <GradeTable />
