@@ -4,3 +4,6 @@ export * from './ActivityButtonUpdate';
 export * from './ActivityDialogCreate';
 export * from './ActivityDialogDelete';
 export * from './ActivityDialogEdit';
+export * from './RecordActivityContainer';
+export * from './ScoreDialogDelete';
+export * from './SettingsTabActivity';

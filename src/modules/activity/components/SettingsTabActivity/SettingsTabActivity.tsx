@@ -3,18 +3,20 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
   Typography,
 } from '@material-ui/core';
-import ActivityButtonCreate from 'src/modules/activity/components/ActivityButtonCreate';
-import ActivityButtonDelete from 'src/modules/activity/components/ActivityButtonDelete';
-import ActivityButtonUpdate from 'src/modules/activity/components/ActivityButtonUpdate';
+
 import { useAppSelector } from 'src/redux';
 import { CourseRoute } from 'src/routes';
+import ActivityButtonCreate from 'src/modules/activity/components/ActivityButtonCreate';
+
 import Link from 'src/shared/components/Link';
 import NavigationBreadcrumbs from 'src/shared/components/NavigationBreadcrumbs';
 import styles from './SettingsTabActivity.module.scss';
+import ActivityTableRow from '../ActivityTableRow';
 
 const SettingsTabActivity: React.FC = () => {
   const {
@@ -50,36 +52,26 @@ const SettingsTabActivity: React.FC = () => {
             <div className={styles.tabActivity__buttons}>
               <ActivityButtonCreate />
             </div>
-
             <Paper>
-              <Table size="small">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Nº</TableCell>
-                    <TableCell>Actividad</TableCell>
-                    <TableCell>#Calificaciones</TableCell>
-                    <TableCell>Acciones</TableCell>
-                  </TableRow>
-                </TableHead>
+              <TableContainer>
+                <Table size="small">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell></TableCell>
 
-                <TableBody>
-                  {activities.map((activity, index) => (
-                    <TableRow key={activity.id}>
-                      <TableCell>{++index}</TableCell>
-                      <TableCell>{activity.name}</TableCell>
-                      <TableCell align="center">
-                        {activity.scores.length}
-                      </TableCell>
-                      <TableCell>
-                        <div style={{ display: 'flex' }}>
-                          <ActivityButtonUpdate activity={activity} />
-                          <ActivityButtonDelete activity={activity} />
-                        </div>
-                      </TableCell>
+                      <TableCell>Actividad</TableCell>
+                      <TableCell># Calificaciones</TableCell>
+                      <TableCell>Acciones</TableCell>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                  </TableHead>
+
+                  <TableBody>
+                    {activities.map((activity) => (
+                      <ActivityTableRow key={activity.id} activity={activity} />
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
             </Paper>
           </div>
         </>

@@ -10,7 +10,7 @@ const setCurrentCourseRecord = (
 };
 
 const startLoading = (state: Draft<CourseRecordState>): void => {
-  state.isLoading = true;
+  state.currentCourseRecord.isLoaded = false;
 };
 
 const finishLoading = (state: Draft<CourseRecordState>): void => {

@@ -13,6 +13,8 @@ const laravelCourseRecordRepository = new LaravelCourseRecordRepository();
 export const startLoadingCourseRecord = (
   courseRecordId: number
 ): AppThunk<Promise<ServerErrorResponse | void>> => async (dispatch, _) => {
+  dispatch(courseRecordAction.startLoading());
+
   const response = await laravelCourseRecordRepository.getById(courseRecordId);
 
   if (isServerErrorResponse(response)) return response;

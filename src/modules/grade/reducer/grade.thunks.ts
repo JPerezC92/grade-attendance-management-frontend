@@ -1,10 +1,14 @@
-import { isServerErrorResponse } from 'src/helpers/assertions';
+import {
+  isCurrentCourseRecordLoaded,
+  isServerErrorResponse,
+} from 'src/helpers/assertions';
 import { Activity } from 'src/modules/activity/types';
+import { startLoadingCourseRecord } from 'src/modules/courseRecord/reducer/thunks';
 import { AppThunk } from 'src/redux';
 import { ServerErrorResponse } from 'src/shared/types';
 import { gradeAction } from '.';
 import { LaravelScoreAssignedRepository } from '../repositories/LaravelScoreAssignedRepository';
-import { LaravelScoreRepository } from '../repositories/LaravelScoreRepository';
+import { LaravelScoreRepository } from '../../score/repositories/LaravelScoreRepository';
 import { Score, ScoreAssigned } from '../types';
 
 const laravelScoreRepository = new LaravelScoreRepository();
@@ -29,10 +33,17 @@ export const startLoadingCurrentlyGrading = (
 
 export const startUpdateScoresAssigned = (
   scoresAssigned: ScoreAssigned[]
-): AppThunk<Promise<ServerErrorResponse | void>> => async (_dispatch, _) => {
+): AppThunk<Promise<ServerErrorResponse | void>> => async (
+  dispatch,
+  getState
+) => {
+  const { currentCourseRecord } = getState().courseRecordReducer;
   const response = await laravelScoreAssignedRepository.updateMany(
     scoresAssigned
   );
 
   if (isServerErrorResponse(response)) return response;
+
+  if (isCurrentCourseRecordLoaded(currentCourseRecord))
+    dispatch(startLoadingCourseRecord(currentCourseRecord.id));
 };

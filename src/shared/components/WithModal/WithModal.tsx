@@ -1,35 +1,22 @@
-import React, { ReactElement } from 'react';
-import { Dialog } from '@material-ui/core';
-import { useModal, UseModalResult } from 'src/hooks';
+import { ReactElement } from 'react';
+import { UseModalResult } from 'src/hooks';
 
 interface WithModalProps {
-  ModalContent: ({ modal }: { modal: UseModalResult }) => ReactElement;
-  TriggerElement: ({ modal }: { modal: UseModalResult }) => ReactElement;
+  TriggerComponent: ReactElement;
+  useModalResult: UseModalResult;
+  Modal: ReactElement;
 }
 
 const WithModal: React.FC<WithModalProps> = ({
-  ModalContent,
-  TriggerElement,
-  ...rest
+  TriggerComponent,
+  Modal,
+  useModalResult,
 }) => {
-  const modal = useModal();
-
   return (
     <>
-      {TriggerElement({ modal, ...rest })}
-
-      {modal.isOpen && (
-        <Dialog
-          maxWidth="sm"
-          open={modal.isOpen}
-          onClose={modal.handleCloseModal}
-          aria-labelledby="form-dialog-title"
-        >
-          {ModalContent({ modal: modal })}
-        </Dialog>
-      )}
+      {TriggerComponent}
+      {useModalResult.isOpen && Modal}
     </>
   );
 };
-
 export default WithModal;
