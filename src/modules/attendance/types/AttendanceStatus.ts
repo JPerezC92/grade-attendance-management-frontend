@@ -1,4 +1,4 @@
 export interface AttendanceStatus {
-  id: string;
+  id: number;
   value: string;
 }

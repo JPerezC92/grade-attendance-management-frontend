@@ -13,7 +13,7 @@ export class LaravelScoreAssignedRepository implements ScoreAssignedRepository {
     scoresAssigned: ScoreAssigned[]
   ): Promise<SuccessfulResponse<string> | ServerErrorResponse> {
     try {
-      const response = await fetch(`${baseApiURL}/scoresAssigned`, {
+      const response = await fetch(`${baseApiURL}/scores-assigned`, {
         method: 'PUT',
         body: JSON.stringify(scoresAssigned),
         headers: {

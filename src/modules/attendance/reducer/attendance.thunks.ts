@@ -3,10 +3,13 @@ import { attendanceAction } from './attendance.slice';
 import { ServerErrorResponse } from 'src/shared/types';
 import { isServerErrorResponse } from 'src/helpers/assertions';
 
-import { Attendance, CreateAttendance } from '../types';
+import { Attendance, AttendanceCheck, CreateAttendance } from '../types';
 import { LaravelAttendanceRepository } from '../repositories';
+import { LaravelAttendanceCheckRepository } from 'src/modules/attendanceCheck/repositories';
+import { startLoadingCourseRecord } from 'src/modules/courseRecord/reducer/thunks';
 
 const laravelAttendanceRepository = new LaravelAttendanceRepository();
+const laravelAttendanceCheckRepository = new LaravelAttendanceCheckRepository();
 
 export const startCreateAttendance = (
   createAttendance: CreateAttendance
@@ -36,4 +39,35 @@ export const startDeleteAttendance = (
   if (isServerErrorResponse(response)) return response;
 
   dispatch(attendanceAction.deleteAttendance(attendance));
+};
+
+export const startLoadingCurrentlyCallingAttendance = (
+  attendanceId: number
+): AppThunk<Promise<ServerErrorResponse | void>> => async (dispatch, _) => {
+  const response = await laravelAttendanceCheckRepository.getByAttendanceId(
+    attendanceId
+  );
+
+  if (isServerErrorResponse(response)) return response;
+
+  dispatch(attendanceAction.setCurrentlyCallingAttendance(response.payload));
+};
+
+export const startUpdateAttendanceCheck = (
+  attendancesCheck: AttendanceCheck[]
+): AppThunk<Promise<ServerErrorResponse | void>> => async (
+  dispatch,
+  getState
+) => {
+  const { currentCourseRecord } = getState().courseRecordReducer;
+
+  const response = await laravelAttendanceCheckRepository.updateMany(
+    attendancesCheck
+  );
+
+  if (isServerErrorResponse(response)) return response;
+
+  if (currentCourseRecord.isLoaded) {
+    dispatch(startLoadingCourseRecord(currentCourseRecord.id));
+  }
 };

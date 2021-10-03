@@ -1,5 +1,6 @@
 import { Draft, PayloadAction } from '@reduxjs/toolkit';
-import { Attendance, AttendanceCheck } from '../types';
+import { AttendanceCheckWithStudentName } from 'src/modules/attendanceCheck/types';
+import { Attendance, AttendanceStatus } from '../types';
 import { AttendanceState } from './attendance.types';
 
 const setAttendances = (
@@ -34,11 +35,18 @@ const deleteAttendance = (
   );
 };
 
-const setCurrentCheckAttendances = (
+const setCurrentlyCallingAttendance = (
   state: Draft<AttendanceState>,
-  action: PayloadAction<AttendanceCheck[]>
+  action: PayloadAction<{
+    attendancesCheck: AttendanceCheckWithStudentName[];
+    attendanceStates: AttendanceStatus[];
+  }>
 ): void => {
-  state.currentCheckAttendances = action.payload;
+  state.currentlyCallingAttendance = {
+    isLoaded: true,
+    attendancesCheck: action.payload.attendancesCheck,
+    attendanceStates: action.payload.attendanceStates,
+  };
 };
 
 export const attendanceSliceOptions = {
@@ -46,5 +54,5 @@ export const attendanceSliceOptions = {
   updateAttendance,
   deleteAttendance,
   addNewAttendance,
-  setCurrentCheckAttendances,
+  setCurrentlyCallingAttendance,
 };

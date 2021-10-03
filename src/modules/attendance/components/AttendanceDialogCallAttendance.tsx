@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   Button,
   Dialog,
@@ -6,16 +6,16 @@ import {
   DialogContent,
   DialogTitle,
   Divider,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
   Typography,
-  Radio,
+  Table,
+  TableBody,
+  TableRow,
+  TableCell,
+  TableHead,
 } from '@material-ui/core';
 import { useForm, UseModalResult } from 'src/hooks';
 import { useAppDispatch, useAppSelector } from 'src/redux';
-import { attendanceAction } from '../reducer';
+import { startUpdateAttendanceCheck } from '../reducer';
 
 interface AttendanceDialogCallAttendanceProps {
   useModalAttendanceDialogCallAttendance: UseModalResult;
@@ -25,44 +25,23 @@ export const AttendanceDialogCallAttendance: React.FC<AttendanceDialogCallAttend
   useModalAttendanceDialogCallAttendance,
 }) => {
   const {
-    attendanceReducer: {
-      attendances,
-      attendanceStatuses,
-      currentCheckAttendances,
-    },
-    studentReducer: { students },
+    attendanceReducer: { currentlyCallingAttendance },
   } = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
 
-  const { isOpen, handleCloseModal } = useModalAttendanceDialogCallAttendance;
-  const attendanceForm = useForm({ attendanceId: '' });
+  if (!currentlyCallingAttendance.isLoaded) return null;
 
-  const studentsWithCheckAttendance = currentCheckAttendances
-    ? students.map((student) => {
-        const checkAttendance = currentCheckAttendances.find(
-          () =>
-            // checkAttendance.studentId === student.id ? checkAttendance : null
-            null
-        );
-        return { ...student, checkAttendance };
-      })
-    : [];
-
-  const obj = Object.fromEntries(
-    studentsWithCheckAttendance.map((student) => [
-      student.id,
-      student.checkAttendance.attendanceStatusId
-        ? student.checkAttendance.attendanceStatusId
-        : '',
-    ])
+  const { formValues, handleInputChange } = useForm(
+    Object.fromEntries(
+      currentlyCallingAttendance.attendancesCheck.map((attendanceCheck) => [
+        attendanceCheck.id,
+        `${attendanceCheck.attendanceStatusId}`,
+      ])
+    )
   );
 
-  const checkAttendanceForm = useForm(obj);
-
-  useEffect(() => {
-    checkAttendanceForm.reset();
-  }, [currentCheckAttendances]);
-
+  const { isOpen, handleCloseModal } = useModalAttendanceDialogCallAttendance;
+  // console.log(formValues);
   return (
     <>
       <Dialog
@@ -70,7 +49,6 @@ export const AttendanceDialogCallAttendance: React.FC<AttendanceDialogCallAttend
         open={isOpen}
         onClose={() => {
           handleCloseModal();
-          dispatch(attendanceAction.setCurrentCheckAttendances(null));
         }}
         aria-labelledby="form-dialog-title"
       >
@@ -86,76 +64,72 @@ export const AttendanceDialogCallAttendance: React.FC<AttendanceDialogCallAttend
           onSubmit={(e) => {
             e.preventDefault();
             // dispatch(startDeleteAttendance(attendance));
-            dispatch(attendanceAction.setCurrentCheckAttendances(null));
+            dispatch(
+              startUpdateAttendanceCheck(
+                currentlyCallingAttendance.attendancesCheck.map(
+                  (attendanceCheck) => ({
+                    ...attendanceCheck,
+                    attendanceStatusId: parseInt(
+                      formValues[`${attendanceCheck.id}`],
+                      10
+                    ),
+                  })
+                )
+              )
+            );
             handleCloseModal();
           }}
         >
           <DialogContent>
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">
-                Seleccionar fecha
-              </InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                value={attendanceForm.formValues.attendanceId}
-                label="Seleccionar fecha"
-                name="attendanceId"
-                onChange={(e) => {
-                  dispatch(attendanceAction.setCurrentCheckAttendances(null));
-                  attendanceForm.handleInputChange(e);
-                  // e.target.value !== '' &&
-                  //   dispatch(
-                  //     attendanceAction.setCurrentCheckAttendances(
-                  //       attendances.find(
-                  //         (attendance) => attendance.id === e.target.value
-                  //       ).checkAttendances
-                  //     )
-                  //   );
-                }}
-              >
-                <MenuItem value="">Seleccionar fecha</MenuItem>
+            <Table size="small">
+              <TableHead>
+                <TableRow>
+                  <TableCell>Nombres</TableCell>
+                  <TableCell>Apellidos</TableCell>
 
-                {attendances.map((attendance) => (
-                  <MenuItem key={attendance.id} value={attendance.id}>
-                    {attendance.date}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+                  {currentlyCallingAttendance.attendanceStates.map(
+                    (attendanceStatus) => (
+                      <TableCell key={attendanceStatus.id} align="center">
+                        {attendanceStatus.value.toUpperCase().charAt(0)}
+                      </TableCell>
+                    )
+                  )}
+                </TableRow>
+              </TableHead>
 
-            <Divider style={{ marginBlock: '1rem' }} />
-
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr auto auto auto',
-                alignItems: 'center',
-              }}
-            >
-              <span>Nombre</span>
-              <span>A</span>
-              <span>T</span>
-              <span>I</span>
-              {currentCheckAttendances &&
-                studentsWithCheckAttendance.map((student) => (
-                  <React.Fragment key={student.id}>
-                    <span>{student.firstname}</span>
-
-                    {attendanceStatuses.map((attendanceStatus) => (
-                      <Radio
-                        key={attendanceStatus.id}
-                        checked={
-                          checkAttendanceForm.formValues[student.id] ===
-                          attendanceStatus.id
-                        }
-                        name={student.id.toString()}
-                        onChange={checkAttendanceForm.handleInputChange}
-                        value={attendanceStatus.id}
-                      />
-                    ))}
-                  </React.Fragment>
-                ))}
-            </div>
+              <TableBody>
+                {currentlyCallingAttendance.isLoaded &&
+                  currentlyCallingAttendance.attendancesCheck.map(
+                    (attendanceCheck) => (
+                      <TableRow key={attendanceCheck.id}>
+                        <TableCell>{attendanceCheck.firstname}</TableCell>
+                        <TableCell>{attendanceCheck.lastname}</TableCell>
+                        {currentlyCallingAttendance.attendanceStates.map(
+                          (attendanceStatus) => (
+                            <TableCell key={attendanceStatus.id} align="center">
+                              <input
+                                style={{ cursor: 'pointer' }}
+                                type="radio"
+                                name={`${attendanceCheck.id}`}
+                                value={attendanceStatus.id}
+                                onChange={handleInputChange}
+                                checked={
+                                  attendanceStatus.id ===
+                                  parseInt(
+                                    formValues[`${attendanceCheck.id}`],
+                                    10
+                                  )
+                                }
+                                id={attendanceStatus.value}
+                              />
+                            </TableCell>
+                          )
+                        )}
+                      </TableRow>
+                    )
+                  )}
+              </TableBody>
+            </Table>
           </DialogContent>
           <DialogActions
             style={{ marginBlock: '1em', justifyContent: 'center' }}
