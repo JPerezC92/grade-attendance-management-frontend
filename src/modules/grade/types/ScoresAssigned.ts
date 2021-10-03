@@ -1,6 +1,6 @@
-import { Person, Timestamps } from 'src/shared/types';
+import { Timestamps } from 'src/shared/types';
 
-export interface ScoreAssigned extends Person, Timestamps {
+export interface ScoreAssigned extends Timestamps {
   id: number;
   value: number;
   scoreId: number;

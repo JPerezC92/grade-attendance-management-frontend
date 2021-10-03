@@ -118,19 +118,25 @@ const CourseRecordAttendaceContainer: React.FC = () => {
                       {student.lastname}
                     </TableCell>
 
-                    {attendances.map((attendance) => (
-                      <TableCell key={attendance.id} align="center">
-                        A
-                      </TableCell>
-                    ))}
+                    {student.attendances.attendancesCheck.map(
+                      (attendanceCheck) => (
+                        <TableCell key={attendanceCheck.id} align="center">
+                          {attendanceCheck.attendanceStatusValue
+                            ? attendanceCheck.attendanceStatusValue
+                                .toUpperCase()
+                                .charAt(0)
+                            : ''}
+                        </TableCell>
+                      )
+                    )}
 
                     {/* <AttendanceTableCheckAttendanceCell /> */}
 
-                    <TableCell>4</TableCell>
+                    <TableCell>{student.attendances.attended}</TableCell>
+                    <TableCell>{student.attendances.late}</TableCell>
+                    <TableCell>{student.attendances.skip}</TableCell>
                     <TableCell>0</TableCell>
-                    <TableCell>0</TableCell>
-                    <TableCell>0</TableCell>
-                    <TableCell align="center">100%</TableCell>
+                    <TableCell>{student.attendances.attendedAverage}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>

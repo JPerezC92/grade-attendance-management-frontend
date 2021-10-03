@@ -1,5 +1,5 @@
 import { Draft, PayloadAction } from '@reduxjs/toolkit';
-import { Attendance, CheckAttendance } from '../types';
+import { Attendance, AttendanceCheck } from '../types';
 import { AttendanceState } from './attendance.types';
 
 const setAttendances = (
@@ -36,7 +36,7 @@ const deleteAttendance = (
 
 const setCurrentCheckAttendances = (
   state: Draft<AttendanceState>,
-  action: PayloadAction<CheckAttendance[]>
+  action: PayloadAction<AttendanceCheck[]>
 ): void => {
   state.currentCheckAttendances = action.payload;
 };

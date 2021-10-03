@@ -51,7 +51,9 @@ export const AttendanceDialogCallAttendance: React.FC<AttendanceDialogCallAttend
   const obj = Object.fromEntries(
     studentsWithCheckAttendance.map((student) => [
       student.id,
-      student.checkAttendance?.statusId ? student.checkAttendance.statusId : '',
+      student.checkAttendance.attendanceStatusId
+        ? student.checkAttendance.attendanceStatusId
+        : '',
     ])
   );
 

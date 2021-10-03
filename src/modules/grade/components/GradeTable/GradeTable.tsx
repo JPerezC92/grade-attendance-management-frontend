@@ -11,7 +11,7 @@ import { useAppSelector } from 'src/redux';
 const GradeTable: React.FC = () => {
   const {
     studentReducer: { students },
-    activityReducer: { activities, scoresCalculation },
+    activityReducer: { activities },
   } = useAppSelector((state) => state);
 
   return (
@@ -32,6 +32,7 @@ const GradeTable: React.FC = () => {
                       ? activity.scores.length + 1
                       : 1 || 1
                   }
+                  rowSpan={activity.scores.length > 1 ? 1 : 0}
                   variant="head"
                   align="center"
                 >
@@ -47,15 +48,17 @@ const GradeTable: React.FC = () => {
               </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell>Id</TableCell>
+              <TableCell>Codigo</TableCell>
               <TableCell>Nombres</TableCell>
               <TableCell>Apellidos</TableCell>
               {activities.map((activity) =>
                 activity.scores.map((score, index, scores) => (
                   <React.Fragment key={score.id}>
-                    <TableCell colSpan={1} variant="head" align="center">
-                      {score.name}
-                    </TableCell>
+                    {scores.length > 1 && (
+                      <TableCell colSpan={1} variant="head" align="center">
+                        {score.name}
+                      </TableCell>
+                    )}
 
                     {activity.scores.length > 1 &&
                       scores.length - 1 === index && (
@@ -69,10 +72,6 @@ const GradeTable: React.FC = () => {
 
           <TableBody>
             {students.map((student) => {
-              const scoreCalc = scoresCalculation.find(
-                (scoreCalc) => scoreCalc.studentId === student.id
-              );
-
               return (
                 <React.Fragment key={student.id}>
                   <TableRow>
@@ -80,37 +79,27 @@ const GradeTable: React.FC = () => {
                     <TableCell>{student.firstname}</TableCell>
                     <TableCell>{student.lastname}</TableCell>
                     {/* Notas */}
-                    {activities.map((activity) => {
-                      return activity.scores.map((score, index, scores) => (
-                        <React.Fragment key={score.id}>
-                          <TableCell align="center">
-                            {score?.scores_assigned.find(
-                              (scoreAssigned) =>
-                                scoreAssigned.studentId === student.id
-                            )?.value
-                              ? score.scores_assigned.find(
-                                  (scoreAssigned) =>
-                                    scoreAssigned.studentId === student.id
-                                ).value
-                              : 0}
-                          </TableCell>
-
-                          {scores.length - 1 === index && scores.length > 1 && (
+                    {student.activities.map((activity) => {
+                      return activity.scoresAssigned.map(
+                        (scoreAssigned, index, scoresAssigned) => (
+                          <React.Fragment key={scoreAssigned.id}>
                             <TableCell align="center">
-                              {
-                                scoreCalc.activities.find(
-                                  (activityCalc) =>
-                                    activityCalc.activityId === activity.id
-                                ).average
-                              }
+                              {scoreAssigned.value}
                             </TableCell>
-                          )}
-                        </React.Fragment>
-                      ));
+
+                            {scoresAssigned.length - 1 === index &&
+                              scoresAssigned.length > 1 && (
+                                <TableCell align="center">
+                                  {activity.average}
+                                </TableCell>
+                              )}
+                          </React.Fragment>
+                        )
+                      );
                     })}
-                    <TableCell align="center">{scoreCalc.finalScore}</TableCell>
+                    <TableCell align="center">{student.finalScore}</TableCell>
                     <TableCell align="center">
-                      {scoreCalc.finalScoreRounded}
+                      {student.finalScoreRounded}
                     </TableCell>
                   </TableRow>
                 </React.Fragment>

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Activity } from 'src/modules/activity/types';
-import { Score, ScoreAssigned } from '../types';
+import { Score, ScoreAssignedWithStudentName } from '../types';
 import { gradeInitialState } from './grade.types';
 const gradeSlice = createSlice({
   name: '[GRADE]',
@@ -9,7 +9,7 @@ const gradeSlice = createSlice({
     setCurrentlyGrading: (
       state,
       action: PayloadAction<{
-        scoresAssigned: ScoreAssigned[];
+        scoresAssigned: ScoreAssignedWithStudentName[];
         score: Score;
         activity: Activity;
       }>

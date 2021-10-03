@@ -1,10 +1,10 @@
 import { Activity } from 'src/modules/activity/types';
 import { NotLoaded } from 'src/shared/types';
-import { Score, ScoreAssigned } from '../types';
+import { Score, ScoreAssignedWithStudentName } from '../types';
 
 interface CurrentlyGradingLoaded {
   isLoaded: true;
-  scoresAssigned: ScoreAssigned[];
+  scoresAssigned: ScoreAssignedWithStudentName[];
   score: Score;
   activity: Activity;
 }

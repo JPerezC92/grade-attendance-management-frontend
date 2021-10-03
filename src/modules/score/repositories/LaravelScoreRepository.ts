@@ -1,6 +1,6 @@
 import { baseApiURL } from 'src/helpers/global';
 import { ServerErrorResponse, SuccessfulResponse } from 'src/shared/types';
-import { ScoreAssigned } from '../../grade/types';
+import { ScoreAssignedWithStudentName } from 'src/modules/grade/types';
 
 interface ScoreRepository {
   create(
@@ -8,7 +8,9 @@ interface ScoreRepository {
   ): Promise<SuccessfulResponse<string> | ServerErrorResponse>;
   getById(
     scoreId: number
-  ): Promise<SuccessfulResponse<ScoreAssigned[]> | ServerErrorResponse>;
+  ): Promise<
+    SuccessfulResponse<ScoreAssignedWithStudentName[]> | ServerErrorResponse
+  >;
 
   delete(
     scoreId: number
@@ -58,7 +60,9 @@ export class LaravelScoreRepository implements ScoreRepository {
 
   async getById(
     scoreId: number
-  ): Promise<SuccessfulResponse<ScoreAssigned[]> | ServerErrorResponse> {
+  ): Promise<
+    SuccessfulResponse<ScoreAssignedWithStudentName[]> | ServerErrorResponse
+  > {
     try {
       const response = await fetch(`${baseApiURL}/scores/${scoreId}`, {
         method: 'GET',
@@ -67,7 +71,9 @@ export class LaravelScoreRepository implements ScoreRepository {
         },
       });
 
-      return (await response.json()) as SuccessfulResponse<ScoreAssigned[]>;
+      return (await response.json()) as SuccessfulResponse<
+        ScoreAssignedWithStudentName[]
+      >;
     } catch (error) {
       return { success: false, message: 'Error al cargar el curso' };
     }

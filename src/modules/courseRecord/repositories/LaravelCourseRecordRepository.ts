@@ -6,14 +6,14 @@ import {
   CourseRecord,
   CourseRecordRegister,
 } from 'src/modules/courseRecord/types';
-import { ScoreCalculation } from 'src/modules/grade/types';
+// import { ScoreCalculation } from 'src/modules/grade/types';
 import { Student } from 'src/modules/student/types';
 import { ServerErrorResponse, SuccessfulResponse } from 'src/shared/types';
 
-interface CourseRecordInfo extends CourseRecord {
+interface CourseRecordInfo {
+  courseRecord: CourseRecord;
   students: Student[];
   activities: Activity[];
-  scoresCalculation: ScoreCalculation[];
   attendances: Attendance[];
 }
 

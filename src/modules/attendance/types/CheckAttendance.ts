@@ -1,7 +1,7 @@
-export interface CheckAttendance {
-  id: string;
-  attendanceId: string;
-  studentId: string;
-  statusValue: string;
-  statusId: string;
+export interface AttendanceCheck {
+  id: number;
+  attendanceId: number;
+  studentId: number;
+  attendanceStatusValue: string;
+  attendanceStatusId: number;
 }
