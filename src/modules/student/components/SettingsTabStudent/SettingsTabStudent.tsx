@@ -61,6 +61,7 @@ const SettingsTabStudent: React.FC = () => {
             <StudentButtonCreateFromCSV />
             <StudentButtonRegister />
           </div>
+
           <Paper>
             <TableContainer>
               <Table size="small">

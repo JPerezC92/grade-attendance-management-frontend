@@ -27,7 +27,6 @@ const ActivityDialogCreate: React.FC<ActivityDialogCreateProps> = ({
   const { formValues, handleInputChange, reset: resetForm } = useForm({
     name: '',
     value: '',
-    scoresQuantity: '',
   });
 
   const handleClose = () => {
@@ -61,7 +60,6 @@ const ActivityDialogCreate: React.FC<ActivityDialogCreateProps> = ({
                   startCreateActivity({
                     ...formValues,
                     value: parseInt(formValues.value, 10),
-                    scoresQuantity: parseInt(formValues.scoresQuantity, 10),
                     courseRecordId: currentCourseRecord.id,
                   })
                 );
@@ -93,29 +91,6 @@ const ActivityDialogCreate: React.FC<ActivityDialogCreateProps> = ({
                   label="Valor"
                   value={formValues.value}
                 />
-
-                <TextField
-                  fullWidth
-                  id="scoresQuantity"
-                  margin="dense"
-                  name="scoresQuantity"
-                  onChange={handleInputChange}
-                  type="number"
-                  variant="outlined"
-                  label="Numero de calificaciones"
-                  value={formValues.scoresQuantity}
-                />
-
-                {/* <TextareaAutosize
-              aria-label="minimum height"
-              maxLength={200}
-              // minRows={3}
-              onChange={handleInputChange}
-              placeholder="Comentario"
-              name="comment"
-              style={{ width: '100%' }}
-              value={formValues.comment}
-            /> */}
               </DialogContent>
               <DialogActions>
                 <Button onClick={handleClose} color="secondary">

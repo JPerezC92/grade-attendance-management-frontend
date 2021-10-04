@@ -41,7 +41,7 @@ export const AttendanceDialogCallAttendance: React.FC<AttendanceDialogCallAttend
   );
 
   const { isOpen, handleCloseModal } = useModalAttendanceDialogCallAttendance;
-  // console.log(formValues);
+
   return (
     <>
       <Dialog
@@ -63,7 +63,6 @@ export const AttendanceDialogCallAttendance: React.FC<AttendanceDialogCallAttend
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            // dispatch(startDeleteAttendance(attendance));
             dispatch(
               startUpdateAttendanceCheck(
                 currentlyCallingAttendance.attendancesCheck.map(

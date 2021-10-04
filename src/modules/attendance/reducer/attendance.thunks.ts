@@ -13,32 +13,50 @@ const laravelAttendanceCheckRepository = new LaravelAttendanceCheckRepository();
 
 export const startCreateAttendance = (
   createAttendance: CreateAttendance
-): AppThunk<Promise<ServerErrorResponse | void>> => async (dispatch, _) => {
+): AppThunk<Promise<ServerErrorResponse | void>> => async (
+  dispatch,
+  getState
+) => {
+  const { currentCourseRecord } = getState().courseRecordReducer;
   const response = await laravelAttendanceRepository.create(createAttendance);
 
   if (isServerErrorResponse(response)) return response;
 
   dispatch(attendanceAction.addNewAttendance(response.payload));
+  if (currentCourseRecord.isLoaded) {
+    dispatch(startLoadingCourseRecord(currentCourseRecord.id));
+  }
 };
 
 export const startUpdateAttendance = (
   attendance: Attendance
-): AppThunk<Promise<ServerErrorResponse | void>> => async (dispatch, _) => {
+): AppThunk<Promise<ServerErrorResponse | void>> => async (
+  dispatch,
+  getState
+) => {
+  const { currentCourseRecord } = getState().courseRecordReducer;
   const response = await laravelAttendanceRepository.update(attendance);
 
   if (isServerErrorResponse(response)) return response;
 
-  dispatch(attendanceAction.updateAttendance(response.payload));
+  if (currentCourseRecord.isLoaded) {
+    dispatch(startLoadingCourseRecord(currentCourseRecord.id));
+  }
 };
 
 export const startDeleteAttendance = (
   attendance: Attendance
-): AppThunk<Promise<ServerErrorResponse | void>> => async (dispatch, _) => {
+): AppThunk<Promise<ServerErrorResponse | void>> => async (
+  dispatch,
+  getState
+) => {
+  const { currentCourseRecord } = getState().courseRecordReducer;
   const response = await laravelAttendanceRepository.delete(attendance.id);
 
   if (isServerErrorResponse(response)) return response;
-
-  dispatch(attendanceAction.deleteAttendance(attendance));
+  if (currentCourseRecord.isLoaded) {
+    dispatch(startLoadingCourseRecord(currentCourseRecord.id));
+  }
 };
 
 export const startLoadingCurrentlyCallingAttendance = (

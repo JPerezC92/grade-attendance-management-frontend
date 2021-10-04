@@ -36,11 +36,14 @@ export const startCreateStudentFromCSV = (
     courseRecordReducer: { currentCourseRecord },
   } = getState();
 
-  const response = await laravelStudentRepository.createFromCSV(formData);
-
-  if (isServerErrorResponse(response)) return response;
-
   if (isCurrentCourseRecordLoaded(currentCourseRecord)) {
+    const response = await laravelStudentRepository.createFromCSV(
+      formData,
+      currentCourseRecord.id
+    );
+
+    if (isServerErrorResponse(response)) return response;
+
     dispatch(startLoadingCourseRecord(currentCourseRecord.id));
   }
 };

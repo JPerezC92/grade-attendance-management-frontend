@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useRouter } from 'next/router';
 import {
   Button,
   Dialog,
@@ -15,9 +15,9 @@ import {
 
 import { useAppDispatch, useAppSelector } from 'src/redux';
 import { useForm, UseModalResult } from 'src/hooks';
-import { startLoadingPeriods } from 'src/modules/period/reducer';
 import { startCreateCourseRecord } from 'src/modules/courseRecord/reducer/thunks';
 import LoadPeriods from 'src/modules/period/components/LoadPeriods';
+import { CourseRecordRoute } from 'src/routes';
 
 interface CourseIdDialogCreateProps {
   useModalCourseIdDialogCreate: UseModalResult;
@@ -26,6 +26,9 @@ interface CourseIdDialogCreateProps {
 const CourseRecordDialogCreate: React.FC<CourseIdDialogCreateProps> = ({
   useModalCourseIdDialogCreate,
 }) => {
+  const dispatch = useAppDispatch();
+
+  const router = useRouter();
   const { periodReducer } = useAppSelector((state) => state);
   const { isOpen, handleCloseModal } = useModalCourseIdDialogCreate;
   const { formValues, handleInputChange } = useForm({
@@ -36,15 +39,26 @@ const CourseRecordDialogCreate: React.FC<CourseIdDialogCreateProps> = ({
     periodId: '',
   });
 
-  const dispatch = useAppDispatch();
+  const handleCreateCourseRecord = async () => {
+    const response = await dispatch(
+      startCreateCourseRecord({
+        ...formValues,
+        periodId: parseInt(formValues.periodId, 10),
+      })
+    );
 
-  const handleCreateCourse = () => {
-    dispatch(startCreateCourseRecord(formValues));
+    if (response.success)
+      router.push(
+        CourseRecordRoute.SETTINGS(
+          response.payload.courseId,
+          response.payload.id
+        )
+      );
   };
 
-  useEffect(() => {
-    dispatch(startLoadingPeriods());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(startLoadingPeriods());
+  // }, []);
 
   return (
     <>
@@ -62,7 +76,7 @@ const CourseRecordDialogCreate: React.FC<CourseIdDialogCreateProps> = ({
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              handleCreateCourse();
+              handleCreateCourseRecord();
               handleCloseModal();
             }}
           >
@@ -122,6 +136,8 @@ const CourseRecordDialogCreate: React.FC<CourseIdDialogCreateProps> = ({
                   onChange={handleInputChange}
                   label="Periodo"
                 >
+                  <MenuItem value="">Selecciona un periodo</MenuItem>
+
                   {periodReducer.periods.map((period) => (
                     <MenuItem key={period.id} value={period.id}>
                       {period.value}

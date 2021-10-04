@@ -36,7 +36,7 @@ const registerInitialValue: RegisterValues = {
 };
 
 const loginInitialValue: Credentials = {
-  email: 'test@gmail.com',
+  email: 'test2@gmail.com',
   password: '123456aA',
 };
 

@@ -57,7 +57,6 @@ const SettingsTabAttendance: React.FC = () => {
                 <TableRow>
                   <TableCell>Nº</TableCell>
                   <TableCell>Fecha</TableCell>
-                  <TableCell>Total asistentes</TableCell>
                   <TableCell>Acciones</TableCell>
                 </TableRow>
               </TableHead>
@@ -67,7 +66,6 @@ const SettingsTabAttendance: React.FC = () => {
                   <TableRow key={attendance.id}>
                     <TableCell>{++index}</TableCell>
                     <TableCell>{attendance.date}</TableCell>
-                    <TableCell align="center">8</TableCell>
                     <TableCell>
                       <div style={{ display: 'flex' }}>
                         <AttendanceButtonEdit attendance={attendance} />

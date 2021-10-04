@@ -52,6 +52,7 @@ const SettingsTabActivity: React.FC = () => {
             <div className={styles.tabActivity__buttons}>
               <ActivityButtonCreate />
             </div>
+
             <Paper>
               <TableContainer>
                 <Table size="small">

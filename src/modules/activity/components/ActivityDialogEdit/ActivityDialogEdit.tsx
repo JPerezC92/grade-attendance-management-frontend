@@ -29,7 +29,6 @@ const ActivityDialogEdit: React.FC<ActivityDialogEditProps> = ({
   const { formValues, handleInputChange } = useForm({
     name: activity.name,
     value: activity.value,
-    scoresQuantity: activity.scoresQuantity,
   });
 
   return (
@@ -56,7 +55,6 @@ const ActivityDialogEdit: React.FC<ActivityDialogEditProps> = ({
                 ...activity,
                 ...formValues,
                 value: parseInt(`${formValues.value}`, 10),
-                scoresQuantity: parseInt(`${formValues.scoresQuantity}`, 10),
               })
             );
             handleCloseModal();
@@ -85,17 +83,6 @@ const ActivityDialogEdit: React.FC<ActivityDialogEditProps> = ({
               onChange={handleInputChange}
               type="number"
               value={formValues.value}
-              variant="outlined"
-            />
-            <TextField
-              fullWidth
-              id="scoresQuantity"
-              label="Número de calificaciones"
-              margin="dense"
-              name="scoresQuantity"
-              onChange={handleInputChange}
-              type="number"
-              value={formValues.scoresQuantity}
               variant="outlined"
             />
           </DialogContent>

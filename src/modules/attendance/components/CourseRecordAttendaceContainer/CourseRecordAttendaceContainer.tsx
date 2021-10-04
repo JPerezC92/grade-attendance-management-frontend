@@ -32,15 +32,21 @@ const CallAttendance: React.FC<{ attendances: Attendance[] }> = ({
 }) => {
   const dispatch = useAppDispatch();
   const modal = useModal();
+  const thereAreAttendances = attendances.length > 0;
 
   const { formValues, handleInputChange } = useForm({
-    attendanceId: attendances[attendances.length - 1].id,
+    attendanceId: thereAreAttendances
+      ? `${attendances[attendances.length - 1].id}`
+      : '',
   });
 
   return (
     <>
-      <FormControl variant="outlined" size="small">
-        {/* <InputLabel>Fechas</InputLabel> */}
+      <FormControl
+        variant="outlined"
+        size="small"
+        disabled={!thereAreAttendances}
+      >
         <Select
           id="attendanceId"
           name="attendanceId"
@@ -62,10 +68,13 @@ const CallAttendance: React.FC<{ attendances: Attendance[] }> = ({
         color="primary"
         onClick={async () => {
           await dispatch(
-            startLoadingCurrentlyCallingAttendance(formValues.attendanceId)
+            startLoadingCurrentlyCallingAttendance(
+              parseInt(formValues.attendanceId, 10)
+            )
           );
           modal.handleOpenModal();
         }}
+        disabled={!thereAreAttendances}
       >
         Llamar asistencia
       </Button>
@@ -129,9 +138,11 @@ const CourseRecordAttendaceContainer: React.FC = () => {
                   <TableCell colSpan={3} align="center">
                     Lista de Estudiantes
                   </TableCell>
-                  <TableCell colSpan={attendances.length} align="center">
-                    Fechas
-                  </TableCell>
+                  {attendances.length > 0 && (
+                    <TableCell colSpan={attendances.length} align="center">
+                      Fechas
+                    </TableCell>
+                  )}
                   <TableCell colSpan={3} align="center">
                     Resumen
                   </TableCell>

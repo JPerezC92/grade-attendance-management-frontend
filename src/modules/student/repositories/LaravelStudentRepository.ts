@@ -8,8 +8,9 @@ interface StudentRepository {
   ): Promise<SuccessfulResponse<Student> | ServerErrorResponse>;
 
   createFromCSV(
-    formData: FormData
-  ): Promise<SuccessfulResponse<Student[]> | ServerErrorResponse>;
+    formData: FormData,
+    courseRecordId: number
+  ): Promise<SuccessfulResponse<string> | ServerErrorResponse>;
 
   update(
     student: Student
@@ -22,18 +23,25 @@ interface StudentRepository {
 
 export class LaravelStudentRepository implements StudentRepository {
   async createFromCSV(
-    formData: FormData
-  ): Promise<SuccessfulResponse<Student[]> | ServerErrorResponse> {
+    formData: FormData,
+    courseRecordId: number
+  ): Promise<SuccessfulResponse<string> | ServerErrorResponse> {
     try {
-      const response = await fetch(`${baseApiURL}/student/csv-file`, {
-        method: 'POST',
-        body: formData,
-        redirect: 'follow',
-      });
+      const response = await fetch(
+        `${baseApiURL}/student/csv-file?courseRecordId=${courseRecordId}`,
+        {
+          method: 'POST',
+          body: formData,
+          redirect: 'follow',
+        }
+      );
 
-      return (await response.json()) as SuccessfulResponse<Student[]>;
+      return (await response.json()) as SuccessfulResponse<string>;
     } catch (error) {
-      return { success: false, message: 'Error al registrar estudiante' };
+      return {
+        success: false,
+        message: 'Error al registrar estudiantes desde archivo',
+      };
     }
   }
 

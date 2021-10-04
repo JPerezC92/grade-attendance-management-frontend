@@ -14,7 +14,7 @@ const startLoading = (state: Draft<CourseRecordState>): void => {
 };
 
 const finishLoading = (state: Draft<CourseRecordState>): void => {
-  state.isLoading = true;
+  state.currentCourseRecord.isLoaded = true;
 };
 
 export const courseRecordSliceOptions = {
