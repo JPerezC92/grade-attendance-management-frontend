@@ -26,6 +26,29 @@ const updateCourse = (
   );
 };
 
+const updateCourseRecord = (
+  state: Draft<CourseState>,
+  action: PayloadAction<CourseRecord>
+): void => {
+  if (state.currentCourse.isLoaded) {
+    state.currentCourse.course_records = state.currentCourse.course_records.map(
+      (courseRecord) =>
+        courseRecord.id === action.payload.id ? action.payload : courseRecord
+    );
+  }
+};
+
+const deleteCourseRecord = (
+  state: Draft<CourseState>,
+  action: PayloadAction<number>
+): void => {
+  if (state.currentCourse.isLoaded) {
+    state.currentCourse.course_records = state.currentCourse.course_records.filter(
+      (courseRecord) => courseRecord.id === action.payload
+    );
+  }
+};
+
 const setCurrentCourse = (
   state: Draft<CourseState>,
   action: PayloadAction<CourseWithCourseRecords>
@@ -59,6 +82,8 @@ export const courseSliceOptions = {
   updateCourse,
   setCurrentCourse,
   addNewCourseRecord,
+  updateCourseRecord,
+  deleteCourseRecord,
   startLoading,
   finishLoading,
 };

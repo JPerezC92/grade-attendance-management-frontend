@@ -14,7 +14,11 @@ const LoadCourseRecord: React.FC = ({ children }) => {
   useEffect(() => {
     const courseRecordId = parseInt(router.query.courseRecordId as string);
 
-    if (courseRecordId && !currentCourseRecord.isLoaded) {
+    if (
+      (courseRecordId && !currentCourseRecord.isLoaded) ||
+      (currentCourseRecord.isLoaded &&
+        currentCourseRecord.id !== courseRecordId)
+    ) {
       dispatch(startLoadingCourseRecord(courseRecordId));
     }
   }, [router.query]);

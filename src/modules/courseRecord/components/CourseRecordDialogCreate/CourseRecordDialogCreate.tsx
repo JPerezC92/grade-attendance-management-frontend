@@ -56,10 +56,6 @@ const CourseRecordDialogCreate: React.FC<CourseIdDialogCreateProps> = ({
       );
   };
 
-  // useEffect(() => {
-  //   dispatch(startLoadingPeriods());
-  // }, []);
-
   return (
     <>
       <LoadPeriods>
@@ -136,8 +132,6 @@ const CourseRecordDialogCreate: React.FC<CourseIdDialogCreateProps> = ({
                   onChange={handleInputChange}
                   label="Periodo"
                 >
-                  <MenuItem value="">Selecciona un periodo</MenuItem>
-
                   {periodReducer.periods.map((period) => (
                     <MenuItem key={period.id} value={period.id}>
                       {period.value}

@@ -25,9 +25,65 @@ interface CourseRecordRepository {
   create(
     courseRecord: CourseRecordRegister
   ): Promise<SuccessfulResponse<CourseRecord> | ServerErrorResponse>;
+
+  update(
+    courseRecord: CourseRecord
+  ): Promise<SuccessfulResponse<CourseRecord> | ServerErrorResponse>;
+
+  delete(
+    courseRecordId: number
+  ): Promise<SuccessfulResponse<string> | ServerErrorResponse>;
 }
 
 export class LaravelCourseRecordRepository implements CourseRecordRepository {
+  async delete(
+    courseRecordId: number
+  ): Promise<SuccessfulResponse<string> | ServerErrorResponse> {
+    try {
+      const response = await fetch(
+        `${baseApiURL}/course-record/${courseRecordId}`,
+        {
+          method: 'DELETE',
+
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      return (await response.json()) as SuccessfulResponse<string>;
+    } catch (error) {
+      return {
+        success: false,
+        message: 'Error al crear nuevo registro',
+      };
+    }
+  }
+
+  async update(
+    courseRecord: CourseRecord
+  ): Promise<SuccessfulResponse<CourseRecord> | ServerErrorResponse> {
+    try {
+      const response = await fetch(
+        `${baseApiURL}/course-record/${courseRecord.id}`,
+        {
+          method: 'PUT',
+          body: JSON.stringify(courseRecord),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      return (await response.json()) as SuccessfulResponse<CourseRecord>;
+    } catch (error) {
+      return {
+        success: false,
+        message: 'Error al editar el registro',
+      };
+    }
+  }
+
   async create(
     courseRecord: CourseRecordRegister
   ): Promise<SuccessfulResponse<CourseRecord> | ServerErrorResponse> {

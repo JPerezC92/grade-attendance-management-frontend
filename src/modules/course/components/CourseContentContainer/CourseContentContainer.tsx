@@ -11,6 +11,8 @@ import Link from 'src/shared/components/Link';
 import NavigationBreadcrumbs from 'src/shared/components/NavigationBreadcrumbs';
 import LoadCurrentCourse from '../LoadCurrentCourse';
 import styles from './CourseContentContainer.module.scss';
+import CourseRecordButtonDelete from 'src/modules/courseRecord/components/CourseRecordButtonDelete';
+import CourseRecordButtonUpdate from 'src/modules/courseRecord/components/CourseRecordButtonUpdate';
 
 const CourseContentContainer: React.FC = () => {
   const router = useRouter();
@@ -59,7 +61,10 @@ const CourseContentContainer: React.FC = () => {
                       <div>Periodo: {courseRecord.period.value}</div>
                     </div>
                     <Divider />
-                    <div className={styles.courseCard__actions}>Botones</div>
+                    <div className={styles.courseCard__actions}>
+                      <CourseRecordButtonUpdate courseRecord={courseRecord} />
+                      <CourseRecordButtonDelete courseRecord={courseRecord} />
+                    </div>
                   </div>
                 ))}
               </div>
