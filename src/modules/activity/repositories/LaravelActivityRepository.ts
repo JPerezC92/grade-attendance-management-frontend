@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import { baseApiURL } from 'src/helpers/global';
 import { Activity, CreateActivity } from 'src/modules/activity/types';
 import { ServerErrorResponse, SuccessfulResponse } from 'src/shared/types';
@@ -20,11 +21,14 @@ export class LaravelActivityRepository implements ActivityRepository {
     createActivity: CreateActivity
   ): Promise<SuccessfulResponse<Activity> | ServerErrorResponse> {
     try {
+      const token = Cookies.get('token');
       const response = await fetch(`${baseApiURL}/activity`, {
         method: 'POST',
         body: JSON.stringify(createActivity),
         headers: {
+          Accept: 'application/json',
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -36,15 +40,19 @@ export class LaravelActivityRepository implements ActivityRepository {
       };
     }
   }
+
   async update(
     activity: Activity
   ): Promise<SuccessfulResponse<Activity> | ServerErrorResponse> {
     try {
+      const token = Cookies.get('token');
       const response = await fetch(`${baseApiURL}/activity/${activity.id}`, {
         method: 'PUT',
         body: JSON.stringify(activity),
         headers: {
+          Accept: 'application/json',
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -60,10 +68,13 @@ export class LaravelActivityRepository implements ActivityRepository {
     activityId: number
   ): Promise<ServerErrorResponse | SuccessfulResponse<string>> {
     try {
+      const token = Cookies.get('token');
       const response = await fetch(`${baseApiURL}/activity/${activityId}`, {
         method: 'DELETE',
         headers: {
+          Accept: 'application/json',
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
       });
 

@@ -17,7 +17,7 @@ interface AuthRepository {
   ): Promise<SuccessfulResponse<Token> | ServerErrorResponse>;
   userInfo(): Promise<SuccessfulResponse<User> | ServerErrorResponse>;
 
-  logout(): Promise<void>;
+  logout(): Promise<SuccessfulResponse<string> | ServerErrorResponse>;
 }
 
 export class LaravelAuthRepository implements AuthRepository {
@@ -87,8 +87,26 @@ export class LaravelAuthRepository implements AuthRepository {
     }
   }
 
-  async logout(): Promise<void> {
-    // eslint-disable-next-line no-console
-    console.log('logout');
+  async logout(): Promise<SuccessfulResponse<string> | ServerErrorResponse> {
+    try {
+      const token = Cookies.get('token');
+      const responseRegister = await fetch(`${baseApiURL}/auth/register`, {
+        method: 'DELETE',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      return (await responseRegister.json()) as SuccessfulResponse<string>;
+    } catch (error) {
+      return {
+        success: false,
+        message: 'Registration trouble! Please try again',
+      };
+    } finally {
+      Cookies.remove('token');
+    }
   }
 }

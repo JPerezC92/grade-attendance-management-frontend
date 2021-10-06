@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import { baseApiURL } from 'src/helpers/global';
 import { CreatePeriod, Period } from 'src/modules/period/types';
 import { ServerErrorResponse, SuccessfulResponse } from 'src/shared/types';
@@ -29,11 +30,14 @@ export class LaravelPeriodRepository implements PeriodRepository {
     period: Period
   ): Promise<SuccessfulResponse<Period> | ServerErrorResponse> {
     try {
+      const token = Cookies.get('token');
       const response = await fetch(`${baseApiURL}/period`, {
         method: 'PUT',
         body: JSON.stringify({ ...period, status: 'activo' }),
         headers: {
+          Accept: 'application/json',
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -47,11 +51,14 @@ export class LaravelPeriodRepository implements PeriodRepository {
     period: Period
   ): Promise<SuccessfulResponse<Period> | ServerErrorResponse> {
     try {
+      const token = Cookies.get('token');
       const response = await fetch(`${baseApiURL}/period`, {
         method: 'PUT',
         body: JSON.stringify({ ...period, status: 'inactivo' }),
         headers: {
+          Accept: 'application/json',
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -65,11 +72,14 @@ export class LaravelPeriodRepository implements PeriodRepository {
     period: Period
   ): Promise<SuccessfulResponse<Period> | ServerErrorResponse> {
     try {
+      const token = Cookies.get('token');
       const response = await fetch(`${baseApiURL}/period`, {
         method: 'PUT',
         body: JSON.stringify(period),
         headers: {
+          Accept: 'application/json',
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -83,11 +93,14 @@ export class LaravelPeriodRepository implements PeriodRepository {
     createPeriod: CreatePeriod
   ): Promise<ServerErrorResponse | SuccessfulResponse<Period>> {
     try {
+      const token = Cookies.get('token');
       const response = await fetch(`${baseApiURL}/period`, {
         method: 'POST',
         body: JSON.stringify(createPeriod),
         headers: {
+          Accept: 'application/json',
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -104,10 +117,13 @@ export class LaravelPeriodRepository implements PeriodRepository {
     url.searchParams.append('instructorId', userId.toString());
 
     try {
+      const token = Cookies.get('token');
       const response = await fetch(`${url}`, {
         method: 'GET',
         headers: {
+          Accept: 'application/json',
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
       });
 

@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import { baseApiURL } from 'src/helpers/global';
 import {
   AttendanceCheck,
@@ -29,11 +30,14 @@ export class LaravelAttendanceCheckRepository
     attendancesCheck: AttendanceCheck[]
   ): Promise<ServerErrorResponse | SuccessfulResponse<string>> {
     try {
+      const token = Cookies.get('token');
       const response = await fetch(`${baseApiURL}/attendance-check`, {
         method: 'PUT',
         body: JSON.stringify(attendancesCheck),
         headers: {
+          Accept: 'application/json',
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -52,10 +56,13 @@ export class LaravelAttendanceCheckRepository
     SuccessfulResponse<GetByAttendanceIdResponse> | ServerErrorResponse
   > {
     try {
+      const token = Cookies.get('token');
       const response = await fetch(`${baseApiURL}/attendance/${attendanceId}`, {
         method: 'GET',
         headers: {
+          Accept: 'application/json',
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
       });
 

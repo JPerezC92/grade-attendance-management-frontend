@@ -1,9 +1,12 @@
+import IfUserIsAuthenticated from 'src/modules/auth/components/IfUserIsAuthenticated';
 import CourseRecordAttendaceContainer from 'src/modules/attendance/components/CourseRecordAttendaceContainer';
 
 const CourseRecordAttendace: React.FC = () => {
   return (
     <>
-      <CourseRecordAttendaceContainer />
+      <IfUserIsAuthenticated>
+        <CourseRecordAttendaceContainer />
+      </IfUserIsAuthenticated>
     </>
   );
 };

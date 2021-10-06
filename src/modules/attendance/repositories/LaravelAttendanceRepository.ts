@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import { baseApiURL } from 'src/helpers/global';
 import { Attendance, CreateAttendance } from 'src/modules/attendance/types';
 import { ServerErrorResponse, SuccessfulResponse } from 'src/shared/types';
@@ -21,11 +22,14 @@ export class LaravelAttendanceRepository implements AttendanceRepository {
     createAttendance: CreateAttendance
   ): Promise<ServerErrorResponse | SuccessfulResponse<Attendance>> {
     try {
+      const token = Cookies.get('token');
       const response = await fetch(`${baseApiURL}/attendance`, {
         method: 'POST',
         body: JSON.stringify(createAttendance),
         headers: {
+          Accept: 'application/json',
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -38,13 +42,16 @@ export class LaravelAttendanceRepository implements AttendanceRepository {
     attendance: Attendance
   ): Promise<ServerErrorResponse | SuccessfulResponse<Attendance>> {
     try {
+      const token = Cookies.get('token');
       const response = await fetch(
         `${baseApiURL}/attendance/${attendance.id}`,
         {
           method: 'PUT',
           body: JSON.stringify(attendance),
           headers: {
+            Accept: 'application/json',
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -61,11 +68,14 @@ export class LaravelAttendanceRepository implements AttendanceRepository {
     attendanceId: number
   ): Promise<ServerErrorResponse | SuccessfulResponse<string>> {
     try {
+      const token = Cookies.get('token');
       const response = await fetch(`${baseApiURL}/attendance/${attendanceId}`, {
         method: 'DELETE',
         body: JSON.stringify({ attendanceId }),
         headers: {
+          Accept: 'application/json',
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
       });
 

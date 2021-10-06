@@ -36,7 +36,7 @@ const CourseRecordDialogUpdate: React.FC<CourseRecordDialogUpdateProps> = ({
     turn: courseRecord.turn,
     group: courseRecord.group,
     semester: courseRecord.semester,
-    periodId: courseRecord.periodId,
+    periodId: `${courseRecord.periodId}`,
   });
 
   return (
@@ -58,7 +58,11 @@ const CourseRecordDialogUpdate: React.FC<CourseRecordDialogUpdateProps> = ({
               onSubmit={(e) => {
                 e.preventDefault();
                 dispatch(
-                  startUpdateCourseRecord({ ...courseRecord, ...formValues })
+                  startUpdateCourseRecord({
+                    ...courseRecord,
+                    ...formValues,
+                    periodId: parseInt(formValues.periodId, 10),
+                  })
                 );
                 handleCloseModal();
               }}
@@ -111,21 +115,23 @@ const CourseRecordDialogUpdate: React.FC<CourseRecordDialogUpdateProps> = ({
                   variant="outlined"
                 />
 
-                <FormControl fullWidth margin="dense" variant="outlined">
-                  <InputLabel>Periodo</InputLabel>
-                  <Select
-                    name="periodId"
-                    value={formValues.periodId}
-                    onChange={handleInputChange}
-                    label="Periodo"
-                  >
-                    {periodReducer.periods.map((period) => (
-                      <MenuItem key={period.id} value={period.id}>
-                        {period.value}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
+                {periodReducer.periods.length > 0 && (
+                  <FormControl fullWidth margin="dense" variant="outlined">
+                    <InputLabel>Periodo</InputLabel>
+                    <Select
+                      name="periodId"
+                      value={formValues.periodId}
+                      onChange={handleInputChange}
+                      label="Periodo"
+                    >
+                      {periodReducer.periods.map((period) => (
+                        <MenuItem key={period.id} value={period.id}>
+                          {period.value}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                )}
               </DialogContent>
 
               <DialogActions>

@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import { baseApiURL } from 'src/helpers/global';
 import { ServerErrorResponse, SuccessfulResponse } from 'src/shared/types';
 import { ScoreAssignedWithStudentName } from 'src/modules/grade/types';
@@ -22,11 +23,14 @@ export class LaravelScoreRepository implements ScoreRepository {
     activityId: number
   ): Promise<SuccessfulResponse<string> | ServerErrorResponse> {
     try {
+      const token = Cookies.get('token');
       const response = await fetch(`${baseApiURL}/scores`, {
         method: 'POST',
         body: JSON.stringify({ activityId }),
         headers: {
+          Accept: 'application/json',
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -42,10 +46,13 @@ export class LaravelScoreRepository implements ScoreRepository {
     scoreId: number
   ): Promise<SuccessfulResponse<string> | ServerErrorResponse> {
     try {
+      const token = Cookies.get('token');
       const response = await fetch(`${baseApiURL}/scores/${scoreId}`, {
         method: 'DELETE',
         headers: {
+          Accept: 'application/json',
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -64,10 +71,13 @@ export class LaravelScoreRepository implements ScoreRepository {
     SuccessfulResponse<ScoreAssignedWithStudentName[]> | ServerErrorResponse
   > {
     try {
+      const token = Cookies.get('token');
       const response = await fetch(`${baseApiURL}/scores/${scoreId}`, {
         method: 'GET',
         headers: {
+          Accept: 'application/json',
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
       });
 

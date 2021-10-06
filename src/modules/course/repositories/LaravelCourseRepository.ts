@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import { baseApiURL } from 'src/helpers/global';
 import { Course, CourseWithCourseRecords } from 'src/modules/course/types';
 import { ServerErrorResponse, SuccessfulResponse } from 'src/shared/types';
@@ -24,11 +25,14 @@ export class LaravelCourseRepository implements CourseRepository {
     course: Course
   ): Promise<ServerErrorResponse | SuccessfulResponse<Course>> {
     try {
+      const token = Cookies.get('token');
       const response = await fetch(`${baseApiURL}/course/${course.id}`, {
         method: 'PUT',
         body: JSON.stringify(course),
         headers: {
+          Accept: 'application/json',
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -41,6 +45,7 @@ export class LaravelCourseRepository implements CourseRepository {
   async getAll(
     userId: number
   ): Promise<SuccessfulResponse<Course[]> | ServerErrorResponse> {
+    const token = Cookies.get('token');
     const url = new URL(`${baseApiURL}/course`);
     url.searchParams.append('instructorId', userId.toString());
 
@@ -48,7 +53,9 @@ export class LaravelCourseRepository implements CourseRepository {
       const response = await fetch(`${url}`, {
         method: 'GET',
         headers: {
+          Accept: 'application/json',
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -64,10 +71,13 @@ export class LaravelCourseRepository implements CourseRepository {
     ServerErrorResponse | SuccessfulResponse<CourseWithCourseRecords>
   > {
     try {
+      const token = Cookies.get('token');
       const response = await fetch(`${baseApiURL}/course/${courseId}`, {
         method: 'GET',
         headers: {
+          Accept: 'application/json',
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -84,11 +94,14 @@ export class LaravelCourseRepository implements CourseRepository {
     courseName: string
   ): Promise<SuccessfulResponse<Course> | ServerErrorResponse> {
     try {
+      const token = Cookies.get('token');
       const response = await fetch(`${baseApiURL}/course`, {
         method: 'POST',
         body: JSON.stringify({ name: courseName, instructorId: userId }),
         headers: {
+          Accept: 'application/json',
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
       });
 

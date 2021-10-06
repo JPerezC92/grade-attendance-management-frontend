@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import { baseApiURL } from 'src/helpers/global';
 import { ServerErrorResponse, SuccessfulResponse } from 'src/shared/types';
 import { ScoreAssigned } from '../types';
@@ -13,11 +14,14 @@ export class LaravelScoreAssignedRepository implements ScoreAssignedRepository {
     scoresAssigned: ScoreAssigned[]
   ): Promise<SuccessfulResponse<string> | ServerErrorResponse> {
     try {
+      const token = Cookies.get('token');
       const response = await fetch(`${baseApiURL}/scores-assigned`, {
         method: 'PUT',
         body: JSON.stringify(scoresAssigned),
         headers: {
+          Accept: 'application/json',
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
       });
 

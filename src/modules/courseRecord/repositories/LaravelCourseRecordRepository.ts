@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import { baseApiURL } from 'src/helpers/global';
 
 import { Activity } from 'src/modules/activity/types';
@@ -40,13 +41,15 @@ export class LaravelCourseRecordRepository implements CourseRecordRepository {
     courseRecordId: number
   ): Promise<SuccessfulResponse<string> | ServerErrorResponse> {
     try {
+      const token = Cookies.get('token');
       const response = await fetch(
         `${baseApiURL}/course-record/${courseRecordId}`,
         {
           method: 'DELETE',
-
           headers: {
+            Accept: 'application/json',
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -64,13 +67,16 @@ export class LaravelCourseRecordRepository implements CourseRecordRepository {
     courseRecord: CourseRecord
   ): Promise<SuccessfulResponse<CourseRecord> | ServerErrorResponse> {
     try {
+      const token = Cookies.get('token');
       const response = await fetch(
         `${baseApiURL}/course-record/${courseRecord.id}`,
         {
           method: 'PUT',
           body: JSON.stringify(courseRecord),
           headers: {
+            Accept: 'application/json',
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -88,11 +94,14 @@ export class LaravelCourseRecordRepository implements CourseRecordRepository {
     courseRecord: CourseRecordRegister
   ): Promise<SuccessfulResponse<CourseRecord> | ServerErrorResponse> {
     try {
+      const token = Cookies.get('token');
       const response = await fetch(`${baseApiURL}/course-record`, {
         method: 'POST',
         body: JSON.stringify(courseRecord),
         headers: {
+          Accept: 'application/json',
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -108,12 +117,15 @@ export class LaravelCourseRecordRepository implements CourseRecordRepository {
     courseRecordId: number
   ): Promise<SuccessfulResponse<CourseRecordInfo> | ServerErrorResponse> {
     try {
+      const token = Cookies.get('token');
       const response = await fetch(
         `${baseApiURL}/course-record/${courseRecordId}`,
         {
           method: 'GET',
           headers: {
+            Accept: 'application/json',
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
           },
         }
       );

@@ -44,7 +44,7 @@ const deleteCourseRecord = (
 ): void => {
   if (state.currentCourse.isLoaded) {
     state.currentCourse.course_records = state.currentCourse.course_records.filter(
-      (courseRecord) => courseRecord.id === action.payload
+      (courseRecord) => courseRecord.id !== action.payload
     );
   }
 };
