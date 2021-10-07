@@ -1,4 +1,5 @@
 import { isServerErrorResponse } from 'src/helpers/assertions';
+import { startLoadingCourseContent } from 'src/modules/course/reducer';
 import { AppThunk } from 'src/redux';
 import { ServerErrorResponse } from 'src/shared/types';
 import { LaravelPeriodRepository } from '../repositories';
@@ -9,14 +10,10 @@ const laravelPeriodRepository = new LaravelPeriodRepository();
 
 export const startLoadingPeriods = (): AppThunk<
   Promise<ServerErrorResponse | void>
-> => async (dispatch, getState) => {
-  const {
-    authReducer: { user },
-  } = getState();
-
+> => async (dispatch, _) => {
   dispatch(periodAction.startLoading());
 
-  const response = await laravelPeriodRepository.getAll(user.id);
+  const response = await laravelPeriodRepository.getAll();
 
   dispatch(periodAction.finishLoading());
 
@@ -55,7 +52,11 @@ export const startUpdatePeriod = (
 
 export const startArchivePeriod = (
   period: Period
-): AppThunk<Promise<ServerErrorResponse | void>> => async (dispatch, _) => {
+): AppThunk<Promise<ServerErrorResponse | void>> => async (
+  dispatch,
+  getState
+) => {
+  const { currentCourse } = getState().courseReducer;
   dispatch(periodAction.startLoading());
 
   const response = await laravelPeriodRepository.archive(period);
@@ -65,11 +66,19 @@ export const startArchivePeriod = (
   if (isServerErrorResponse(response)) return response;
 
   dispatch(periodAction.update(response.payload));
+
+  if (currentCourse.isLoaded) {
+    dispatch(startLoadingCourseContent(currentCourse.id));
+  }
 };
 
 export const startUnarchivePeriod = (
   period: Period
-): AppThunk<Promise<ServerErrorResponse | void>> => async (dispatch, _) => {
+): AppThunk<Promise<ServerErrorResponse | void>> => async (
+  dispatch,
+  getState
+) => {
+  const { currentCourse } = getState().courseReducer;
   dispatch(periodAction.startLoading());
 
   const response = await laravelPeriodRepository.unarchive(period);
@@ -79,4 +88,8 @@ export const startUnarchivePeriod = (
   if (isServerErrorResponse(response)) return response;
 
   dispatch(periodAction.update(response.payload));
+
+  if (currentCourse.isLoaded) {
+    dispatch(startLoadingCourseContent(currentCourse.id));
+  }
 };

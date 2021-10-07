@@ -6,12 +6,16 @@ import UserAvatar from 'src/modules/user/components/UserAvatar';
 
 import UserInfoCard from '../UserInfoCard';
 import styles from './UserOptionsIcon.module.scss';
+import { useAppSelector } from 'src/redux';
 
 interface UserOptionsIconProps {
   className?: string;
 }
 
 const UserOptionsIcon: React.FC<UserOptionsIconProps> = ({ className }) => {
+  const {
+    authReducer: { user },
+  } = useAppSelector((state) => state);
   const { handleLogout } = useAuthentication();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -40,16 +44,16 @@ const UserOptionsIcon: React.FC<UserOptionsIconProps> = ({ className }) => {
         <Box onClick={handleClose}>
           <UserInfoCard
             user={{
-              firstname: 'Jhon Doe',
-              lastname: 'Test Test',
-              email: 'test@email.com',
+              firstname: user.firstname,
+              lastname: user.lastname,
+              email: user.email,
             }}
           />
         </Box>
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
+        {/* <MenuItem onClick={handleClose}>Profile</MenuItem>
+        <MenuItem onClick={handleClose}>My account</MenuItem> */}
         <MenuItem onClick={handleLogout}>
-          <Typography color="secondary">Logout</Typography>
+          <Typography color="secondary">Cerrar sesión</Typography>
         </MenuItem>
       </Menu>
     </>

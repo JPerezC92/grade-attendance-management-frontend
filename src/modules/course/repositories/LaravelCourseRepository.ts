@@ -4,9 +4,7 @@ import { Course, CourseWithCourseRecords } from 'src/modules/course/types';
 import { ServerErrorResponse, SuccessfulResponse } from 'src/shared/types';
 
 interface CourseRepository {
-  getAll(
-    userId: number
-  ): Promise<SuccessfulResponse<Course[]> | ServerErrorResponse>;
+  getAll(): Promise<SuccessfulResponse<Course[]> | ServerErrorResponse>;
   getById(
     courseId: number
   ): Promise<SuccessfulResponse<CourseWithCourseRecords> | ServerErrorResponse>;
@@ -18,9 +16,33 @@ interface CourseRepository {
   update(
     course: Course
   ): Promise<SuccessfulResponse<Course> | ServerErrorResponse>;
+
+  delete(
+    courseId: number
+  ): Promise<SuccessfulResponse<string> | ServerErrorResponse>;
 }
 
 export class LaravelCourseRepository implements CourseRepository {
+  async delete(
+    courseId: number
+  ): Promise<ServerErrorResponse | SuccessfulResponse<string>> {
+    try {
+      const token = Cookies.get('token');
+      const response = await fetch(`${baseApiURL}/course/${courseId}`, {
+        method: 'DELETE',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      return (await response.json()) as SuccessfulResponse<string>;
+    } catch (error) {
+      return { success: false, message: 'Error al actualizar el curso' };
+    }
+  }
+
   async update(
     course: Course
   ): Promise<ServerErrorResponse | SuccessfulResponse<Course>> {
@@ -42,12 +64,9 @@ export class LaravelCourseRepository implements CourseRepository {
     }
   }
 
-  async getAll(
-    userId: number
-  ): Promise<SuccessfulResponse<Course[]> | ServerErrorResponse> {
+  async getAll(): Promise<SuccessfulResponse<Course[]> | ServerErrorResponse> {
     const token = Cookies.get('token');
     const url = new URL(`${baseApiURL}/course`);
-    url.searchParams.append('instructorId', userId.toString());
 
     try {
       const response = await fetch(`${url}`, {

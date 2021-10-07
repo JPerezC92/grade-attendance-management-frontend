@@ -5,6 +5,7 @@ import { Divider, Tooltip, Typography } from '@material-ui/core';
 import { Course } from '../../types';
 import { CourseRoute } from 'src/routes/course.routepath';
 import CourseButtonUpdate from '../CourseButtonUpdate';
+import CourseButtonDelete from '../CourseButtonDelete';
 import courseImg from 'src/static/course-image.jpg';
 import styles from './CourseCard.module.scss';
 
@@ -48,6 +49,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
         </div>
         <Divider />
         <div className={styles.courseCard__actions}>
+          <CourseButtonDelete course={course} />
           <CourseButtonUpdate course={course} />
         </div>
       </div>

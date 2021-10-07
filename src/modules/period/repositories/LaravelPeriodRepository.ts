@@ -4,9 +4,7 @@ import { CreatePeriod, Period } from 'src/modules/period/types';
 import { ServerErrorResponse, SuccessfulResponse } from 'src/shared/types';
 
 interface PeriodRepository {
-  getAll(
-    userId: number
-  ): Promise<SuccessfulResponse<Period[]> | ServerErrorResponse>;
+  getAll(): Promise<SuccessfulResponse<Period[]> | ServerErrorResponse>;
 
   create(
     createPeriod: CreatePeriod
@@ -110,11 +108,8 @@ export class LaravelPeriodRepository implements PeriodRepository {
     }
   }
 
-  async getAll(
-    userId: number
-  ): Promise<SuccessfulResponse<Period[]> | ServerErrorResponse> {
+  async getAll(): Promise<SuccessfulResponse<Period[]> | ServerErrorResponse> {
     const url = new URL(`${baseApiURL}/period`);
-    url.searchParams.append('instructorId', userId.toString());
 
     try {
       const token = Cookies.get('token');

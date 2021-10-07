@@ -9,11 +9,10 @@ const laravelCourseRepository = new LaravelCourseRepository();
 
 export const startLoadingCourses = (): AppThunk<
   Promise<ServerErrorResponse | void>
-> => async (dispatch, getState) => {
+> => async (dispatch, _) => {
   dispatch(courseAction.startLoading());
 
-  const { user } = getState().authReducer;
-  const response = await laravelCourseRepository.getAll(user.id);
+  const response = await laravelCourseRepository.getAll();
 
   dispatch(courseAction.finishLoading());
 
@@ -62,4 +61,18 @@ export const startUpdateCourse = (
   if (isServerErrorResponse(response)) return response;
 
   dispatch(courseAction.updateCourse(response.payload));
+};
+
+export const startDeleteCourse = (
+  course: Course
+): AppThunk<Promise<ServerErrorResponse | void>> => async (dispatch, _) => {
+  dispatch(courseAction.startLoading());
+
+  const response = await laravelCourseRepository.delete(course.id);
+
+  dispatch(courseAction.finishLoading());
+
+  if (isServerErrorResponse(response)) return response;
+
+  dispatch(courseAction.deleteCourse(course));
 };

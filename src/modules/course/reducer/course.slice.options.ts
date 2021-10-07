@@ -26,6 +26,15 @@ const updateCourse = (
   );
 };
 
+const deleteCourse = (
+  state: Draft<CourseState>,
+  action: PayloadAction<Course>
+): void => {
+  state.courses = state.courses.filter(
+    (course) => course.id !== action.payload.id
+  );
+};
+
 const updateCourseRecord = (
   state: Draft<CourseState>,
   action: PayloadAction<CourseRecord>
@@ -80,6 +89,7 @@ export const courseSliceOptions = {
   setCourses,
   addNewCourse,
   updateCourse,
+  deleteCourse,
   setCurrentCourse,
   addNewCourseRecord,
   updateCourseRecord,
