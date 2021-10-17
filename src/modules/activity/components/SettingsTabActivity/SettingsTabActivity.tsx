@@ -43,7 +43,7 @@ const SettingsTabActivity: React.FC = () => {
                 </Link>
 
                 <Typography color="textPrimary">
-                  {currentCourseRecord.career} - S{currentCourseRecord.semester}{' '}
+                  {currentCourseRecord.career} - {currentCourseRecord.semester}{' '}
                   - {currentCourseRecord.group}
                 </Typography>
               </NavigationBreadcrumbs>

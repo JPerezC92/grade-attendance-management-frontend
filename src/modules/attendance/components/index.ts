@@ -1,4 +1,3 @@
-export * from './AttendanceButtonCallAttendance';
 export * from './AttendanceButtonCreate';
 export * from './AttendanceButtonDelete';
 export * from './AttendanceButtonEdit';

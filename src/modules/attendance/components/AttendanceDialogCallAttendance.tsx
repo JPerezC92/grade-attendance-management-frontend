@@ -31,7 +31,7 @@ export const AttendanceDialogCallAttendance: React.FC<AttendanceDialogCallAttend
 
   if (!currentlyCallingAttendance.isLoaded) return null;
 
-  const { formValues, handleInputChange } = useForm(
+  const { formValues, handleInputChange, handleSetValue } = useForm(
     Object.fromEntries(
       currentlyCallingAttendance.attendancesCheck.map((attendanceCheck) => [
         attendanceCheck.id,
@@ -52,10 +52,29 @@ export const AttendanceDialogCallAttendance: React.FC<AttendanceDialogCallAttend
         }}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title" disableTypography>
-          <Typography component="h2" variant="h4">
-            Llamar asistencia
+        <DialogTitle
+          id="form-dialog-title"
+          disableTypography
+          style={{ display: 'flex' }}
+        >
+          <Typography component="span" variant="h4">
+            Llamar asistenciadsa
           </Typography>
+          <Button
+            style={{ marginLeft: 'auto' }}
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              Object.entries(formValues).map(([key, _]) =>
+                handleSetValue(
+                  key,
+                  currentlyCallingAttendance.attendanceStates[0].id.toString()
+                )
+              );
+            }}
+          >
+            Marcar todos
+          </Button>
         </DialogTitle>
 
         <Divider />

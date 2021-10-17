@@ -61,8 +61,6 @@ const CallAttendance: React.FC<{ attendances: Attendance[] }> = ({
         </Select>
       </FormControl>
 
-      {/* <AttendanceButtonCallAttendance /> */}
-
       <Button
         variant="contained"
         color="primary"
@@ -116,7 +114,7 @@ const CourseRecordAttendaceContainer: React.FC = () => {
                       </Link>
 
                       <Typography color="textPrimary">
-                        {currentCourseRecord.career} - S
+                        {currentCourseRecord.career} -{' '}
                         {currentCourseRecord.semester} -{' '}
                         {currentCourseRecord.group}
                       </Typography>

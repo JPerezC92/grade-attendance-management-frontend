@@ -5,6 +5,7 @@ interface UseFormResult<FormValues> {
   handleInputChange: (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | unknown>
   ) => void;
+  handleSetValue: (key: string, value: string) => void;
   reset: (newFormState?: FormValues) => void;
 }
 
@@ -29,5 +30,12 @@ export const useForm: UseForm = (values) => {
     setFormValues((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  return { formValues, handleInputChange, reset };
+  const handleSetValue = (key: string, value: string) => {
+    setFormValues((prevState) => ({
+      ...prevState,
+      [key]: value,
+    }));
+  };
+
+  return { formValues, handleInputChange, handleSetValue, reset };
 };

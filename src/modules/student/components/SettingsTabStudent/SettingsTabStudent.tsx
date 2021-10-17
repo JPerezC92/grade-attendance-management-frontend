@@ -47,7 +47,7 @@ const SettingsTabStudent: React.FC = () => {
                     </Link>
 
                     <Typography color="textPrimary">
-                      {currentCourseRecord.career} - S
+                      {currentCourseRecord.career} -{' '}
                       {currentCourseRecord.semester} -{' '}
                       {currentCourseRecord.group}
                     </Typography>
