@@ -20,7 +20,9 @@ interface AppLayoutProps {
 }
 
 const AppLayout: React.FC<AppLayoutProps> = ({ children, AsideMenu }) => {
-  const [toggleNavigation, setToggleNavigation] = useState(false);
+  const [toggleNavigation, setToggleNavigation] = useState(
+    AsideMenu ? true : false
+  );
 
   return (
     <div className={styles.appRootContainer}>

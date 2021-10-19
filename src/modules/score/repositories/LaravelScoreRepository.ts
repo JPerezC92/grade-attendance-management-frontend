@@ -8,7 +8,8 @@ interface ScoreRepository {
     activityId: number
   ): Promise<SuccessfulResponse<string> | ServerErrorResponse>;
   getById(
-    scoreId: number
+    scoreId: number,
+    courseRecordId: number
   ): Promise<
     SuccessfulResponse<ScoreAssignedWithStudentName[]> | ServerErrorResponse
   >;
@@ -66,20 +67,24 @@ export class LaravelScoreRepository implements ScoreRepository {
   }
 
   async getById(
-    scoreId: number
+    scoreId: number,
+    courseRecordId: number
   ): Promise<
     SuccessfulResponse<ScoreAssignedWithStudentName[]> | ServerErrorResponse
   > {
     try {
       const token = Cookies.get('token');
-      const response = await fetch(`${baseApiURL}/scores/${scoreId}`, {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `${baseApiURL}/scores/${scoreId}/${courseRecordId}`,
+        {
+          method: 'GET',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       return (await response.json()) as SuccessfulResponse<
         ScoreAssignedWithStudentName[]

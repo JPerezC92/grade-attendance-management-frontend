@@ -17,8 +17,19 @@ const laravelScoreAssignedRepository = new LaravelScoreAssignedRepository();
 export const startLoadingCurrentlyGrading = (
   score: Score,
   activity: Activity
-): AppThunk<Promise<ServerErrorResponse | void>> => async (dispatch, _) => {
-  const response = await laravelScoreRepository.getById(score.id);
+): AppThunk<Promise<ServerErrorResponse | void>> => async (
+  dispatch,
+  getState
+) => {
+  const { currentCourseRecord } = getState().courseRecordReducer;
+
+  if (!currentCourseRecord.isLoaded) {
+    return;
+  }
+  const response = await laravelScoreRepository.getById(
+    score.id,
+    currentCourseRecord.id
+  );
 
   if (isServerErrorResponse(response)) return response;
 
