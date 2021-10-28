@@ -18,11 +18,13 @@ const LoginContainer: React.FC = () => {
         <Typography variant="h4" component="h1" align="center">
           INICIAR SESION
         </Typography>
+
         <LoginForm />
+
         <FormTip>
           ¿Aun no te haz registrado?{' '}
           <NextLink href={AuthRoute.REGISTER}>
-            <Link>Registrarse</Link>
+            <Link style={{ cursor: 'pointer' }}>Registrarse</Link>
           </NextLink>
         </FormTip>
       </div>

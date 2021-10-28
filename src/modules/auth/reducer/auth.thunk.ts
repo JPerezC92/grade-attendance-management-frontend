@@ -70,3 +70,29 @@ export const startLoadingUser = (): AppThunk<
 
   dispatch(authActions.login(response.payload));
 };
+
+export const startRecoverPassword = (
+  email: string
+): AppThunk<Promise<ServerErrorResponse | void>> => async (
+  _dispatch,
+  _getState
+) => {
+  const response = await laravelAuthRepository.recoverPassword(email);
+
+  if (isServerErrorResponse(response)) return response;
+};
+
+export const startResetPassword = (
+  newPassword: string,
+  token: string
+): AppThunk<Promise<ServerErrorResponse | void>> => async (
+  _dispatch,
+  _getState
+) => {
+  const response = await laravelAuthRepository.resetPassword(
+    newPassword,
+    token
+  );
+
+  if (isServerErrorResponse(response)) return response;
+};

@@ -11,7 +11,19 @@
   display: flex;
   align-items: center;
   gap: 16px;
-  //   align-self: flex-end;
-  //   position: sticky;
-  //   right: 0;
+}
+
+.callAttendance {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+
+  &:first-child input {
+    padding: 8px;
+  }
+
+  & > * {
+    width: max-content;
+  }
 }

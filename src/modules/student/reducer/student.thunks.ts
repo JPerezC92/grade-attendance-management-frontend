@@ -15,15 +15,22 @@ const laravelStudentRepository = new LaravelStudentRepository();
 
 export const startCreateStudent = (
   createStudent: CreateStudent
-): AppThunk<Promise<ServerErrorResponse | void>> => async (dispatch, _) => {
+): AppThunk<Promise<ServerErrorResponse | void>> => async (
+  dispatch,
+  getState
+) => {
+  const {
+    courseRecordReducer: { currentCourseRecord },
+  } = getState();
   dispatch(courseRecordAction.startLoading());
 
   const response = await laravelStudentRepository.create(createStudent);
 
   dispatch(courseRecordAction.finishLoading());
   if (isServerErrorResponse(response)) return response;
-
-  dispatch(studentAction.addNewStudent(response.payload));
+  if (isCurrentCourseRecordLoaded(currentCourseRecord)) {
+    dispatch(startLoadingCourseRecord(currentCourseRecord.id));
+  }
 };
 
 export const startCreateStudentFromCSV = (
@@ -50,14 +57,23 @@ export const startCreateStudentFromCSV = (
 
 export const startUpdateStudent = (
   student: Student
-): AppThunk<Promise<ServerErrorResponse | void>> => async (dispatch, _) => {
-  dispatch(courseRecordAction.startLoading());
-  const response = await laravelStudentRepository.update(student);
-  dispatch(courseRecordAction.finishLoading());
+): AppThunk<Promise<ServerErrorResponse | void>> => async (
+  dispatch,
+  getState
+) => {
+  const {
+    courseRecordReducer: { currentCourseRecord },
+  } = getState();
 
-  if (isServerErrorResponse(response)) return response;
+  if (isCurrentCourseRecordLoaded(currentCourseRecord)) {
+    dispatch(courseRecordAction.startLoading());
+    const response = await laravelStudentRepository.update(student);
+    dispatch(courseRecordAction.finishLoading());
 
-  dispatch(studentAction.updateStudent(response.payload));
+    if (isServerErrorResponse(response)) return response;
+
+    dispatch(startLoadingCourseRecord(currentCourseRecord.id));
+  }
 };
 
 export const startDeleteStudent = (

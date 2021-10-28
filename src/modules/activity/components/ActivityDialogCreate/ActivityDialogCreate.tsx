@@ -5,6 +5,7 @@ import {
   DialogContent,
   DialogTitle,
   Divider,
+  InputAdornment,
   TextField,
   Typography,
 } from '@material-ui/core';
@@ -81,6 +82,11 @@ const ActivityDialogCreate: React.FC<ActivityDialogCreateProps> = ({
                 />
 
                 <TextField
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">%</InputAdornment>
+                    ),
+                  }}
                   fullWidth
                   id="value"
                   margin="dense"

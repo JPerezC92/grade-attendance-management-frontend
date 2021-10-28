@@ -18,9 +18,67 @@ interface AuthRepository {
   userInfo(): Promise<SuccessfulResponse<User> | ServerErrorResponse>;
 
   logout(): Promise<SuccessfulResponse<string> | ServerErrorResponse>;
+
+  recoverPassword(
+    email: string
+  ): Promise<SuccessfulResponse<string> | ServerErrorResponse>;
+
+  resetPassword(
+    newPassword: string,
+    token: string
+  ): Promise<SuccessfulResponse<string> | ServerErrorResponse>;
 }
 
 export class LaravelAuthRepository implements AuthRepository {
+  async resetPassword(
+    newPassword: string,
+    token: string
+  ): Promise<SuccessfulResponse<string> | ServerErrorResponse> {
+    try {
+      const response = await fetch(`${baseApiURL}/auth/reset-password`, {
+        method: 'POST',
+        body: JSON.stringify({ newPassword }),
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      return (await response.json()) as
+        | ServerErrorResponse
+        | SuccessfulResponse<string>;
+    } catch (error) {
+      return {
+        success: false,
+        message: 'Error al recuperar la contraseña',
+      };
+    }
+  }
+
+  async recoverPassword(
+    email: string
+  ): Promise<ServerErrorResponse | SuccessfulResponse<string>> {
+    try {
+      const response = await fetch(`${baseApiURL}/auth/recover-password`, {
+        method: 'POST',
+        body: JSON.stringify({ email }),
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+
+      return (await response.json()) as
+        | ServerErrorResponse
+        | SuccessfulResponse<string>;
+    } catch (error) {
+      return {
+        success: false,
+        message: 'Error al recuperar la contraseña',
+      };
+    }
+  }
   async userInfo(): Promise<SuccessfulResponse<User> | ServerErrorResponse> {
     try {
       const token = Cookies.get('token');

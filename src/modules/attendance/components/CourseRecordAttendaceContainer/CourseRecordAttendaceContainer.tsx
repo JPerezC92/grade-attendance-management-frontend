@@ -1,10 +1,7 @@
-import React from 'react';
+import { useState } from 'react';
 import {
   Button,
-  FormControl,
-  MenuItem,
   Paper,
-  Select,
   Table,
   TableBody,
   TableCell,
@@ -12,6 +9,7 @@ import {
   TableRow,
   Typography,
 } from '@material-ui/core';
+import DatePicker from 'react-datepicker';
 import { format, parse } from 'date-fns';
 
 import { useAppDispatch, useAppSelector } from 'src/redux';
@@ -20,12 +18,14 @@ import RecordLayout from 'src/modules/courseRecord/components/RecordLayout';
 import NavigationBreadcrumbs from 'src/shared/components/NavigationBreadcrumbs';
 import Link from 'src/shared/components/Link';
 import CurrentCourse from 'src/modules/course/components/CurrentCourse';
-import styles from './CourseRecordAttendaceContainer.module.scss';
 import CurrentCourseRecord from 'src/modules/courseRecord/components/CurrentCourseRecord';
 import { Attendance } from '../../types';
 import { useForm, useModal } from 'src/hooks';
 import { AttendanceDialogCallAttendance } from '..';
 import { startLoadingCurrentlyCallingAttendance } from '../../reducer';
+import 'react-datepicker/dist/react-datepicker.css';
+import styles from './CourseRecordAttendaceContainer.module.scss';
+import { es } from 'date-fns/locale';
 
 const CallAttendance: React.FC<{ attendances: Attendance[] }> = ({
   attendances,
@@ -34,48 +34,56 @@ const CallAttendance: React.FC<{ attendances: Attendance[] }> = ({
   const modal = useModal();
   const thereAreAttendances = attendances.length > 0;
 
-  const { formValues, handleInputChange } = useForm({
-    attendanceId: thereAreAttendances
-      ? `${attendances[attendances.length - 1].id}`
-      : '',
+  const dates = attendances.map((attendance) => attendance.date);
+
+  const { formValues, handleSetValue } = useForm({
+    attendanceId: '',
   });
 
+  const isOnArray = (date: Date) => {
+    const dateFormated = format(date, 'yyyy-MM-dd');
+    return dates.includes(dateFormated);
+  };
+  const [startDate, setStartDate] = useState(null);
+
+  const handleDateChange = (date: Date | [Date, Date]) => {
+    if (!Array.isArray(date)) {
+      const dateFormated = format(date, 'yyyy-MM-dd');
+      const attendance = attendances.find(
+        (attendance) => attendance.date === dateFormated
+      );
+      setStartDate(() => date);
+      handleSetValue('attendanceId', attendance.id.toString());
+    }
+  };
   return (
     <>
-      <FormControl
-        variant="outlined"
-        size="small"
-        disabled={!thereAreAttendances}
-      >
-        <Select
-          id="attendanceId"
-          name="attendanceId"
-          value={formValues.attendanceId}
-          onChange={handleInputChange}
-        >
-          {attendances.map((attendance) => (
-            <MenuItem key={attendance.id} value={attendance.id}>
-              {attendance.date}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+      <div className={styles.callAttendance}>
+        <DatePicker
+          dateFormat="dd-MM-yyyy"
+          selected={startDate}
+          onChange={handleDateChange}
+          filterDate={isOnArray}
+          placeholderText="Selecciona una fecha"
+          locale={es}
+        />
 
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={async () => {
-          await dispatch(
-            startLoadingCurrentlyCallingAttendance(
-              parseInt(formValues.attendanceId, 10)
-            )
-          );
-          modal.handleOpenModal();
-        }}
-        disabled={!thereAreAttendances}
-      >
-        Llamar asistencia
-      </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={async () => {
+            await dispatch(
+              startLoadingCurrentlyCallingAttendance(
+                parseInt(formValues.attendanceId, 10)
+              )
+            );
+            modal.handleOpenModal();
+          }}
+          disabled={!thereAreAttendances || !startDate}
+        >
+          Llamar asistencia
+        </Button>
+      </div>
 
       {modal.isOpen && (
         <AttendanceDialogCallAttendance
@@ -162,11 +170,16 @@ const CourseRecordAttendaceContainer: React.FC = () => {
                         }
                       }
                       key={attendance.id}
+                      align="center"
                     >
                       {format(
                         parse(attendance.date, 'yyyy-MM-dd', new Date()),
                         'dd-MM-yy'
-                      )}
+                      )
+                        .split('-')
+                        .map((text) => (
+                          <div key={text}>{text}</div>
+                        ))}
                     </TableCell>
                   ))}
 

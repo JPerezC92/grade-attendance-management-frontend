@@ -45,7 +45,7 @@ export const AttendanceDialogCallAttendance: React.FC<AttendanceDialogCallAttend
   return (
     <>
       <Dialog
-        fullWidth
+        maxWidth="xl"
         open={isOpen}
         onClose={() => {
           handleCloseModal();
@@ -58,7 +58,7 @@ export const AttendanceDialogCallAttendance: React.FC<AttendanceDialogCallAttend
           style={{ display: 'flex' }}
         >
           <Typography component="span" variant="h4">
-            Llamar asistenciadsa
+            Llamar asistencia
           </Typography>
           <Button
             style={{ marginLeft: 'auto' }}
@@ -99,7 +99,7 @@ export const AttendanceDialogCallAttendance: React.FC<AttendanceDialogCallAttend
           }}
         >
           <DialogContent>
-            <Table size="small">
+            <Table size="small" style={{ width: 'max-content' }}>
               <TableHead>
                 <TableRow>
                   <TableCell>Nombres</TableCell>
@@ -120,8 +120,12 @@ export const AttendanceDialogCallAttendance: React.FC<AttendanceDialogCallAttend
                   currentlyCallingAttendance.attendancesCheck.map(
                     (attendanceCheck) => (
                       <TableRow key={attendanceCheck.id}>
-                        <TableCell>{attendanceCheck.firstname}</TableCell>
-                        <TableCell>{attendanceCheck.lastname}</TableCell>
+                        <TableCell style={{ whiteSpace: 'nowrap' }}>
+                          {attendanceCheck.firstname}
+                        </TableCell>
+                        <TableCell style={{ whiteSpace: 'nowrap' }}>
+                          {attendanceCheck.lastname}
+                        </TableCell>
                         {currentlyCallingAttendance.attendanceStates.map(
                           (attendanceStatus) => (
                             <TableCell key={attendanceStatus.id} align="center">

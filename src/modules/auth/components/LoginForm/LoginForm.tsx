@@ -1,9 +1,11 @@
+import NextLink from 'next/link';
 import { Button, TextField } from '@material-ui/core';
 import { Form, Formik } from 'formik';
 import { loginSchema } from './loginSchema';
 
 import { useAuthentication } from 'src/hooks/useAuthentication';
 import styles from './LoginForm.module.scss';
+import { AuthRoute } from 'src/routes';
 
 const LoginForm: React.FC = () => {
   const { handleLogin, loginInitialValue } = useAuthentication();
@@ -53,6 +55,12 @@ const LoginForm: React.FC = () => {
                 variant="outlined"
                 fullWidth
               />
+
+              <NextLink href={AuthRoute.RECOVER_PASSWORD}>
+                <a style={{ marginInlineStart: 'auto', marginBlock: '8px' }}>
+                  ¿Olvido la contraseña?
+                </a>
+              </NextLink>
 
               <Button
                 type="submit"
