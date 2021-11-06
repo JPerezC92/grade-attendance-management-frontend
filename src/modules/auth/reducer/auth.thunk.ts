@@ -5,6 +5,7 @@ import { LaravelAuthRepository } from 'src/modules/auth/repositories';
 import { isServerErrorResponse } from 'src/helpers/assertions';
 import { ServerErrorResponse } from 'src/shared/types';
 import { RegisterUserInformation, Token } from '../types';
+import { storeAction } from 'src/redux/clean.reducer';
 
 const laravelAuthRepository = new LaravelAuthRepository();
 
@@ -58,6 +59,8 @@ export const startRegister = (
 export const startLogout = (): AppThunk => (dispatch, _getState) => {
   laravelAuthRepository.logout();
 
+  Cookies.remove('token');
+  dispatch(storeAction.clean());
   dispatch(authActions.logout());
 };
 

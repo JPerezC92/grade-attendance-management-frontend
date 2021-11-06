@@ -148,7 +148,7 @@ export class LaravelAuthRepository implements AuthRepository {
   async logout(): Promise<SuccessfulResponse<string> | ServerErrorResponse> {
     try {
       const token = Cookies.get('token');
-      const responseRegister = await fetch(`${baseApiURL}/auth/register`, {
+      const responseRegister = await fetch(`${baseApiURL}/auth/logout`, {
         method: 'DELETE',
         headers: {
           Accept: 'application/json',
