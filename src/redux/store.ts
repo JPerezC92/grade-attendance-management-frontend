@@ -2,7 +2,6 @@ import {
   configureStore,
   ThunkAction,
   Action,
-  CombinedState,
   AnyAction,
   combineReducers,
 } from '@reduxjs/toolkit';
@@ -32,7 +31,10 @@ export const reducer = {
 const combinedReducers = combineReducers({ ...reducer });
 
 const store = configureStore({
-  reducer: (state: CombinedState<any> | undefined, action: AnyAction) => {
+  reducer: (
+    state: ReturnType<typeof combinedReducers> | undefined,
+    action: AnyAction
+  ) => {
     if (action.type === 'store/clean') {
       state = undefined;
     }

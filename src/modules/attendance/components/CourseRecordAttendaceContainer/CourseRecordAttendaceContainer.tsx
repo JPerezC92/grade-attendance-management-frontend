@@ -23,9 +23,24 @@ import { Attendance } from '../../types';
 import { useForm, useModal } from 'src/hooks';
 import { AttendanceDialogCallAttendance } from '..';
 import { startLoadingCurrentlyCallingAttendance } from '../../reducer';
+import { es } from 'date-fns/locale';
 import 'react-datepicker/dist/react-datepicker.css';
 import styles from './CourseRecordAttendaceContainer.module.scss';
-import { es } from 'date-fns/locale';
+
+const months = {
+  '1': 'Enero',
+  '2': 'Febrero',
+  '3': 'Marzo',
+  '4': 'Abril',
+  '5': 'Mayo',
+  '6': 'Junio',
+  '7': 'Julio',
+  '8': 'Agosto',
+  '9': 'Septiembre',
+  '10': 'Octubre',
+  '11': 'Noviembre',
+  '12': 'Diciembre',
+} as const;
 
 const CallAttendance: React.FC<{ attendances: Attendance[] }> = ({
   attendances,
@@ -101,6 +116,26 @@ const CourseRecordAttendaceContainer: React.FC = () => {
     attendanceReducer: { attendances },
   } = state;
 
+  let monthsFiltered: { month: string; daysQuantity: number }[] = [];
+
+  for (const attendance of attendances) {
+    const monthNumber = format(
+      parse(attendance.date, 'yyyy-MM-dd', new Date()),
+      'MM'
+    );
+    if (!monthsFiltered.some(({ month }) => month === monthNumber)) {
+      monthsFiltered = [
+        ...monthsFiltered,
+        { month: monthNumber, daysQuantity: 1 },
+      ];
+    } else {
+      const index = monthsFiltered.findIndex(
+        ({ month }) => month === monthNumber
+      );
+      monthsFiltered[index].daysQuantity += 1;
+    }
+  }
+
   return (
     <>
       <RecordLayout>
@@ -144,10 +179,21 @@ const CourseRecordAttendaceContainer: React.FC = () => {
                   <TableCell colSpan={3} align="center">
                     Lista de Estudiantes
                   </TableCell>
-                  {attendances.length > 0 && (
-                    <TableCell colSpan={attendances.length} align="center">
-                      Fechas
-                    </TableCell>
+                  {monthsFiltered.length > 0 && (
+                    <>
+                      {monthsFiltered.map((monthFilter) => (
+                        <TableCell
+                          style={{
+                            borderInline: '1px solid gray',
+                          }}
+                          key={monthFilter.month}
+                          colSpan={monthFilter.daysQuantity}
+                          align="center"
+                        >
+                          {months[monthFilter.month]}
+                        </TableCell>
+                      ))}
+                    </>
                   )}
                   <TableCell colSpan={3} align="center">
                     Resumen
@@ -160,28 +206,18 @@ const CourseRecordAttendaceContainer: React.FC = () => {
                   <TableCell>ID</TableCell>
                   <TableCell>Apellidos</TableCell>
                   <TableCell>Nombres</TableCell>
-                  {attendances.map((attendance) => (
-                    <TableCell
-                      style={
+                  {attendances.map((attendance) => {
+                    return (
+                      <TableCell key={attendance.id} align="center">
                         {
-                          // transform: 'translate(-35px, 0px) rotate(270deg)',
-                          // height: '1rem',
-                          // width: '1rem !important',
+                          format(
+                            parse(attendance.date, 'yyyy-MM-dd', new Date()),
+                            'dd-MM-yy'
+                          ).split('-')[0]
                         }
-                      }
-                      key={attendance.id}
-                      align="center"
-                    >
-                      {format(
-                        parse(attendance.date, 'yyyy-MM-dd', new Date()),
-                        'dd-MM-yy'
-                      )
-                        .split('-')
-                        .map((text) => (
-                          <div key={text}>{text}</div>
-                        ))}
-                    </TableCell>
-                  ))}
+                      </TableCell>
+                    );
+                  })}
 
                   <TableCell>A</TableCell>
                   <TableCell>T</TableCell>
