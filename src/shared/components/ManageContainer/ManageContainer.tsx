@@ -1,13 +1,12 @@
 import { AppBar, Tab, Tabs } from '@material-ui/core';
 import { ChangeEvent, useState } from 'react';
-import SettingsTabActivity from 'src/modules/activity/components/SettingsTabActivity';
-import RecordLayout from 'src/modules/courseRecord/components/RecordLayout';
-import SettingsTabStudent from 'src/modules/student/components/SettingsTabStudent';
-import SettingsTabAttendance from 'src/modules/attendance/components/SettingsTabAttendance';
 import TabPanel from 'src/shared/components/TabPanel';
 import { a11yProps } from 'src/helpers/a11yProps';
+import AppLayout from '../AppLayout';
+import PeriodContainer from 'src/modules/period/components/PeriodContainer';
+import CourseManageContainer from 'src/modules/course/components/CourseManageContainer';
 
-const SettingsContainer: React.FC = () => {
+const ManageContainer: React.FC = () => {
   const [value, setValue] = useState(0);
 
   const handleChange = (event: ChangeEvent, newValue: number) => {
@@ -15,7 +14,7 @@ const SettingsContainer: React.FC = () => {
   };
   return (
     <>
-      <RecordLayout>
+      <AppLayout>
         <AppBar position="static" color="default">
           <Tabs
             value={value}
@@ -26,24 +25,19 @@ const SettingsContainer: React.FC = () => {
             scrollButtons="auto"
             aria-label="scrollable auto tabs example"
           >
-            <Tab label="Estudiantes" {...a11yProps(0)} />
-            <Tab label="Actividades" {...a11yProps(1)} />
-            <Tab label="Asistencias" {...a11yProps(2)} />
+            <Tab label="Periodos" {...a11yProps(0)} />
+            <Tab label="Cursos" {...a11yProps(1)} />
           </Tabs>
         </AppBar>
-
         <TabPanel value={value} index={0}>
-          <SettingsTabStudent />
+          <PeriodContainer />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <SettingsTabActivity />
+          <CourseManageContainer />
         </TabPanel>
-        <TabPanel value={value} index={2}>
-          <SettingsTabAttendance />
-        </TabPanel>
-      </RecordLayout>
+      </AppLayout>
     </>
   );
 };
 
-export default SettingsContainer;
+export default ManageContainer;

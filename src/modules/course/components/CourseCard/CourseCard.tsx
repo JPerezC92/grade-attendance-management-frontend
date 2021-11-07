@@ -8,6 +8,7 @@ import CourseButtonUpdate from '../CourseButtonUpdate';
 import CourseButtonDelete from '../CourseButtonDelete';
 import courseImg from 'src/static/course-image.jpg';
 import styles from './CourseCard.module.scss';
+import CourseArchiveButton from '../CourseArchiveButton';
 
 interface CourseCardProps {
   course: Course;
@@ -51,6 +52,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
         <div className={styles.courseCard__actions}>
           <CourseButtonDelete course={course} />
           <CourseButtonUpdate course={course} />
+          <CourseArchiveButton course={course} />
         </div>
       </div>
     </>

@@ -17,7 +17,6 @@ import {
 } from 'src/modules/period/reducer';
 import PeriodButtonCreate from '../PeriodButtonCreate';
 import PeriodButtonUpdate from '../PeriodButtonUpdate';
-import AppLayout from 'src/shared/components/AppLayout';
 import styles from './PeriodContainer.module.scss';
 import LoadPeriods from '../LoadPeriods';
 
@@ -27,7 +26,7 @@ export const PeriodContainer: React.FC = () => {
 
   return (
     <>
-      <AppLayout>
+      <>
         <LoadPeriods>
           <div className={styles.periodContainer}>
             <Typography component="h2" variant="h4" align="left">
@@ -81,7 +80,7 @@ export const PeriodContainer: React.FC = () => {
             </TableContainer>
           </div>
         </LoadPeriods>
-      </AppLayout>
+      </>
     </>
   );
 };

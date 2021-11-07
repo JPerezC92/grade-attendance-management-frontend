@@ -10,7 +10,7 @@ import Navbar from '../Navbar';
 import LogoWithName from '../LogoWithName';
 import Link from '../Link';
 import { CourseRoute } from 'src/routes';
-import { PeriodRoute } from 'src/routes/period.routepath';
+import { ManageRoute } from 'src/routes/manage.routepath';
 import styles from './AppLayout.module.scss';
 
 const cx = classNames.bind(styles);
@@ -47,9 +47,9 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children, AsideMenu }) => {
               </MenuItem>
             </Link>
 
-            <Link href={PeriodRoute.ROOT}>
+            <Link href={ManageRoute.ROOT}>
               <MenuItem component="a" color="initial">
-                Periodos
+                Gestionar
               </MenuItem>
             </Link>
           </MenuList>
