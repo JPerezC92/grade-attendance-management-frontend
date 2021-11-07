@@ -11,7 +11,7 @@ import {
 import { format } from 'date-fns';
 import { useForm, UseModalResult } from 'src/hooks';
 import CurrentCourseRecord from 'src/modules/courseRecord/components/CurrentCourseRecord';
-import { useAppDispatch } from 'src/redux';
+import { useAppDispatch, useAppSelector } from 'src/redux';
 import { startCreateAttendance } from '../../reducer';
 
 interface AttendanceDateDialogCreateProps {
@@ -21,12 +21,19 @@ interface AttendanceDateDialogCreateProps {
 const AttendanceDateDialogCreate: React.FC<AttendanceDateDialogCreateProps> = ({
   useModalAttendanceDateDialogCreate,
 }) => {
+  const attendances = useAppSelector(
+    (state) => state.attendanceReducer.attendances
+  );
   const dispatch = useAppDispatch();
 
   const { isOpen, handleCloseModal } = useModalAttendanceDateDialogCreate;
   const { formValues, handleInputChange } = useForm({
     date: format(new Date(), 'yyyy-MM-dd'),
   });
+
+  const isDisabled =
+    attendances.some((attendance) => attendance.date === formValues.date) ||
+    !formValues.date;
 
   return (
     <>
@@ -76,7 +83,7 @@ const AttendanceDateDialogCreate: React.FC<AttendanceDateDialogCreateProps> = ({
                 <Button onClick={handleCloseModal} color="secondary">
                   Cancelar
                 </Button>
-                <Button color="primary" type="submit">
+                <Button disabled={isDisabled} color="primary" type="submit">
                   Guardar
                 </Button>
               </DialogActions>

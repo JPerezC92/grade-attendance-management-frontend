@@ -9,7 +9,7 @@ import {
   Typography,
 } from '@material-ui/core';
 
-import { useAppDispatch } from 'src/redux';
+import { useAppDispatch, useAppSelector } from 'src/redux';
 import { useForm, UseModalResult } from 'src/hooks';
 import { startUpdateAttendance } from 'src/modules/attendance/reducer';
 import { Attendance } from '../../types';
@@ -23,6 +23,10 @@ const AttendanceDialogEdit: React.FC<AttendanceDialogEditProps> = ({
   attendance,
   useModalAttendanceDateDialogEdit,
 }) => {
+  const attendances = useAppSelector(
+    (state) => state.attendanceReducer.attendances
+  );
+
   const dispatch = useAppDispatch();
 
   const { isOpen, handleCloseModal } = useModalAttendanceDateDialogEdit;
@@ -30,6 +34,10 @@ const AttendanceDialogEdit: React.FC<AttendanceDialogEditProps> = ({
   const { formValues, handleInputChange } = useForm({
     date: attendance.date,
   });
+
+  const isDisabled =
+    attendances.some((attendance) => attendance.date === formValues.date) ||
+    !formValues.date;
 
   return (
     <>
@@ -72,7 +80,7 @@ const AttendanceDialogEdit: React.FC<AttendanceDialogEditProps> = ({
             <Button onClick={handleCloseModal} color="secondary">
               Cancelar
             </Button>
-            <Button color="primary" type="submit">
+            <Button disabled={isDisabled} color="primary" type="submit">
               Guardar
             </Button>
           </DialogActions>

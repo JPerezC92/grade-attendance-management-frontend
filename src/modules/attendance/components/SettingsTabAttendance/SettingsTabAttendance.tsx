@@ -65,7 +65,9 @@ const SettingsTabAttendance: React.FC = () => {
                 {attendances.map((attendance, index) => (
                   <TableRow key={attendance.id}>
                     <TableCell>{++index}</TableCell>
-                    <TableCell>{attendance.date}</TableCell>
+                    <TableCell>
+                      {attendance.date.split('-').reverse().join('-')}
+                    </TableCell>
                     <TableCell>
                       <div style={{ display: 'flex' }}>
                         <AttendanceButtonEdit attendance={attendance} />

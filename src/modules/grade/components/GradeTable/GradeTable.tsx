@@ -1,11 +1,12 @@
+import React from 'react';
 import {
   Table,
   TableHead,
   TableRow,
   TableCell,
   TableBody,
+  Tooltip,
 } from '@material-ui/core';
-import React from 'react';
 import { useAppSelector } from 'src/redux';
 
 const GradeTable: React.FC = () => {
@@ -84,7 +85,14 @@ const GradeTable: React.FC = () => {
                         (scoreAssigned, index, scoresAssigned) => (
                           <React.Fragment key={scoreAssigned.id}>
                             <TableCell align="center">
-                              {scoreAssigned.value}
+                              <Tooltip
+                                title={`Modificado ${new Date(
+                                  scoreAssigned.updated_at
+                                ).toLocaleDateString()}`}
+                                arrow
+                              >
+                                <div>{scoreAssigned.value}</div>
+                              </Tooltip>
                             </TableCell>
 
                             {scoresAssigned.length - 1 === index &&
