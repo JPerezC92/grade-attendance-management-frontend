@@ -46,7 +46,7 @@ export const startCreateCourse = (
 
   if (isServerErrorResponse(response)) return response;
 
-  dispatch(courseAction.addNewCourse(response.payload));
+  dispatch(startLoadingCourses());
 };
 
 export const startUpdateCourse = (

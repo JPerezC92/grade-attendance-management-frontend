@@ -57,6 +57,7 @@ const SettingsTabAttendance: React.FC = () => {
                 <TableRow>
                   <TableCell>Nº</TableCell>
                   <TableCell>Fecha</TableCell>
+                  <TableCell>Tipo</TableCell>
                   <TableCell>Acciones</TableCell>
                 </TableRow>
               </TableHead>
@@ -68,6 +69,7 @@ const SettingsTabAttendance: React.FC = () => {
                     <TableCell>
                       {attendance.date.split('-').reverse().join('-')}
                     </TableCell>
+                    <TableCell>{attendance.type}</TableCell>
                     <TableCell>
                       <div style={{ display: 'flex' }}>
                         <AttendanceButtonEdit attendance={attendance} />

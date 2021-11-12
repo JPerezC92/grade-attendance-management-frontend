@@ -6,5 +6,5 @@ import {
 
 export interface Attendance extends CreateAttendance, Timestamps {
   id: number;
-  // attendance_checks: AttendanceCheck[];
+  type: 'Teoria' | 'Practica';
 }

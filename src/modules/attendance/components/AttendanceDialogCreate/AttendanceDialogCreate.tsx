@@ -7,11 +7,15 @@ import {
   Typography,
   Divider,
   TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
 } from '@material-ui/core';
 import { format } from 'date-fns';
 import { useForm, UseModalResult } from 'src/hooks';
 import CurrentCourseRecord from 'src/modules/courseRecord/components/CurrentCourseRecord';
-import { useAppDispatch, useAppSelector } from 'src/redux';
+import { useAppDispatch } from 'src/redux';
 import { startCreateAttendance } from '../../reducer';
 
 interface AttendanceDateDialogCreateProps {
@@ -21,19 +25,13 @@ interface AttendanceDateDialogCreateProps {
 const AttendanceDateDialogCreate: React.FC<AttendanceDateDialogCreateProps> = ({
   useModalAttendanceDateDialogCreate,
 }) => {
-  const attendances = useAppSelector(
-    (state) => state.attendanceReducer.attendances
-  );
   const dispatch = useAppDispatch();
 
   const { isOpen, handleCloseModal } = useModalAttendanceDateDialogCreate;
   const { formValues, handleInputChange } = useForm({
     date: format(new Date(), 'yyyy-MM-dd'),
+    type: 'Teoria',
   });
-
-  const isDisabled =
-    attendances.some((attendance) => attendance.date === formValues.date) ||
-    !formValues.date;
 
   return (
     <>
@@ -78,12 +76,26 @@ const AttendanceDateDialogCreate: React.FC<AttendanceDateDialogCreateProps> = ({
                   }}
                   fullWidth
                 />
+                <br />
+                <br />
+                <FormControl fullWidth margin="dense" variant="outlined">
+                  <InputLabel>Tipo</InputLabel>
+                  <Select
+                    name="type"
+                    value={formValues.type}
+                    onChange={handleInputChange}
+                    label="Tipo"
+                  >
+                    <MenuItem value="Teoria">Teoria</MenuItem>
+                    <MenuItem value="Practica">Practica</MenuItem>
+                  </Select>
+                </FormControl>
               </DialogContent>
               <DialogActions>
                 <Button onClick={handleCloseModal} color="secondary">
                   Cancelar
                 </Button>
-                <Button disabled={isDisabled} color="primary" type="submit">
+                <Button color="primary" type="submit">
                   Guardar
                 </Button>
               </DialogActions>

@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import {
   Button,
+  FormControl,
+  MenuItem,
   Paper,
+  Select,
   Table,
   TableBody,
   TableCell,
@@ -20,7 +23,7 @@ import Link from 'src/shared/components/Link';
 import CurrentCourse from 'src/modules/course/components/CurrentCourse';
 import CurrentCourseRecord from 'src/modules/courseRecord/components/CurrentCourseRecord';
 import { Attendance } from '../../types';
-import { useForm, useModal } from 'src/hooks';
+import { useModal } from 'src/hooks';
 import { AttendanceDialogCallAttendance } from '..';
 import { startLoadingCurrentlyCallingAttendance } from '../../reducer';
 import { es } from 'date-fns/locale';
@@ -51,9 +54,8 @@ const CallAttendance: React.FC<{ attendances: Attendance[] }> = ({
 
   const dates = attendances.map((attendance) => attendance.date);
 
-  const { formValues, handleSetValue } = useForm({
-    attendanceId: '',
-  });
+  const [attendanceId, setAttendanceId] = useState('');
+  const [attendanceType, setAttendanceType] = useState('Teoria');
 
   const isOnArray = (date: Date) => {
     const dateFormated = format(date, 'yyyy-MM-dd');
@@ -65,10 +67,14 @@ const CallAttendance: React.FC<{ attendances: Attendance[] }> = ({
     if (!Array.isArray(date)) {
       const dateFormated = format(date, 'yyyy-MM-dd');
       const attendance = attendances.find(
-        (attendance) => attendance.date === dateFormated
+        (attendance) =>
+          attendance.date === dateFormated && attendance.type === attendanceType
       );
-      setStartDate(() => date);
-      handleSetValue('attendanceId', attendance.id.toString());
+
+      if (attendance) {
+        setStartDate(() => date);
+        setAttendanceId(() => attendance.id.toString());
+      }
     }
   };
   return (
@@ -83,18 +89,45 @@ const CallAttendance: React.FC<{ attendances: Attendance[] }> = ({
           locale={es}
         />
 
+        <FormControl margin="dense" variant="outlined">
+          <Select
+            name="attendanceType"
+            value={attendanceType}
+            onChange={(e) => {
+              const value = e.target.value;
+
+              if (typeof value === 'string') {
+                setAttendanceType(() => value);
+
+                if (typeof value === 'string' && startDate) {
+                  const attendance = attendances.find(
+                    (attendance) =>
+                      attendance.date === format(startDate, 'yyyy-MM-dd') &&
+                      attendance.type === value
+                  );
+
+                  if (attendance) {
+                    setAttendanceId(() => attendance.id.toString());
+                  }
+                }
+              }
+            }}
+          >
+            <MenuItem value="Teoria">Teoria</MenuItem>
+            <MenuItem value="Practica">Practica</MenuItem>
+          </Select>
+        </FormControl>
+
         <Button
           variant="contained"
           color="primary"
           onClick={async () => {
             await dispatch(
-              startLoadingCurrentlyCallingAttendance(
-                parseInt(formValues.attendanceId, 10)
-              )
+              startLoadingCurrentlyCallingAttendance(parseInt(attendanceId, 10))
             );
             modal.handleOpenModal();
           }}
-          disabled={!thereAreAttendances || !startDate}
+          disabled={!thereAreAttendances || !attendanceId}
         >
           Llamar asistencia
         </Button>
@@ -209,12 +242,11 @@ const CourseRecordAttendaceContainer: React.FC = () => {
                   {attendances.map((attendance) => {
                     return (
                       <TableCell key={attendance.id} align="center">
-                        {
-                          format(
-                            parse(attendance.date, 'yyyy-MM-dd', new Date()),
-                            'dd-MM-yy'
-                          ).split('-')[0]
-                        }
+                        {format(
+                          parse(attendance.date, 'yyyy-MM-dd', new Date()),
+                          'dd'
+                        )}
+                        -{attendance.type[0]}
                       </TableCell>
                     );
                   })}

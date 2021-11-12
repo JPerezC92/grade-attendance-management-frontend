@@ -7,9 +7,13 @@ import {
   Divider,
   TextField,
   Typography,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
 } from '@material-ui/core';
 
-import { useAppDispatch, useAppSelector } from 'src/redux';
+import { useAppDispatch } from 'src/redux';
 import { useForm, UseModalResult } from 'src/hooks';
 import { startUpdateAttendance } from 'src/modules/attendance/reducer';
 import { Attendance } from '../../types';
@@ -23,21 +27,14 @@ const AttendanceDialogEdit: React.FC<AttendanceDialogEditProps> = ({
   attendance,
   useModalAttendanceDateDialogEdit,
 }) => {
-  const attendances = useAppSelector(
-    (state) => state.attendanceReducer.attendances
-  );
-
   const dispatch = useAppDispatch();
 
   const { isOpen, handleCloseModal } = useModalAttendanceDateDialogEdit;
 
   const { formValues, handleInputChange } = useForm({
     date: attendance.date,
+    type: attendance.type,
   });
-
-  const isDisabled =
-    attendances.some((attendance) => attendance.date === formValues.date) ||
-    !formValues.date;
 
   return (
     <>
@@ -75,12 +72,27 @@ const AttendanceDialogEdit: React.FC<AttendanceDialogEditProps> = ({
               }}
               fullWidth
             />
+
+            <br />
+            <br />
+            <FormControl fullWidth margin="dense" variant="outlined">
+              <InputLabel>Tipo</InputLabel>
+              <Select
+                name="type"
+                value={formValues.type}
+                onChange={handleInputChange}
+                label="Tipo"
+              >
+                <MenuItem value="Teoria">Teoria</MenuItem>
+                <MenuItem value="Practica">Practica</MenuItem>
+              </Select>
+            </FormControl>
           </DialogContent>
           <DialogActions>
             <Button onClick={handleCloseModal} color="secondary">
               Cancelar
             </Button>
-            <Button disabled={isDisabled} color="primary" type="submit">
+            <Button color="primary" type="submit">
               Guardar
             </Button>
           </DialogActions>

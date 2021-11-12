@@ -8,7 +8,6 @@ import {
   CourseRecord,
   CourseRecordRegister,
 } from 'src/modules/courseRecord/types';
-// import { ScoreCalculation } from 'src/modules/grade/types';
 import { Student } from 'src/modules/student/types';
 import { ServerErrorResponse, SuccessfulResponse } from 'src/shared/types';
 
