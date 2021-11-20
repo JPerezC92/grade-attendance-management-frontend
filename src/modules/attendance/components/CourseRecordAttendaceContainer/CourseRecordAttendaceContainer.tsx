@@ -216,9 +216,6 @@ const CourseRecordAttendaceContainer: React.FC = () => {
                     <>
                       {monthsFiltered.map((monthFilter) => (
                         <TableCell
-                          style={{
-                            borderInline: '1px solid gray',
-                          }}
                           key={monthFilter.month}
                           colSpan={monthFilter.daysQuantity}
                           align="center"
